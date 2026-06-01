@@ -233,6 +233,23 @@
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .carousel-item:hover .lesson-image-wrapper img { transform: scale(1.05); }
+
+    /* СТИЛИ ДЛЯ ВИДЕО ПРИ НАВЕДЕНИИ */
+    .screencast {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 2;
+    }
+    .carousel-item:hover .screencast {
+      opacity: 1;
+    }
+
     .lesson-tag {
       font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
       color: rgba(0,0,0,0.4); margin-bottom: -4px;
@@ -426,7 +443,8 @@
     <section id="about" class="about bg-milky fade-up">
       <div class="container about-split">
         <div class="about-image-wrapper">
-          <img src="https://raw.githubusercontent.com/AlexandraGes-ESL/Pictures/main/about-photo.jpg" alt="Александра Здухова">
+          <!-- ИСПРАВЛЕННАЯ ССЫЛКА НА ФОТО -->
+          <img src="about-photo.jpg" alt="Александра Здухова">
         </div>
         <div class="about-text">
           <h2 class="serif" data-lang-ru="English, with love." data-lang-en="English, with love.">English, with love.</h2>
@@ -471,24 +489,25 @@
         <div class="carousel">
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
-              <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/toefl-lesson-listening-cover.png" alt="TOEFL Lesson">
-              <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/toefl-listening-screencast.mp4" muted loop playsinline preload="auto"></video>
+              <!-- ИСПРАВЛЕННЫЕ ССЫЛКИ НА КАРТИНКИ И ВИДЕО -->
+              <img class="cover" src="toefl-lesson-listening-cover.png" alt="TOEFL Lesson">
+              <video class="screencast" src="toefl-listening-screencast.mp4" muted loop playsinline preload="auto"></video>
             </div>
             <div class="lesson-tag">Interactive Lesson</div>
             <h3 class="lesson-title" data-lang-ru="Интерактивный урок-сайт для подготовки к TOEFL" data-lang-en="Interactive site-lesson for TOEFL preparation">Интерактивный урок-сайт для подготовки к TOEFL</h3>
           </div>
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
-              <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/oge-preparation-cover.png" alt="OGE Preparation">
-              <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/oge-preparation-screencast.mp4" muted loop playsinline preload="auto"></video>
+              <img class="cover" src="oge-preparation-cover.png" alt="OGE Preparation">
+              <video class="screencast" src="oge-preparation-screencast.mp4" muted loop playsinline preload="auto"></video>
             </div>
             <div class="lesson-tag">Miro Board</div>
             <h3 class="lesson-title" data-lang-ru="Подготовка к ОГЭ: системно и без стресса" data-lang-en="OGE Preparation: systemic and stress-free">Подготовка к ОГЭ: системно и без стресса</h3>
           </div>
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
-              <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/design-your-phd-cover.png" alt="Design your PhD">
-              <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/lead-in-phd-lesson-screencast.mp4" muted loop playsinline preload="auto"></video>
+              <img class="cover" src="design-your-phd-cover.png" alt="Design your PhD">
+              <video class="screencast" src="lead-in-phd-lesson-screencast.mp4" muted loop playsinline preload="auto"></video>
             </div>
             <div class="lesson-tag">Academic English</div>
             <h3 class="lesson-title" data-lang-ru="Академический английский: Design your PhD" data-lang-en="Academic English: Design your PhD">Академический английский: Design your PhD</h3>
@@ -500,24 +519,24 @@
           <div class="carousel">
             <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
               <div class="lesson-image-wrapper">
-                <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/hogwarts-speaking-cover.png" alt="Hogwarts Speaking">
-                <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/hogwarts-speaking-screencast.mp4" muted loop playsinline preload="auto"></video>
+                <img class="cover" src="hogwarts-speaking-cover.png" alt="Hogwarts Speaking">
+                <video class="screencast" src="hogwarts-speaking-screencast.mp4" muted loop playsinline preload="auto"></video>
               </div>
               <div class="lesson-tag">Genially Quest</div>
               <h3 class="lesson-title" data-lang-ru="Speaking Club: Hogwarts" data-lang-en="Speaking Club: Hogwarts">Speaking Club: Hogwarts</h3>
             </div>
             <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
               <div class="lesson-image-wrapper">
-                <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/my-singing-monsters-cover.png" alt="My Singing Monsters">
-                <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/my-singing-monsters-screencast.mp4" muted loop playsinline preload="auto"></video>
+                <img class="cover" src="my-singing-monsters-cover.png" alt="My Singing Monsters">
+                <video class="screencast" src="my-singing-monsters-screencast.mp4" muted loop playsinline preload="auto"></video>
               </div>
               <div class="lesson-tag">Gamified Practice</div>
               <h3 class="lesson-title" data-lang-ru="Геймифицированный урок: My Singing Monsters" data-lang-en="Gamified Lesson: My Singing Monsters">Геймифицированный урок: My Singing Monsters</h3>
             </div>
             <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
               <div class="lesson-image-wrapper">
-                <img class="cover" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/my-room-cover.png" alt="My Room">
-                <video class="screencast" src="https://github.com/AlexandraGes-ESL/AlexandraGes_Portfolio/raw/main/my-room-screenhouse.mp4" muted loop playsinline preload="auto"></video>
+                <img class="cover" src="my-room-cover.png" alt="My Room">
+                <video class="screencast" src="my-room-screencast.mp4" muted loop playsinline preload="auto"></video>
               </div>
               <div class="lesson-tag">Vocabulary Board</div>
               <h3 class="lesson-title" data-lang-ru="Интерактивная лексика: My Room" data-lang-en="Interactive Vocabulary: My Room">Интерактивная лексика: My Room</h3>
