@@ -213,13 +213,22 @@
     .bg-sage .card-icon svg { stroke: #ffffff; }
     .bg-sage .card-title, .bg-sage .card-text { color: #ffffff; }
 
-    /* Carousel / Materials */
+        /* Carousel / Materials */
     .carousel {
       display: flex; gap: 24px; overflow-x: auto;
       padding-bottom: 32px; margin-bottom: 20px;
       scroll-snap-type: x mandatory; scrollbar-width: none;
     }
+    /* ЭТА ШТУКА НЕ ДАСТ ОБРЕЗАТЬ ПРАВЫЙ КРАЙ */
+    .carousel::after {
+      content: '';
+      flex: 0 0 1px;
+    }
     .carousel::-webkit-scrollbar { display: none; }
+    .carousel-item {
+      min-width: 300px; max-width: 380px; flex: 0 0 auto;
+      scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; cursor: pointer;
+    }
     .carousel-item {
       min-width: 300px; max-width: 380px; flex: 0 0 auto;
       scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; cursor: pointer;
