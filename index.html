@@ -393,23 +393,107 @@
     .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* Mobile Adaptations */
+        /* =========================================
+       📱 SENIOR UX/UI MOBILE ADAPTATION
+       ========================================= */
+    
     @media (max-width: 768px) {
-      .container { padding: 3.5rem 20px; }
-      .hero-split { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-      .hero-image-side { height: 400px; }
-      .hero-badges { justify-content: center; }
-      .hero-actions { flex-direction: column; align-items: stretch; width: 100%; gap: 1.2rem; }
-      .hero-actions .btn { width: 100%; text-align: center; }
-      .link-inline { margin-left: 0; }
-      .about-split { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-      .about-image-wrapper { order: -1; }
-      .price-block { padding: 1.75rem 1.5rem; }
-      .price-block h3 { font-size: 1.75rem; }
-      .price-item-value { font-size: 1.35rem; }
-      .review-card { padding: 2rem 1.5rem 1.75rem; }
-      .review-quote-mark { font-size: 4rem; top: 0.5rem; right: 1rem; }
-      .footer-cta h2 { font-size: 2.2rem; }
+      /* 1. РИТМ И ПРОСТРАНСТВО (Whitespace & Layout) */
+      /* Делаем отступы между блоками меньше, чтобы экран не казался пустым */
+      section {
+        padding: 60px 0 !important; 
+      }
+      
+      /* Создаем "безопасную зону" по краям экрана (20px) */
+      .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        overflow: hidden; /* Защита от случайного горизонтального скролла всего сайта */
+      }
+
+      /* 2. ТИПОГРАФИКА (Fluid Typography) */
+      /* Уменьшаем гигантские заголовки для читаемости */
+      .hero h1 {
+        font-size: 42px !important; /* Было слишком крупно */
+        line-height: 1.1 !important;
+        margin-bottom: 16px !important;
+      }
+      
+      h2 {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 24px !important;
+      }
+
+      p {
+        font-size: 16px !important;
+      }
+
+      /* 3. КАРУСЕЛИ (The "Peek" Effect & Swipe UX) */
+      .carousel {
+        /* Магия: вытягиваем карусель за пределы контейнера к самым краям экрана... */
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+        /* ...но контент внутри отталкиваем от левого края, чтобы он стоял вровень с заголовками */
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        gap: 16px !important;
+        
+        /* Идеальный скролл на iOS и Android */
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 20px; /* Чтобы привязка скролла учитывала наш отступ */
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .carousel-item {
+        /* Карточка занимает 85% экрана. Оставшиеся 15% отдаем следующей карточке, 
+           чтобы создать визуальную подсказку свайпа */
+        min-width: 85vw !important; 
+        max-width: 85vw !important;
+        scroll-snap-align: start;
+      }
+
+      /* 4. ВИЗУАЛЬНЫЙ ФОКУС (Убираем дублирование) */
+      /* Скрываем фото в главном блоке, чтобы акцент был на тексте и кнопке.
+         Оно останется только в блоке About Me */
+      .hero .image-container, 
+      .hero-image {
+        display: none !important;
+      }
+
+      /* 5. ЭРГОНОМИКА (Touch Targets) */
+      /* Кнопки на всю ширину экрана — стандарт мобильного UX */
+      .btn-primary, 
+      .btn-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 16px 24px !important; /* Делаем кнопку чуть "жирнее" для пальца */
+        margin-bottom: 12px;
+      }
+      
+      /* Подсказка для скролла */
+      .swipe-hint {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: #8C827A;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+      }
+      
+      .swipe-hint::after {
+        content: "→";
+        font-size: 16px;
+      }
+    }
+
+    /* Скрываем мобильную подсказку на десктопе */
+    @media (min-width: 769px) {
+      .swipe-hint {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -495,6 +579,7 @@
     <section class="materials bg-milky fade-up">
       <div class="container">
         <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Взрослые и подростки" data-lang-en="What lessons look like. Adults & Teens">Как выглядят уроки. Взрослые и подростки</h2>
+        <div class="swipe-hint">Swipe to explore</div> 
         <div class="carousel">
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
