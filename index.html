@@ -406,107 +406,264 @@
     .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* =========================================
-       📱 SENIOR UX/UI MOBILE ADAPTATION
-       ========================================= */
-    
-    @media (max-width: 768px) {
-      /* 1. РИТМ И ПРОСТРАНСТВО (Whitespace & Layout) */
-      /* Делаем отступы между блоками меньше, чтобы экран не казался пустым */
-      section {
-        padding: 60px 0 !important; 
-      }
-      
-      /* Создаем "безопасную зону" по краям экрана (20px) */
-      .container {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-      }
+       /* ============================================== */
+/* 📱 SENIOR UX/UI MOBILE ADAPTATION v2.0          */
+/* Цель: личный бренд + конверсия в запись на урок */
+/* ============================================== */
+@media (max-width: 768px) {
 
-      /* 2. ТИПОГРАФИКА (Fluid Typography) */
-      /* Уменьшаем гигантские заголовки для читаемости */
-      .hero h1 {
-        font-size: 42px !important; /* Было слишком крупно */
-        line-height: 1.1 !important;
-        margin-bottom: 16px !important;
-      }
-      
-      h2 {
-        font-size: 28px !important;
-        line-height: 1.2 !important;
-        margin-bottom: 24px !important;
-      }
+  /* === 1. КРИТИЧЕСКИЕ ФИКСЫ ЛЕЙАУТА === */
+  
+  /* Схлопываем все 2-колоночные блоки в одну колонку */
+  .hero-split,
+  .about-split,
+  .editorial-split {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
 
-      p {
-        font-size: 16px !important;
-      }
+  /* Hero — убираем лишнюю высоту, которая создавала "дыру" */
+  .hero {
+    min-height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+  }
+  
+  .hero-text-side {
+    text-align: left;
+    order: 1; /* Текст идёт первым */
+  }
+  
+  .hero-image-side {
+    order: 2; /* Фото идёт после текста */
+  }
+  
+  .hero-image-side img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
 
-      /* 3. КАРУСЕЛИ (The "Peek" Effect & Swipe UX) */
-      .carousel {
-        /* Магия: вытягиваем карусель за пределы контейнера к самым краям экрана... */
-        margin-left: -20px !important;
-        margin-right: -20px !important;
-        /* ...но контент внутри отталкиваем от левого края, чтобы он стоял вровень с заголовками */
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        gap: 16px !important;
-        
-        /* Идеальный скролл на iOS и Android */
-        scroll-snap-type: x mandatory;
-        scroll-padding-left: 20px; /* Чтобы привязка скролла учитывала наш отступ */
-        -webkit-overflow-scrolling: touch;
-      }
-      
-      .carousel-item {
-        /* Карточка занимает 85% экрана. Оставшиеся 15% отдаем следующей карточке, 
-           чтобы создать визуальную подсказку свайпа */
-        min-width: 85vw !important; 
-        max-width: 85vw !important;
-        scroll-snap-align: start;
-      }
+  /* Заголовок Hero — крупный, но читаемый */
+  .hero h1 {
+    font-size: 40px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 20px !important;
+  }
 
-      /* 4. ВИЗУАЛЬНЫЙ ФОКУС (Убираем дублирование) */
-      /* Скрываем фото в главном блоке, чтобы акцент был на тексте и кнопке.
-         Оно останется только в блоке About Me */
-            /* 4. ВИЗУАЛЬНЫЙ ФОКУС (Убираем дублирование) */
-      .hero-image-side {
-        display: none !important;
-      }
+  /* Бейджи — компактные */
+  .hero-badges {
+    gap: 8px !important;
+    margin-bottom: 20px !important;
+    flex-wrap: wrap;
+  }
+  
+  .badge {
+    font-size: 10px !important;
+    padding: 6px 12px !important;
+    letter-spacing: 0.5px;
+  }
 
-      /* 5. ЭРГОНОМИКА (Touch Targets) */
-      /* Кнопки на всю ширину экрана — стандарт мобильного UX */
-      .btn-primary, 
-      .btn-secondary {
-        width: 100% !important;
-        justify-content: center !important;
-        padding: 16px 24px !important; /* Делаем кнопку чуть "жирнее" для пальца */
-        margin-bottom: 12px;
-      }
-      
-      /* Подсказка для скролла */
-      .swipe-hint {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        color: #8C827A;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 16px;
-      }
-      
-      .swipe-hint::after {
-        content: "→";
-        font-size: 16px;
-      }
+  /* === 2. БЛОК "ОБО МНЕ" — личный бренд === */
+  
+  .about-image-wrapper img {
+    max-width: 260px !important;
+    border-radius: 130px 130px 16px 16px !important;
+    margin: 0 auto;
+    display: block;
+    box-shadow: 0 20px 40px rgba(193, 96, 64, 0.15);
+  }
+
+  .about-text h2 {
+    text-align: left !important;
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+  }
+  
+  .about-text p {
+    font-size: 16px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* === 3. ОБЩИЕ СЕКЦИИ === */
+  
+  section {
+    padding: 60px 20px !important;
+  }
+  
+  h2 {
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 32px !important;
+  }
+
+  /* Карусель — комфортный скролл */
+  .carousel {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  
+  .carousel::after {
+    min-width: 8px !important;
+  }
+
+  /* === 4. STICKY CTA — КНОПКА КОНВЕРСИИ === */
+  /* Всегда видимая кнопка "Записаться" внизу экрана */
+  
+  .mobile-cta-bar {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 252, 248, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(193, 96, 64, 0.15);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    z-index: 999;
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
+    transform: translateY(100%);
+    animation: slideUpCTA 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+  }
+  
+  @keyframes slideUpCTA {
+    to { transform: translateY(0); }
+  }
+  
+  .mobile-cta-bar .cta-text {
+    flex: 1;
+    font-size: 13px;
+    color: #2a2a2a;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  
+  .mobile-cta-bar .cta-text small {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  
+  .mobile-cta-bar .cta-button {
+    background: #c16040;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(193, 96, 64, 0.35);
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-cta-bar .cta-button:active {
+    transform: scale(0.96);
+  }
+  
+  /* Отступ снизу страницы, чтобы CTA не перекрывал контент */
+  body {
+    padding-bottom: 80px;
+  }
+
+  /* === 5. УЛУЧШЕННАЯ ВЕРХНЯЯ НАВИГАЦИЯ === */
+  
+  header {
+    padding: 14px 20px !important;
+    background: rgba(255, 252, 248, 0.85) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
+  }
+  
+  /* Логотип AZ. — делаем заметнее */
+  header .logo {
+    font-size: 22px !important;
+    letter-spacing: -0.5px;
+  }
+
+  /* === 6. АНИМАЦИИ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ === */
+  
+  /* Базовое состояние — скрыто */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* Когда появляется в зоне видимости */
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Каскадные задержки для красоты */
+  .fade-in-up.delay-1 { transition-delay: 0.1s; }
+  .fade-in-up.delay-2 { transition-delay: 0.2s; }
+  .fade-in-up.delay-3 { transition-delay: 0.3s; }
+
+  /* Hero-элементы появляются сразу при загрузке */
+  .hero h1,
+  .hero-badges,
+  .hero p,
+  .hero .cta-button,
+  .hero-image-side {
+    animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+  
+  .hero-badges { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.25s; }
+  .hero p { animation-delay: 0.45s; }
+  .hero .cta-button { animation-delay: 0.6s; }
+  .hero-image-side { animation-delay: 0.35s; }
+  
+  @keyframes heroFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-
-    /* Скрываем мобильную подсказку на десктопе */
-    @media (min-width: 769px) {
-      .swipe-hint {
-        display: none !important;
-      }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
+
+  /* Микро-анимация бейджей */
+  .badge {
+    transition: transform 0.3s ease;
+  }
+  
+  .badge:active {
+    transform: scale(0.95);
+  }
+
+  /* Pulse на главной CTA-кнопке для привлечения внимания */
+  .hero .cta-button {
+    animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
+               subtlePulse 3s ease-in-out 2s infinite;
+  }
+  
+  @keyframes subtlePulse {
+    0%, 100% { box-shadow: 0 8px 20px rgba(193, 96, 64, 0.3); }
+    50% { box-shadow: 0 8px 32px rgba(193, 96, 64, 0.5); }
+  }
+}
+
+/* Скрываем мобильную CTA на десктопе */
+@media (min-width: 769px) {
+  .mobile-cta-bar {
+    display: none !important;
+  }
+}
   </style>
 </head>
 <body>
