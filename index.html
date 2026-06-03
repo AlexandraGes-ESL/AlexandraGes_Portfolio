@@ -10,9 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- ==========================================
-       ВЕСЬ CSS (СТИЛИ) 
-       ========================================== -->
   <style>
     :root {
       /* Colors */
@@ -225,16 +222,8 @@
       padding-right: 20px;
     }
     
-    .carousel::-webkit-scrollbar { 
-      display: none; 
-    }
-
-    .carousel::after {
-      content: '';
-      min-width: 20px; 
-      height: 1px;
-      display: block;
-    }
+    .carousel::-webkit-scrollbar { display: none; }
+    .carousel::after { content: ''; min-width: 20px; height: 1px; display: block; }
     
     .carousel-item {
       min-width: 300px; max-width: 380px; flex: 0 0 auto;
@@ -251,19 +240,10 @@
     .carousel-item:hover .lesson-image-wrapper img { transform: scale(1.05); }
 
     .screencast {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 2;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity 0.4s ease; z-index: 2;
     }
-    .carousel-item:hover .screencast {
-      opacity: 1;
-    }
+    .carousel-item:hover .screencast { opacity: 1; }
 
     .lesson-tag {
       font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
@@ -271,6 +251,7 @@
     }
     .lesson-title { font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0; color: #222; }
     .kids-divider { margin: 60px 0 40px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 40px; }
+    .swipe-hint { display: none; }
 
     /* Testimonials */
     .testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
@@ -346,7 +327,7 @@
     .price-item-discount { font-size: 0.7rem; color: var(--accent-terra); font-weight: 500; margin-left: 6px; }
     .prices-note { text-align: center; font-size: 0.85rem; color: var(--text-muted); max-width: 720px; margin: 2rem auto 0; font-style: italic; }
 
-    /* Editorial Style (Come together) */
+    /* Editorial Style */
     .editorial-split { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
     .editorial-tag { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-terra); margin-bottom: 1rem; }
     .editorial-title-side h2 { margin-bottom: 0; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; text-align: left; }
@@ -399,603 +380,94 @@
     .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Александра Здухова | Преподаватель английского</title>
-  
-  <!-- Подключение шрифтов -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    /* ============================================== */
+    /* 📱 MOBILE ADAPTATION v4.0 — ФИНАЛЬНЫЙ ФИКС     */
+    /* ============================================== */
+    @media (max-width: 768px) {
+      /* === ОТСТУПЫ: убираем дыры === */
+      .container { padding: 40px 20px !important; }
+      section { padding: 0 !important; }
 
-  <!-- ==========================================
-       ВЕСЬ CSS (СТИЛИ) 
-       ========================================== -->
-  <style>
-    :root {
-      /* Colors */
-      --bg-base: #F5EFE6;
-      --text-main: #1F1A17;
-      --text-muted: #6B5F54;
-      --accent-gold: #C8932F;
-      --accent-terra: #B8543A;
-      --accent-sage: #8FA68E;
-      --bg-pink: #F0DDD4;
-      --bg-blue: #DDE6EC;
-      --bg-milky: #FAF6F0;
-      --white: #FFFFFF;
-    }
+      /* === ШАПКА: возвращаем терракотовый фон === */
+      header.header {
+        padding: 12px 20px !important;
+        background-color: rgba(184, 92, 66, 0.95) !important;
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      }
+      header .logo { font-size: 22px !important; color: #ffffff !important; }
+      header .lang-btn { color: #ffffff !important; border-color: rgba(255, 255, 255, 0.4) !important; }
 
-    /* Reset & Base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Manrope', sans-serif;
-      color: var(--text-main);
-      background-color: var(--bg-base);
-      line-height: 1.5;
-      font-size: clamp(1rem, 1.2vw, 1.125rem);
-      overflow-x: hidden;
-    }
+      /* === HERO: фото СВЕРХУ, текст СНИЗУ === */
+      .hero { min-height: auto !important; padding-top: 80px !important; padding-bottom: 0 !important; }
+      .hero-split { display: flex !important; flex-direction: column !important; gap: 24px !important; }
+      .hero-image-side { order: 1 !important; width: 100%; }
+      .hero-text-side { order: 2 !important; text-align: left; width: 100%; }
+      .hero-image-side img { max-width: 100%; height: auto; border-radius: 16px; aspect-ratio: 4/3; object-fit: cover; }
+      .hero h1 { font-size: 44px !important; line-height: 1.05 !important; margin: 16px 0 16px !important; }
+      .hero .subtitle { font-size: 16px !important; line-height: 1.5 !important; margin-bottom: 24px !important; }
+      .hero-badges { gap: 8px !important; margin-bottom: 16px !important; }
+      .badge { font-size: 10px !important; padding: 6px 12px !important; }
 
-    /* Typography */
-    .serif { font-family: 'Cormorant Garamond', serif; }
-    .italic { font-style: italic; }
-    .text-center { text-align: center; }
+      /* === БЛОК "ОБО МНЕ" === */
+      .about-split { display: flex !important; flex-direction: column !important; gap: 24px !important; }
+      .about-image-wrapper { order: 1; width: 100%; }
+      .about-image-wrapper img { max-width: 240px !important; border-radius: 120px 120px 16px 16px !important; margin: 0 auto; display: block; }
+      .about-text { order: 2; width: 100%; }
+      .about-text h2 { text-align: left !important; font-size: 32px !important; margin-bottom: 16px !important; }
+      .about-text p { font-size: 15px !important; line-height: 1.6 !important; }
 
-    h1 {
-      font-size: clamp(3rem, 10vw, 6.5rem);
-      font-weight: 400;
-      line-height: 1.1;
-      margin: 1.5rem 0;
-      color: var(--text-main);
-    }
-    h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 2rem;
-    }
+      /* === ОБЩИЕ ЗАГОЛОВКИ === */
+      h2, .section-title { font-size: 30px !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
 
-    /* Background Utilities */
-    .bg-base { background-color: var(--bg-base); }
-    .bg-milky { background-color: var(--bg-milky); }
-    .bg-pink { background-color: var(--bg-pink); }
-    .bg-blue { background-color: var(--bg-blue); }
-    .bg-sage { background-color: var(--accent-sage); }
+      /* === КАРУСЕЛЬ УРОКОВ: чистим хаос === */
+      .materials .container { padding: 40px 0 !important; }
+      .materials .section-title { padding: 0 20px; }
+      .swipe-hint { display: block; font-size: 11px !important; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,0,0.4); padding: 0 20px; margin: -8px 0 16px !important; }
+      .carousel { padding-left: 20px !important; padding-right: 0 !important; margin: 0 !important; gap: 16px !important; }
+      .carousel-item { min-width: 280px !important; max-width: 280px !important; }
+      .lesson-title { font-size: 16px !important; }
+      .kids-divider { margin: 32px 0 0 !important; padding-top: 32px !important; }
 
-    /* Layout & Containers */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 5rem 20px;
-    }
+      /* === КАРТОЧКИ "КАК Я РАБОТАЮ" === */
+      .cards-grid { gap: 12px !important; }
+      .card { padding: 28px 24px !important; }
 
-    /* Header */
-    .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      width: 100%;
-      padding: 15px 20px;
-      z-index: 1000;
-      background-color: rgba(184, 92, 66, 0.9);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-    }
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .header .logo { 
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: #ffffff; 
-    }
-    .header .lang-btn {
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: #ffffff;
-      padding: 5px 10px;
-    }
-    .header .lang-muted { color: rgba(255, 255, 255, 0.5); font-weight: 400; }
+      /* === ОТЗЫВЫ === */
+      .testimonials-grid { gap: 1.25rem !important; margin-top: 20px !important; }
+      .review-card { padding: 1.75rem 1.5rem 1.5rem !important; }
 
-    /* Buttons & Links */
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      border-radius: 50px;
-      padding: 14px 32px;
-      font-weight: 500;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-    .btn-primary { background-color: var(--accent-terra); color: var(--white); }
-    
-    .link-inline {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 500;
-      margin-left: 1.5rem;
-      position: relative;
-    }
-    .link-inline::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0;
-      width: 100%; height: 1px;
-      background-color: var(--text-main);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.4s ease;
-    }
-    .link-inline:hover::after { transform: scaleX(1); transform-origin: left; }
+      /* === ЦЕНЫ === */
+      .prices-intro { font-size: 15px !important; margin-bottom: 24px !important; }
+      .prices-grid { gap: 20px !important; }
+      .price-block { padding: 1.75rem 1.5rem !important; }
 
-    /* Hero Section */
-    .hero { padding-top: 100px; min-height: 100vh; display: flex; align-items: center; }
-    .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
-    .badge {
-      font-family: 'Manrope', sans-serif;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 6px 14px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      border-radius: 100px;
-      color: #333;
-    }
-    .subtitle {
-      font-size: clamp(1.125rem, 2vw, 1.5rem);
-      color: var(--text-muted);
-      margin-bottom: 3rem;
-      max-width: 600px;
-    }
-    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .hero-image-side { display: flex; justify-content: center; align-items: center; }
-    .hero-image-side img {
-      width: 100%;
-      max-width: 480px;
-      height: auto;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-      display: block;
+      /* === ФУТЕР === */
+      .footer-cta { margin-bottom: 32px !important; }
+      .footer-contacts { gap: 12px !important; margin-bottom: 32px !important; }
+      .footer-bottom { margin-top: 24px !important; }
+
+      /* === STICKY CTA-кнопка === */
+      body { padding-bottom: 80px; }
+      .mobile-cta-bar {
+        display: flex !important; position: fixed; bottom: 0; left: 0; right: 0;
+        background: rgba(255, 252, 248, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(193, 96, 64, 0.15); padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        z-index: 999; gap: 10px; align-items: center; box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
+        transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .mobile-cta-bar.show { transform: translateY(0); }
+      .mobile-cta-bar .cta-text { flex: 1; font-size: 13px; color: #2a2a2a; line-height: 1.3; font-weight: 500; }
+      .mobile-cta-bar .cta-text small { display: block; font-size: 11px; color: #888; font-weight: 400; margin-top: 2px; }
+      .mobile-cta-bar .cta-button {
+        background: #c16040; color: #fff; padding: 12px 22px; border-radius: 100px;
+        text-decoration: none; font-weight: 600; font-size: 14px; white-space: nowrap; box-shadow: 0 8px 20px rgba(193, 96, 64, 0.35);
+      }
+      .mobile-cta-bar .cta-button:active { transform: scale(0.96); }
     }
 
-    /* About Section */
-    .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .about-image-wrapper { display: flex; justify-content: center; align-items: center; }
-    .about-image-wrapper img {
-      width: 100%;
-      max-width: 400px;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 200px 200px 16px 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    @media (min-width: 769px) {
+      .mobile-cta-bar { display: none !important; }
     }
-
-    /* How I work Cards */
-    .cards-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-    @media (min-width: 768px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
-    .card {
-      padding: 40px 32px;
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.05); }
-    .card-icon {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 8px;
-    }
-    .card-icon svg { width: 20px; height: 20px; stroke: rgba(0, 0, 0, 0.7); }
-    .card-title { font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0; color: #222; }
-    .card-text { margin: 0; font-size: 15px; line-height: 1.6; color: rgba(0, 0, 0, 0.75); }
-    .bg-sage .card-icon { border-color: rgba(255, 255, 255, 0.4); }
-    .bg-sage .card-icon svg { stroke: #ffffff; }
-    .bg-sage .card-title, .bg-sage .card-text { color: #ffffff; }
-
-    /* Carousel / Materials */
-    .carousel {
-      display: flex; 
-      gap: 24px; 
-      overflow-x: auto;
-      padding-bottom: 32px; 
-      margin-bottom: 20px;
-      scroll-snap-type: x mandatory; 
-      scrollbar-width: none;
-      padding-right: 20px;
-    }
-    
-    .carousel::-webkit-scrollbar { 
-      display: none; 
-    }
-
-    .carousel::after {
-      content: '';
-      min-width: 20px; 
-      height: 1px;
-      display: block;
-    }
-    
-    .carousel-item {
-      min-width: 300px; max-width: 380px; flex: 0 0 auto;
-      scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; cursor: pointer;
-    }
-    .lesson-image-wrapper {
-      width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden;
-      background-color: #E3E0D8; box-shadow: 0 8px 24px rgba(0,0,0,0.06); position: relative;
-    }
-    .lesson-image-wrapper img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .carousel-item:hover .lesson-image-wrapper img { transform: scale(1.05); }
-
-    .screencast {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 2;
-    }
-    .carousel-item:hover .screencast {
-      opacity: 1;
-    }
-
-    .lesson-tag {
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
-      color: rgba(0,0,0,0.4); margin-bottom: -4px;
-    }
-    .lesson-title { font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0; color: #222; }
-    .kids-divider { margin: 60px 0 40px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 40px; }
-
-    /* Testimonials */
-    .testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
-    @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; } }
-    .review-card {
-      background: var(--white); padding: 2.5rem 2.5rem 2rem; border-radius: 24px;
-      position: relative; border-left: 3px solid var(--accent-terra);
-      box-shadow: 0 8px 30px rgba(31, 26, 23, 0.04);
-      transition: transform 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; gap: 1.25rem;
-    }
-    .review-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(31, 26, 23, 0.08); }
-    .review-card.hidden { display: none; }
-    .review-header { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(31, 26, 23, 0.08); }
-    .review-avatar {
-      width: 52px; height: 52px; border-radius: 50%; background: var(--accent-sage); color: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; flex-shrink: 0;
-    }
-    .review-author-info { display: flex; flex-direction: column; gap: 2px; }
-    .review-author { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.4rem; line-height: 1.2; }
-    .review-meta { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-    .review-quote-mark {
-      position: absolute; top: 1rem; right: 1.5rem; font-family: 'Cormorant Garamond', serif;
-      font-size: 5rem; line-height: 1; color: var(--accent-sage); opacity: 0.2; pointer-events: none;
-    }
-    .review-text { font-size: 0.95rem; line-height: 1.65; position: relative; z-index: 1; }
-    .review-text p { margin: 0 0 0.8rem 0; }
-    .review-more { display: none; }
-    .review-card.expanded .review-more { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .review-expand-btn {
-      background: none; border: none; padding: 0; margin-top: 0.5rem; font-family: 'Manrope', sans-serif;
-      font-size: 0.85rem; font-weight: 500; color: var(--accent-terra); cursor: pointer; text-align: left;
-    }
-    .review-translation {
-      font-size: 0.8rem; line-height: 1.5; color: var(--text-muted); font-style: italic;
-      margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed rgba(31, 26, 23, 0.1);
-    }
-    .reviews-show-more { display: flex; justify-content: center; margin-top: 3rem; }
-    .reviews-show-more-btn {
-      background: none; border: 1px solid rgba(31, 26, 23, 0.2); padding: 14px 32px; border-radius: 50px;
-      font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
-    }
-    .reviews-show-more-btn:hover { background: var(--text-main); color: var(--white); border-color: var(--text-main); }
-
-    /* Prices */
-    .prices-intro {
-      text-align: left; max-width: 100%; margin: 0 0 3rem 0;
-      font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;
-    }
-    #prices .section-title { text-align: left; margin-bottom: 1rem; }
-    .prices-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; }
-    @media (min-width: 900px) { .prices-grid { grid-template-columns: 1fr 1fr; } }
-    .price-block {
-      background: var(--white); border-radius: 24px; padding: 2.5rem;
-      box-shadow: 0 8px 30px rgba(31, 26, 23, 0.04); display: flex; flex-direction: column; gap: 1.25rem; transition: transform 0.4s ease;
-    }
-    .price-block:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(31, 26, 23, 0.08); }
-    .price-block-header { padding-bottom: 1.25rem; border-bottom: 1px solid rgba(31, 26, 23, 0.08); }
-    .price-block-tag {
-      display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--accent-terra); padding: 4px 12px; background: rgba(184, 92, 66, 0.08); border-radius: 100px; margin-bottom: 1rem;
-    }
-    .price-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 500; margin: 0 0 0.5rem 0; }
-    .price-block .price-desc { margin: 0; font-size: 0.95rem; color: var(--text-muted); }
-    .price-items { list-style: none; display: flex; flex-direction: column; }
-    .price-items li { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(31, 26, 23, 0.06); }
-    .price-items li:last-child { border-bottom: none; }
-    .price-item-left { display: flex; flex-direction: column; gap: 2px; }
-    .price-item-name { font-weight: 500; font-size: 0.95rem; color: var(--text-main); }
-    .price-item-meta { font-size: 0.8rem; color: var(--text-muted); }
-    .price-item-value { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; white-space: nowrap; line-height: 1; padding-top: 4px; }
-    .price-item-discount { font-size: 0.7rem; color: var(--accent-terra); font-weight: 500; margin-left: 6px; }
-    .prices-note { text-align: center; font-size: 0.85rem; color: var(--text-muted); max-width: 720px; margin: 2rem auto 0; font-style: italic; }
-
-    /* Editorial Style (Come together) */
-    .editorial-split { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
-    .editorial-tag { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-terra); margin-bottom: 1rem; }
-    .editorial-title-side h2 { margin-bottom: 0; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; text-align: left; }
-    .editorial-text-side p { margin: 0; font-size: 1.1rem; line-height: 1.7; color: var(--text-muted); }
-    @media (min-width: 768px) {
-      .editorial-split { grid-template-columns: 1fr 1.2fr; gap: 4rem; }
-      .editorial-text-side p { border-left: 1px solid rgba(184, 92, 66, 0.2); padding-left: 2.5rem; font-size: 1.15rem; }
-    }
-
-    /* FAQ */
-    .faq-accordion { max-width: 760px; margin: 2rem auto 0; }
-    .faq-accordion details { border-bottom: 1px solid rgba(31, 26, 23, 0.15); padding: 1.75rem 0; transition: padding 0.3s ease; }
-    .faq-accordion details[open] { padding-bottom: 2rem; }
-    .faq-accordion summary {
-      list-style: none; font-family: 'Cormorant Garamond', serif; font-size: clamp(1.25rem, 2vw, 1.6rem);
-      font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color 0.3s ease;
-    }
-    .faq-accordion summary:hover { color: var(--accent-terra); }
-    .faq-accordion summary::-webkit-details-marker { display: none; }
-    .faq-accordion summary::after {
-      content: ''; width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(31, 26, 23, 0.3);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231F1A17' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-position: center; background-repeat: no-repeat; flex-shrink: 0; transition: transform 0.4s ease;
-    }
-    .faq-accordion details[open] summary::after { transform: rotate(180deg); }
-    .faq-accordion details p { margin-top: 1rem; color: var(--text-muted); padding-right: 3rem; line-height: 1.65; animation: faqSlide 0.4s ease; }
-    @keyframes faqSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Footer */
-    .footer-cta { text-align: center; max-width: 720px; margin: 0 auto 4rem; }
-    .footer-cta h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 400; letter-spacing: -0.01em; }
-    .footer-cta-sub { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
-    .footer-contacts { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; margin: 0 auto 5rem; }
-    @media (min-width: 900px) { .footer-contacts { grid-template-columns: repeat(3, 1fr); } }
-    .contact-card {
-      display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.75rem; background: var(--white);
-      border-radius: 16px; text-decoration: none; color: var(--text-main); transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(31, 26, 23, 0.04);
-    }
-    .contact-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(31, 26, 23, 0.08); }
-    .contact-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-terra); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .contact-icon svg { width: 22px; height: 22px; stroke: var(--white); fill: none; }
-    .contact-info { display: flex; flex-direction: column; gap: 2px; }
-    .contact-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
-    .contact-value { font-weight: 500; font-size: 1rem; color: var(--text-main); }
-    .footer-bottom { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(31, 26, 23, 0.1); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-    .footer-signature { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; }
-    .footer-meta { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-
-    /* Animations */
-    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-/* ============================================== */
-/* 📱 SENIOR UX/UI MOBILE ADAPTATION v3.0          */
-/* Гарантированный фикс сетки и плавающая кнопка   */
-/* ============================================== */
-@media (max-width: 768px) {
-
-  /* ФИКС ДЫРЫ: Жестко выключаем Grid и делаем колонку через Flexbox */
-  .hero-split,
-  .about-split,
-  .editorial-split {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 32px !important;
-  }
-
-  /* Hero — убираем лишнюю высоту, которая создавала "дыру" */
-  .hero {
-    min-height: auto !important;
-    padding-top: 100px !important;
-    padding-bottom: 60px !important;
-  }
-  
-  .hero-text-side {
-    text-align: left;
-    order: 1; /* Текст идёт первым */
-    width: 100%;
-  }
-  
-  .hero-image-side {
-    order: 2; /* Фото идёт после текста */
-    width: 100%;
-  }
-  
-  .hero-image-side img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 16px;
-  }
-
-  /* Заголовок Hero — крупный, но читаемый */
-  .hero h1 {
-    font-size: 40px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 20px !important;
-  }
-
-  /* Бейджи — компактные */
-  .hero-badges {
-    gap: 8px !important;
-    margin-bottom: 20px !important;
-    flex-wrap: wrap;
-  }
-  
-  .badge {
-    font-size: 10px !important;
-    padding: 6px 12px !important;
-    letter-spacing: 0.5px;
-  }
-
-  /* === БЛОК "ОБО МНЕ" — гарантированная колонка === */
-  .about-image-wrapper {
-    order: 1;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .about-image-wrapper img {
-    max-width: 260px !important;
-    border-radius: 130px 130px 16px 16px !important;
-    margin: 0 auto;
-    display: block;
-    box-shadow: 0 20px 40px rgba(193, 96, 64, 0.15);
-  }
-
-  .about-text {
-    order: 2;
-    width: 100%;
-  }
-
-  .about-text h2 {
-    text-align: left !important;
-    font-size: 32px !important;
-    line-height: 1.15 !important;
-  }
-  
-  .about-text p {
-    font-size: 16px !important;
-    line-height: 1.65 !important;
-  }
-
-  /* === ОБЩИЕ СЕКЦИИ === */
-  section {
-    padding: 60px 20px !important;
-  }
-  
-  h2 {
-    font-size: 32px !important;
-    line-height: 1.15 !important;
-    margin-bottom: 32px !important;
-  }
-
-  /* Карусель — комфортный скролл */
-  .carousel {
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-  
-  .carousel::after {
-    min-width: 8px !important;
-  }
-
-  /* === STICKY CTA — КНОПКА КОНВЕРСИИ === */
-  /* Отступ снизу страницы, чтобы CTA не перекрывал футер */
-  body {
-    padding-bottom: 80px;
-  }
-
-  .mobile-cta-bar {
-    display: flex !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 252, 248, 0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(193, 96, 64, 0.15);
-    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-    z-index: 999;
-    gap: 10px;
-    align-items: center;
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .mobile-cta-bar.show {
-    transform: translateY(0);
-  }
-  
-  .mobile-cta-bar .cta-text {
-    flex: 1;
-    font-size: 13px;
-    color: #2a2a2a;
-    line-height: 1.3;
-    font-weight: 500;
-  }
-  
-  .mobile-cta-bar .cta-text small {
-    display: block;
-    font-size: 11px;
-    color: #888;
-    font-weight: 400;
-    margin-top: 2px;
-  }
-  
-  .mobile-cta-bar .cta-button {
-    background: #c16040;
-    color: #fff;
-    padding: 12px 22px;
-    border-radius: 100px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    white-space: nowrap;
-    box-shadow: 0 8px 20px rgba(193, 96, 64, 0.35);
-    transition: transform 0.3s ease;
-  }
-  
-  .mobile-cta-bar .cta-button:active {
-    transform: scale(0.96);
-  }
-
-  /* === УЛУЧШЕННАЯ ВЕРХНЯЯ НАВИГАЦИЯ === */
-  header {
-    padding: 14px 20px !important;
-    background: rgba(255, 252, 248, 0.85) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all 0.3s ease;
-  }
-  
-  header .logo {
-    font-size: 22px !important;
-    letter-spacing: -0.5px;
-  }
-}
-
-/* Скрываем мобильную CTA на десктопе */
-@media (min-width: 769px) {
-  .mobile-cta-bar {
-    display: none !important;
-  }
-}
   </style>
 </head>
 <body>
@@ -1037,7 +509,6 @@
     <section id="about" class="about bg-milky fade-up">
       <div class="container about-split">
         <div class="about-image-wrapper">
-          <!-- ИСПРАВЛЕННАЯ ССЫЛКА НА ФОТО -->
           <img src="https://i.yapx.ru/dwZUU.jpg" alt="Александра Здухова">
         </div>
         <div class="about-text">
@@ -1084,7 +555,6 @@
         <div class="carousel">
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
-              <!-- ИСПРАВЛЕННЫЕ ССЫЛКИ НА КАРТИНКИ И ВИДЕО -->
               <img class="cover" src="toefl-lesson-listening-cover.png" alt="TOEFL Lesson">
               <video class="screencast" src="toefl-listening-screencast.mp4" muted loop playsinline preload="auto"></video>
             </div>
@@ -1111,617 +581,9 @@
 
         <div id="kids-materials" class="kids-divider">
           <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Дети" data-lang-en="What lessons look like. Kids">Как выглядят уроки. Дети</h2>
-<div class="swipe-hint">Swipe to explore</div> 
-<div class="carousel">
+          <div class="swipe-hint">Swipe to explore</div> 
           <div class="carousel">
             <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-              <div class="lesson-image-wrapper">
-                <img class="cover" src="hogwarts-speaking-cover.png" alt="Hogwarts Speaking">
-                <video class="screencast" src="hogwarts-speaking-screencast.mp4" muted loop playsinline preload="auto"></video>
-              </div>
-              <div class="lesson-tag">Genially Quest</div>
-              <h3 class="lesson-title" data-lang-ru="Speaking Club: Hogwarts" data-lang-en="Speaking Club: Hogwarts">Speaking Club: Hogwarts</h3>
-            </div>
-            <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-              <div class="lesson-image-wrapper">
-                <img class="cover" src="my-singing-monsters-cover.png" alt="My Singing Monsters">
-                <video class="screencast" src="my-singing-monsters-screencast.mp4" muted loop playsinline preload="auto"></video>
-              </div>
-              <div class="lesson-tag">Gamified Practice</div>
-              <h3 class="lesson-title" data-lang-ru="Геймифицированный урок: My Singing Monsters" data-lang-en="Gamified Lesson: My Singing Monsters">Геймифицированный урок: My Singing Monsters</h3>
-            </div>
-            <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-              <div class="lesson-image-wrapper">
-                <img class="cover" src="my-room-cover.png" alt="My Room">
-                <video class="screencast" src="my-room-screenhouse.mp4" muted loop playsinline preload="auto"></video>
-              </div>
-              <div class="lesson-tag">Vocabulary Board</div>
-              <h3 class="lesson-title" data-lang-ru="Интерактивная лексика: My Room" data-lang-en="Interactive Vocabulary: My Room">Интерактивная лексика: My Room</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06. ОТЗЫВЫ -->
-    <section class="testimonials bg-base fade-up">
-      <div class="container">
-        <h2 class="serif section-title" data-lang-ru="Что говорят ученики и родители" data-lang-en="What students & parents say">Что говорят ученики и родители</h2>
-        <div class="testimonials-grid" id="reviews-grid">
-          
-          <div class="review-card stagger-item">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">МС</div>
-              <div class="review-author-info">
-                <div class="review-author" data-lang-ru="Мама ученика" data-lang-en="Parent">Ольга В.</div>
-                <div class="review-meta" data-lang-ru="9 лет занятий · Cambridge B1" data-lang-en="9 years · Cambridge B1">9 лет занятий · Cambridge B1</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p data-lang-ru="Благодарю Александру за почти девять лет работы с моим сыном. Он пришёл к ней в мини-группу восьмилетним мальчиком, и нам нужен был сильный педагог, который сумеет развить навыки и природный талант к языкам. Александре это удалось!" data-lang-en="I thank Alexandra for almost nine years of working with my son. He came to her mini-group as an 8-year-old, and we needed a strong teacher who could develop his skills and natural talent for languages. Alexandra succeeded!">Благодарю Александру за почти девять лет работы с моим сыном. Он пришёл к ней в мини-группу восьмилетним мальчиком, и нам нужен был сильный педагог, который сумеет развить навыки и природный талант к языкам. Александре это удалось!</p>
-              <p data-lang-ru="Будучи шестиклассником, он подтвердил уровень B1 на Кембриджском экзамене." data-lang-en="In 6th grade, he confirmed his B1 level on the Cambridge exam.">Будучи шестиклассником, он подтвердил уровень B1 на Кембриджском экзамене.</p>
-              <div class="review-more">
-                <p data-lang-ru="Сейчас моему сыну 17, в этом году заканчивает школу. После обсуждений решили поставить занятия на паузу на период поступления, но он возобновит их — в планах развить язык до профессиональных компетенций и сдать Кембриджский экзамен на C1." data-lang-en="My son is 17 now, finishing school this year. We decided to pause lessons during university admission, but he will resume — he plans to develop his English to professional competency and pass the Cambridge C1 exam.">Сейчас моему сыну 17, в этом году заканчивает школу. После обсуждений решили поставить занятия на паузу на период поступления, но он возобновит их — в планах развить язык до профессиональных компетенций и сдать Кембриджский экзамен на C1.</p>
-                <p data-lang-ru="Александра подготовила сына так, что он несколько раз становился победителем и призёром муниципального этапа ВСОШ по английскому. Сын всегда отмечал, что Александра понятно объясняет. Отдельное спасибо за тематические уроки — у нас целая галерея фотографий с Хэллоуина разных лет." data-lang-en="Alexandra prepared my son so well that he became a winner and prize-winner of the municipal stage of the Russian School Olympiad in English several times. My son always said Alexandra explains things clearly. Special thanks for thematic lessons — we have a whole gallery of Halloween photos from different years.">Александра подготовила сына так, что он несколько раз становился победителем и призёром муниципального этапа ВСОШ по английскому. Сын всегда отмечал, что Александра понятно объясняет. Отдельное спасибо за тематические уроки — у нас целая галерея фотографий с Хэллоуина разных лет.</p>
-                <p data-lang-ru="Я вижу результат: с одной стороны — дипломы международного образца и олимпиад, с другой — сын помогает мне в живом общении по видеосвязи с иностранными клиентами, и справляется. Язык учили, чтобы просто владел, но уровень его знаний выходит далеко за рамки наших изначальных желаний." data-lang-en="I see the result: international diplomas and Olympiad awards on one side, and on the other — my son helps me communicate with foreign clients via video calls, and he manages. We were just learning English for him to know it, but his level goes far beyond our initial expectations.">Я вижу результат: с одной стороны — дипломы международного образца и олимпиад, с другой — сын помогает мне в живом общении по видеосвязи с иностранными клиентами, и справляется. Язык учили, чтобы просто владел, но уровень его знаний выходит далеко за рамки наших изначальных желаний.</p>
-              </div>
-            </div>
-            <button class="review-expand-btn" onclick="toggleReview(this)" data-lang-ru="Читать полностью →" data-lang-en="Read full review →">Читать полностью →</button>
-          </div>
-
-          <div class="review-card stagger-item">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">Ю</div>
-              <div class="review-author-info">
-                <div class="review-author" data-lang-ru="Юлия" data-lang-en="Yulia">Юлия</div>
-                <div class="review-meta" data-lang-ru="мама Яны, 8 лет" data-lang-en="mom of Yana, 8 y.o.">мама Яны, 8 лет</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p data-lang-ru="Яна Ваши уроки ждёт, даже когда что-то не получается — не психует, она знает, что Вы поддержите и поможете сделать задание, терпеливо объясните, а не будете ругать за то, что она где-то недопоняла." data-lang-en="Yana looks forward to your lessons even when something doesn't work out — she doesn't get upset, she knows you will support her and help, patiently explain, and not scold her for misunderstanding.">Яна Ваши уроки ждёт, даже когда что-то не получается — не психует, она знает, что Вы поддержите и поможете сделать задание, терпеливо объясните, а не будете ругать за то, что она где-то недопоняла.</p>
-              <p data-lang-ru="Огрооомное спасибо за Ваш подход — за то, что каждый урок для ребёнка это не каторга, а целый квест, игра. Яна наконец-то уроки по английскому по-настоящему ждёт, после Ваших уроков играет в полезные игры, причём без напоминаний." data-lang-en="A HUGE thank you for your approach — for making every lesson not a chore for a child, but a whole quest, a game. Yana finally truly looks forward to English lessons, and after your classes she plays educational games on her own, without any reminders.">Огрооомное спасибо за Ваш подход — за то, что каждый урок для ребёнка это не каторга, а целый квест, игра. Яна наконец-то уроки по английскому по-настоящему ждёт, после Ваших уроков играет в полезные игры, причём без напоминаний.</p>
-            </div>
-          </div>
-
-          <div class="review-card stagger-item">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">S</div>
-              <div class="review-author-info">
-                <div class="review-author">Sergey</div>
-                <div class="review-meta">B2 lvl · adult student</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p>The greatest teacher I've ever had! I've been making big progress since I started studying with Aleksandra. She uses different methods during the lesson: quizzes, talks, discussions, watching videos and other activities to help you grasp the topic better. She always gives you a clear explanation of new things and sends extra tasks if you don't get into a theme. I'm lucky that she is my English teacher!</p>
-            </div>
-            <div class="review-translation" data-lang-ru="Лучший преподаватель в моей жизни! С тех пор как начал заниматься с Александрой, виден огромный прогресс. Она использует разные методы на уроке: квизы, разговоры, обсуждения, видео — чтобы помочь лучше усвоить тему. Мне повезло, что она мой учитель английского!" data-lang-en="—">Лучший преподаватель в моей жизни! С тех пор как начал заниматься с Александрой, виден огромный прогресс. Она использует разные методы на уроке: квизы, разговоры, обсуждения, видео — чтобы помочь лучше усвоить тему. Мне повезло, что она мой учитель английского!</div>
-          </div>
-
-          <div class="review-card stagger-item">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">B</div>
-              <div class="review-author-info">
-                <div class="review-author">Baatr</div>
-                <div class="review-meta" data-lang-ru="A1 lvl · взрослый ученик" data-lang-en="A1 lvl · adult student">A1 lvl · взрослый ученик</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p data-lang-ru="Прошёл курс Elementary у Александры в этом году. Понравилось абсолютно всё: и какой уровень знаний получил, и как проходили занятия. На каждом уроке было интересно. Помимо работы с учебником проводили разного рода активности, конкурсы и тематические уроки." data-lang-en="I completed the Elementary course with Alexandra this year. I loved absolutely everything: the level of knowledge I gained and how the lessons were structured. Every lesson was interesting. Besides working with the textbook, we did various activities, contests, and themed lessons.">Прошёл курс Elementary у Александры в этом году. Понравилось абсолютно всё: и какой уровень знаний получил, и как проходили занятия. На каждом уроке было интересно. Помимо работы с учебником проводили разного рода активности, конкурсы и тематические уроки.</p>
-              <p data-lang-ru="Атмосфера на уроках всегда доброжелательная. Также очень качественно были организованы удалённые занятия по Zoom. Готов заниматься дальше, осваивать следующий курс английского :)" data-lang-en="The atmosphere at the lessons was always friendly. Remote Zoom lessons were also organized at a very high level. Ready to continue and master the next English course :)">Атмосфера на уроках всегда доброжелательная. Также очень качественно были организованы удалённые занятия по Zoom. Готов заниматься дальше, осваивать следующий курс английского :)</p>
-            </div>
-          </div>
-
-          <div class="review-card stagger-item hidden">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">V</div>
-              <div class="review-author-info">
-                <div class="review-author">Vitaliy</div>
-                <div class="review-meta" data-lang-ru="A2 lvl · взрослый ученик" data-lang-en="A2 lvl · adult student">A2 lvl · взрослый ученик</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p data-lang-ru="По рекомендации я обратился к Александре. Стоило провести пробное занятие — я понял, что изучать английский не так уж и скучно. Формат урока «говорим только на английском» помогает преодолеть языковой барьер, страх сказать что-то не так. Каждое занятие проходит как дружеская беседа, при этом непрерывное погружение в материал позволяет повышать скилл английского." data-lang-en="On recommendation, I turned to Alexandra. After our trial lesson, I realized learning English isn't boring at all. The 'English-only' lesson format helps overcome the language barrier and the fear of making mistakes. Every lesson feels like a friendly conversation, while constant immersion lets me level up my English.">По рекомендации я обратился к Александре. Стоило провести пробное занятие — я понял, что изучать английский не так уж и скучно. Формат урока «говорим только на английском» помогает преодолеть языковой барьер, страх сказать что-то не так. Каждое занятие проходит как дружеская беседа, при этом непрерывное погружение в материал позволяет повышать скилл английского.</p>
-            </div>
-          </div>
-
-          <div class="review-card stagger-item hidden">
-            <div class="review-quote-mark">„</div>
-            <div class="review-header">
-              <div class="review-avatar">МД</div>
-              <div class="review-author-info">
-                <div class="review-author" data-lang-ru="Мама ученицы" data-lang-en="Parent">Надежда Т.</div>
-                <div class="review-meta" data-lang-ru="школьница · регулярные занятия" data-lang-en="schoolgirl · regular classes">школьница · регулярные занятия</div>
-              </div>
-            </div>
-            <div class="review-text">
-              <p data-lang-ru="Уже не первый год Александра успешно обучает мою дочь, и результаты налицо — в школе её оценки по английскому постоянно на высоте. Благодаря профессионализму, терпению и подходу к детям моя дочь стала самостоятельно справляться с домашними заданиями. Я искренне благодарна Александре за её труд и рекомендую её как замечательного преподавателя." data-lang-en="For several years now, Alexandra has been successfully teaching my daughter, and the results are clear — her English grades at school are consistently excellent. Thanks to her professionalism, patience, and approach to children, my daughter has started handling her homework on her own. I am sincerely grateful to Alexandra and recommend her as a wonderful teacher.">Уже не первый год Александра успешно обучает мою дочь, и результаты налицо — в школе её оценки по английскому постоянно на высоте. Благодаря профессионализму, терпению и подходу к детям моя дочь стала самостоятельно справляться с домашними заданиями. Я искренне благодарна Александре за её труд и рекомендую её как замечательного преподавателя.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="reviews-show-more">
-          <button class="reviews-show-more-btn" id="show-more-reviews" onclick="showMoreReviews(this)" data-lang-ru="Показать ещё отзывы" data-lang-en="Show more reviews">Показать ещё отзывы</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 08. ФОРМАТЫ И ЦЕНЫ -->
-    <section id="prices" class="prices bg-blue fade-up">
-      <div class="container">
-        <h2 class="serif section-title" data-lang-ru="Форматы и цены" data-lang-en="Formats & Pricing">Форматы и цены</h2>
-        <p class="prices-intro" data-lang-ru="Все занятия проходят онлайн в Zoom. Первое пробное занятие — за половину стоимости: 30 минут, чтобы определить уровень, обсудить цели и понять, подходим ли мы друг другу." data-lang-en="All lessons take place online via Zoom. The first trial lesson is half-price: 30 minutes to assess your level, discuss goals, and see if we're a good match.">Все занятия проходят онлайн в Zoom. Первое пробное занятие — за половину стоимости: 30 минут, чтобы определить уровень, обсудить цели и понять, подходим ли мы друг другу.</p>
-
-        <div class="prices-grid">
-          
-          <!-- Взрослые -->
-          <div class="price-block stagger-item">
-            <div class="price-block-header">
-              <span class="price-block-tag" data-lang-ru="A1 – C1" data-lang-en="A1 – C1">A1 – C1</span>
-              <h3 data-lang-ru="Взрослые и подростки" data-lang-en="Adults & Teens">Взрослые и подростки</h3>
-              <p class="price-desc" data-lang-ru="Общий английский, разговорная практика, подготовка к TOEFL / Cambridge, академический английский, релокация." data-lang-en="General English, speaking practice, TOEFL / Cambridge prep, academic English, relocation.">Общий английский, разговорная практика, подготовка к TOEFL / Cambridge, академический английский, релокация.</p>
-            </div>
-            <ul class="price-items">
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Индивидуально" data-lang-en="1-on-1 lesson">Индивидуально</span>
-                  <span class="price-item-meta" data-lang-ru="60 минут" data-lang-en="60 minutes">60 минут</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="2 400 ₽" data-lang-en="$35">2 400 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пакет 4 занятия" data-lang-en="Package of 4 lessons">Пакет 4 занятия <span class="price-item-discount" data-lang-ru="–6%" data-lang-en="–6%">–6%</span></span>
-                  <span class="price-item-meta" data-lang-ru="2 250 ₽ за занятие" data-lang-en="$31 per lesson">2 250 ₽ за занятие</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="9 000 ₽" data-lang-en="$125">9 000 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пакет 8 занятий" data-lang-en="Package of 8 lessons">Пакет 8 занятий <span class="price-item-discount" data-lang-ru="–8%" data-lang-en="–8%">–8%</span></span>
-                  <span class="price-item-meta" data-lang-ru="2 200 ₽ за занятие" data-lang-en="$30 per lesson">2 200 ₽ за занятие</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="17 600 ₽" data-lang-en="$245">17 600 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="В паре" data-lang-en="Paired lessons">В паре</span>
-                  <span class="price-item-meta" data-lang-ru="60 минут · цена за человека" data-lang-en="60 min · per person">60 минут · цена за человека</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="1 700 ₽" data-lang-en="$25">1 700 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Мини-группа" data-lang-en="Mini-group">Мини-группа</span>
-                  <span class="price-item-meta" data-lang-ru="до 4 человек · цена за человека" data-lang-en="up to 4 people · per person">до 4 человек · цена за человека</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="1 500 ₽" data-lang-en="$20">1 500 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пробное занятие" data-lang-en="Trial lesson">Пробное занятие</span>
-                  <span class="price-item-meta" data-lang-ru="30 минут · знакомство и диагностика уровня" data-lang-en="30 min · intro & level check">30 минут · знакомство и диагностика уровня</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="1 200 ₽" data-lang-en="$17">1 200 ₽</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Дети -->
-          <div class="price-block stagger-item">
-            <div class="price-block-header">
-              <span class="price-block-tag" data-lang-ru="6 – 12 лет" data-lang-en="Ages 6 – 12">6 – 12 лет</span>
-              <h3 data-lang-ru="Дети" data-lang-en="Kids">Дети</h3>
-              <p class="price-desc" data-lang-ru="Геймифицированные уроки с интерактивными квестами. Помощь со школьной программой, подготовка к олимпиадам, английский с нуля." data-lang-en="Gamified lessons with interactive quests. Help with school curriculum, Olympiad prep, English from scratch.">Геймифицированные уроки с интерактивными квестами. Помощь со школьной программой, подготовка к олимпиадам, английский с нуля.</p>
-            </div>
-            <ul class="price-items">
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Индивидуально" data-lang-en="1-on-1 lesson">Индивидуально</span>
-                  <span class="price-item-meta" data-lang-ru="45 минут" data-lang-en="45 minutes">45 минут</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="2 000 ₽" data-lang-en="$30">2 000 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пакет 4 занятия" data-lang-en="Package of 4 lessons">Пакет 4 занятия <span class="price-item-discount" data-lang-ru="–6%" data-lang-en="–6%">–6%</span></span>
-                  <span class="price-item-meta" data-lang-ru="1 875 ₽ за занятие" data-lang-en="$26 per lesson">1 875 ₽ за занятие</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="7 500 ₽" data-lang-en="$105">7 500 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пакет 8 занятий" data-lang-en="Package of 8 lessons">Пакет 8 занятий <span class="price-item-discount" data-lang-ru="–8%" data-lang-en="–8%">–8%</span></span>
-                  <span class="price-item-meta" data-lang-ru="1 840 ₽ за занятие" data-lang-en="$25 per lesson">1 840 ₽ за занятие</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="14 700 ₽" data-lang-en="$205">14 700 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Мини-группа" data-lang-en="Mini-group">Мини-группа</span>
-                  <span class="price-item-meta" data-lang-ru="до 4 человек · 60 мин · за человека" data-lang-en="up to 4 kids · 60 min · per person">до 4 человек · 60 мин · за человека</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="1 300 ₽" data-lang-en="$18">1 300 ₽</span>
-              </li>
-              <li>
-                <div class="price-item-left">
-                  <span class="price-item-name" data-lang-ru="Пробное занятие" data-lang-en="Trial lesson">Пробное занятие</span>
-                  <span class="price-item-meta" data-lang-ru="30 минут · тематический квест" data-lang-en="30 min · themed quest">30 минут · тематический квест</span>
-                </div>
-                <span class="price-item-value" data-lang-ru="1 200 ₽" data-lang-en="$17">1 200 ₽</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <p class="prices-note" data-lang-ru="Оплата принимается за пакет занятий до их начала. Из России — переводом по СБП, из-за рубежа — через Boosty (принимает зарубежные карты). Перенос урока — за 12 часов и более без потерь. Цены актуальны на 2026 год." data-lang-en="Packages are paid for in advance. From Russia — via SBP transfer; from abroad — via Boosty (accepts international cards). Lessons can be rescheduled 12+ hours ahead at no cost. Prices valid for 2026.">Оплата принимается за пакет занятий до их начала. Из России — переводом по СБП, из-за рубежа — через Boosty (принимает зарубежные карты). Перенос урока — за 12 часов и более без потерь. Цены актуальны на 2026 год.</p>
-      </div>
-    </section>
-
-    <!-- 09. ПРИХОДИТЕ ВМЕСТЕ (ИСПРАВЛЕНО НА ЖУРНАЛЬНЫЙ СТИЛЬ) -->
-    <section class="come-together bg-pink fade-up">
-      <div class="container">
-        <div class="editorial-split">
-          
-          <!-- Левая колонка -->
-          <div class="editorial-title-side">
-            <span class="editorial-tag" data-lang-ru="Спецпредложение" data-lang-en="Special offer">Спецпредложение</span>
-            <h2 class="serif section-title" data-lang-ru="Приходите вместе" data-lang-en="Learn together">Приходите вместе</h2>
-          </div>
-  
-          <!-- Правая колонка -->
-          <div class="editorial-text-side">
-            <p data-lang-ru="Английский интереснее учить с близкими. Если хотите заниматься с другом, супругом или коллегой — есть формат в паре. Подходит для близких по уровню и общей цели. А если приведёте нового ученика и он отзанимается месяц — оба получаете бесплатное занятие в подарок." data-lang-en="Learning English is more fun with loved ones. If you want to study with a friend, spouse, or colleague, we offer paired lessons (ideal for similar levels and goals). Plus, if you refer a new student and they stay for a month, both of you get a free lesson as a gift.">Английский интереснее учить с близкими. Если хотите заниматься с другом, супругом или коллегой — есть формат в паре. Подходит для близких по уровню и общей цели. А если приведёте нового ученика и он отзанимается месяц — оба получаете бесплатное занятие в подарок.</p>
-          </div>
-  
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. FAQ -->
-    <section class="faq bg-milky fade-up">
-      <div class="container">
-        <h2 class="serif section-title text-center" data-lang-ru="Частые вопросы" data-lang-en="Frequently Asked">Частые вопросы</h2>
-        <div class="faq-accordion">
-          <details>
-            <summary data-lang-ru="Как проходит первое занятие?" data-lang-en="How does the first lesson work?">Как проходит первое занятие?</summary>
-            <p data-lang-ru="Первая встреча длится 30 минут и стоит ровно половину обычной цены — 1 200 ₽. Со взрослыми мы общаемся на английском, чтобы я определила уровень, и обсуждаем ваши цели. С детьми — играем в небольшой тематический квест, после которого я даю обратную связь родителям и рассказываю, что я увидела." data-lang-en="The first meeting is 30 minutes and costs exactly half the regular price — $17. With adults, we chat in English so I can assess your level, and discuss your goals. With kids, we play a small themed quest, after which I give feedback to the parents and share what I observed.">Первая встреча длится 30 минут и стоит ровно половину обычной цены — 1 200 ₽. Со взрослыми мы общаемся на английском, чтобы я определила уровень, и обсуждаем ваши цели. С детьми — играем в небольшой тематический квест, после которого я даю обратную связь родителям и рассказываю, что я увидела.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="С какого уровня вы берёте учеников?" data-lang-en="What levels do you accept?">С какого уровня вы берёте учеников?</summary>
-            <p data-lang-ru="С любого — от полного нуля до C1. Для тех, кто только начинает, у меня есть мягкий «вход» через базовую фонетику и алфавит. Для продвинутых уровней (B2–C1) — работа с подкастами, академическими статьями, бизнес-кейсами и подготовка к международным экзаменам." data-lang-en="Any level — from absolute beginner to C1. For those just starting, I offer a gentle entry through basic phonetics and the alphabet. For advanced levels (B2–C1), we work with podcasts, academic articles, business cases, and prepare for international exams.">С любого — от полного нуля до C1. Для тех, кто только начинает, у меня есть мягкий «вход» через базовую фонетику и алфавит. Для продвинутых уровней (B2–C1) — работа с подкастами, академическими статьями, бизнес-кейсами и подготовка к международным экзаменам.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="Как часто нужно заниматься, чтобы был результат?" data-lang-en="How often should I take lessons to see progress?">Как часто нужно заниматься, чтобы был результат?</summary>
-            <p data-lang-ru="Оптимально — 2 раза в неделю. Этого достаточно, чтобы материал успевал укладываться, а вы не теряли темп между уроками. Один раз в неделю работает, но прогресс будет медленнее. Чаще двух раз — обычно избыточно, мозгу нужно время «переварить» новое." data-lang-en="Two lessons per week is ideal. This pace lets material settle in without losing momentum between sessions. Once a week works, but progress will be slower. More than twice a week is usually excessive — the brain needs time to process new information.">Оптимально — 2 раза в неделю. Этого достаточно, чтобы материал успевал укладываться, а вы не теряли темп между уроками. Один раз в неделю работает, но прогресс будет медленнее. Чаще двух раз — обычно избыточно, мозгу нужно время «переварить» новое.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="Что если ребёнок стесняется или ему тяжело?" data-lang-en="What if my child is shy or struggles?">Что если ребёнок стесняется или ему тяжело?</summary>
-            <p data-lang-ru="Это нормально, и это поправимо. У меня более 11 лет опыта работы с детьми разного темперамента — от очень активных до тех, кто молчит первые 3–4 урока. Я не давлю, не сравниваю и не ругаю. Постепенно создаю безопасную среду через игры, квесты и любимые темы ребёнка. Через месяц-полтора большинство детей уже сами просят следующий урок." data-lang-en="It's completely normal and fixable. I have over 11 years of experience with kids of all temperaments — from very energetic to those who stay silent for the first 3–4 lessons. I don't push, compare, or scold. I gradually build a safe space through games, quests, and the child's favorite topics. Within a month or two, most kids start asking for the next lesson themselves.">Это нормально, и это поправимо. У меня более 11 лет опыта работы с детьми разного темперамента — от очень активных до тех, кто молчит первые 3–4 урока. Я не давлю, не сравниваю и не ругаю. Постепенно создаю безопасную среду через игры, квесты и любимые темы ребёнка. Через месяц-полтора большинство детей уже сами просят следующий урок.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="Что если придётся пропустить занятие?" data-lang-en="What if I need to miss a lesson?">Что если придётся пропустить занятие?</summary>
-            <p data-lang-ru="Перенос за 12 часов и более — бесплатно, мы найдём удобный слот в течение недели. Если предупредить позже, занятие сгорает. Это правило одинаково для всех — оно помогает планировать расписание и уважать время друг друга." data-lang-en="Rescheduling 12+ hours in advance is free — we'll find a convenient slot within the week. If you cancel later, the lesson is forfeited. This rule applies to everyone — it helps with scheduling and respects each other's time.">Перенос за 12 часов и более — бесплатно, мы найдём удобный слот в течение недели. Если предупредить позже, занятие сгорает. Это правило одинаково для всех — оно помогает планировать расписание и уважать время друг друга.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="В какое время можно заниматься?" data-lang-en="What are your working hours?">В какое время можно заниматься?</summary>
-            <p data-lang-ru="С 10:00 до 21:00 по Москве, с понедельника по пятницу. Я живу в России и работаю с учениками из разных часовых поясов — от Европы до Восточной Азии. Если вы из другого региона, давайте обсудим удобное окно." data-lang-en="From 10:00 to 21:00 (Moscow time), Monday to Friday. I'm based in Russia and work with students across time zones — from Europe to East Asia. If you're elsewhere, let's discuss a convenient window.">С 10:00 до 21:00 по Москве, с понедельника по пятницу. Я живу в России и работаю с учениками из разных часовых поясов — от Европы до Восточной Азии. Если вы из другого региона, давайте обсудим удобное окно.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="Как оплатить занятия?" data-lang-en="How do I pay for lessons?">Как оплатить занятия?</summary>
-            <p data-lang-ru="Для учеников из России — переводом на карту по СБП (Сбербанк, Тинькофф и другие). Для учеников из-за рубежа — через платформу Boosty: она принимает зарубежные банковские карты (Visa, Mastercard, Mir) и работает в большинстве стран. Все детали и ссылку для оплаты пришлю в личном сообщении после нашей первой встречи." data-lang-en="For students in Russia — bank card transfer via SBP (Sberbank, Tinkoff, etc.). For international students — via the Boosty platform: it accepts foreign bank cards (Visa, Mastercard, Mir) and works in most countries. I'll send all details and the payment link in a private message after our first meeting.">Для учеников из России — переводом на карту по СБП (Сбербанк, Тинькофф и другие). Для учеников из-за рубежа — через платформу Boosty: она принимает зарубежные банковские карты (Visa, Mastercard, Mir) и работает в большинстве стран. Все детали и ссылку для оплаты пришлю в личном сообщении после нашей первой встречи.</p>
-          </details>
-          <details>
-            <summary data-lang-ru="Что нужно, чтобы начать?" data-lang-en="What do I need to start?">Что нужно, чтобы начать?</summary>
-            <p data-lang-ru="Просто напишите мне в Telegram или ВКонтакте. Расскажите, для чего вам английский: для путешествий, работы, экзаменов или просто для души. Я отвечу в течение дня и предложу время для пробной 30-минутной встречи." data-lang-en="Just message me on Telegram or VK. Tell me why you need English: for travel, work, exams, or simply for yourself. I'll reply within the day and suggest a time for a 30-minute trial meeting.">Просто напишите мне в Telegram или ВКонтакте. Расскажите, для чего вам английский: для путешествий, работы, экзаменов или просто для души. Я отвечу в течение дня и предложу время для пробной 30-минутной встречи.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 11. ФУТЕР -->
-    <footer class="footer bg-base fade-up" id="contacts">
-      <div class="container">
-        
-        <div class="footer-cta">
-          <h2 class="serif" data-lang-ru="Давайте познакомимся" data-lang-en="Let's get acquainted">Давайте познакомимся</h2>
-          <p class="footer-cta-sub" data-lang-ru="Напишите мне в любой удобный мессенджер. Я отвечу в течение дня и предложу время для пробной 30-минутной встречи — всего за половину стоимости обычного урока." data-lang-en="Message me on any convenient platform. I'll reply within a day and offer a time for a 30-minute trial meeting — at just half the regular lesson price.">Напишите мне в любой удобный мессенджер. Я отвечу в течение дня и предложу время для пробной 30-минутной встречи — всего за половину стоимости обычного урока.</p>
-        </div>
-  
-        <div class="footer-contacts">
-          <a href="https://t.me/AlexandraGes" target="_blank" rel="noopener" class="contact-card">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21.5 4.5L2.5 12.5L9 14.5M21.5 4.5L18.5 19.5L9 14.5M21.5 4.5L9 14.5M9 14.5V20L12.5 16.5"></path>
-              </svg>
-            </div>
-            <div class="contact-info">
-              <span class="contact-label" data-lang-ru="Telegram · быстрее всего" data-lang-en="Telegram · fastest reply">Telegram · быстрее всего</span>
-              <span class="contact-value">@AlexandraGes</span>
-            </div>
-          </a>
-  
-          <a href="https://vk.com/msspontaneity" target="_blank" rel="noopener" class="contact-card">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 5h18v14H3z"></path>
-                <path d="M7 9l5 4 5-4"></path>
-              </svg>
-            </div>
-            <div class="contact-info">
-              <span class="contact-label" data-lang-ru="ВКонтакте" data-lang-en="VKontakte">ВКонтакте</span>
-              <span class="contact-value">vk.com/msspontaneity</span>
-            </div>
-          </a>
-          <a href="https://boosty.to/alexandrages_esl" target="_blank" rel="noopener" class="contact-card">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"></path>
-              </svg>
-            </div>
-            <div class="contact-info">
-              <span class="contact-label" data-lang-ru="Boosty · оплата из-за рубежа" data-lang-en="Boosty · international payments">Boosty · оплата из-за рубежа</span>
-              <span class="contact-value">boosty.to/alexandrages_esl</span>
-            </div>
-          </a>
-        </div>
-  
-        <div class="footer-bottom">
-          <p class="footer-signature" data-lang-ru="English, with love." data-lang-en="English, with love.">English, with love.</p>
-          <p class="footer-meta" data-lang-ru="Александра Здухова · est. 2015" data-lang-en="Alexandra Zdukhova · est. 2015">Александра Здухова · est. 2015</p>
-        </div>
-  
-      </div>
-    </footer>
-  </main>
-
-  <!-- 📱 ПЛАВАЮЩАЯ КНОПКА ЗАПИСИ (STICKY CTA) ДЛЯ МОБИЛЬНЫХ -->
-  <div class="mobile-cta-bar">
-    <div class="cta-text">
-      <span data-lang-ru="Готовы заговорить?" data-lang-en="Ready to speak?">Готовы заговорить?</span>
-      <small data-lang-ru="Бесплатный пробный урок" data-lang-en="Free trial lesson">Бесплатный пробный урок</small>
-    </div>
-    <a href="#contacts" class="cta-button" data-lang-ru="Записаться" data-lang-en="Book now">Записаться</a>
-  </div>
-
-  <!-- ==========================================
-       ВЕСЬ JAVASCRIPT (ЛОГИКА И АНИМАЦИИ) 
-       ========================================== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-      // 1. ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ
-      const langBtn = document.getElementById('lang-toggle');
-      const translatableElements = document.querySelectorAll('[data-lang-ru]');
-      let currentLang = 'ru';
-
-      if (langBtn) {
-        langBtn.addEventListener('click', () => {
-          currentLang = currentLang === 'ru' ? 'en' : 'ru';
-          document.documentElement.lang = currentLang;
-          langBtn.innerHTML = currentLang === 'ru' ? '<span class="lang-active">RU</span> / <span class="lang-muted">EN</span>' : '<span class="lang-muted">RU</span> / <span class="lang-active">EN</span>';
-
-          translatableElements.forEach(el => {
-            const newText = el.getAttribute('data-lang-' + currentLang);
-            if (newText === null) return;
-            el.style.transition = 'opacity 0.3s ease';
-            el.style.opacity = 0;
-            setTimeout(() => {
-              el.innerHTML = newText;
-              el.style.opacity = 1;
-            }, 200);
-          });
-        });
-      }
-
-      // 2. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ
-      const fadeElements = document.querySelectorAll('.fade-up');
-      const scrollObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            const staggerChildren = entry.target.querySelectorAll('.stagger-item');
-            staggerChildren.forEach((child, index) => {
-              setTimeout(() => {
-                child.classList.add('visible');
-              }, index * 120);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        root: null,
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0.1
-      });
-      fadeElements.forEach(el => scrollObserver.observe(el));
-
-      // 3. ВИДЕО-ПРЕВЬЮ В КАРТОЧКАХ
-      window.playScreencast = function(card) {
-        const video = card.querySelector('video.screencast');
-        if (video) {
-          video.currentTime = 0;
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(error => console.warn('Видео не запустилось:', error));
-          }
-        }
-      };
-
-      window.pauseScreencast = function(card) {
-        const video = card.querySelector('video.screencast');
-        if (video) {
-          video.pause();
-        }
-      };
-
-      // 4. РАСКРЫТИЕ ДЛИННОГО ОТЗЫВА
-      window.toggleReview = function(btn) {
-        const card = btn.closest('.review-card');
-        const isExpanded = card.classList.toggle('expanded');
-        const lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
-        
-        if (isExpanded) {
-          btn.textContent = lang === 'en' ? 'Show less ↑' : 'Свернуть ↑';
-        } else {
-          btn.textContent = lang === 'en' ? 'Read full review →' : 'Читать полностью →';
-        }
-      };
-
-      // 5. ПОКАЗ СКРЫТЫХ ОТЗЫВОВ
-      window.showMoreReviews = function(btn) {
-        const hiddenCards = document.querySelectorAll('.review-card.hidden');
-        hiddenCards.forEach((card, index) => {
-          card.classList.remove('hidden');
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          setTimeout(() => {
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, index * 120);
-        });
-        btn.style.display = 'none';
-      };
-
-      // 6. ЛОГИКА ПЛАВАЮЩЕЙ КНОПКИ (STICKY CTA)
-      const ctaBar = document.querySelector('.mobile-cta-bar');
-      if (ctaBar) {
-        window.addEventListener('scroll', () => {
-          const currentScroll = window.pageYOffset;
-          // Показываем кнопку, только если прокрутили ниже первого экрана (300px)
-          if (currentScroll > 300) {
-            ctaBar.classList.add('show');
-          } else {
-            ctaBar.classList.remove('show');
-          }
-        }, { passive: true });
-      }
-
-    });
-  </script>
-</body>
-</html>
-
-  <!-- Навигация -->
-  <header class="header">
-    <div class="header-container">
-      <div class="logo">AZ.</div>
-      <button id="lang-toggle" class="lang-btn">
-        <span class="lang-active">RU</span> / <span class="lang-muted">EN</span>
-      </button>
-    </div>
-  </header>
-
-  <main>
-    <!-- 01. HERO -->
-    <section class="hero bg-base fade-up">
-      <div class="container hero-split">
-        <div class="hero-text-side">
-          <div class="hero-badges">
-            <span class="badge" data-lang-ru="11 лет опыта" data-lang-en="11 years of experience">11 лет опыта</span>
-            <span class="badge" data-lang-ru="Oxford & Cambridge" data-lang-en="Oxford & Cambridge">Oxford & Cambridge</span>
-            <span class="badge" data-lang-ru="Miro & Genially" data-lang-en="Miro & Genially">Miro & Genially</span>
-          </div>
-          <h1 class="serif" data-lang-ru="Александра <i class='italic'>Здухова</i>" data-lang-en="Alexandra <i class='italic'>Zdukhova</i>">Александра <i class="italic">Здухова</i></h1>
-          <p class="subtitle" data-lang-ru="Индивидуальные уроки английского. Соединяю строгую академическую базу с интерактивными платформами, чтобы вы заговорили системно, красиво и без страха." data-lang-en="1-on-1 English lessons. I combine a strong academic foundation with interactive platforms so you speak fluently, systematically, and without hesitation.">Индивидуальные уроки английского. Соединяю строгую академическую базу с интерактивными платформами, чтобы вы заговорили системно, красиво и без страха.</p>
-          <div class="hero-actions">
-            <a href="https://t.me/AlexandraGes" target="_blank" class="btn btn-primary" data-lang-ru="Записаться на знакомство" data-lang-en="Book a trial lesson">Записаться на знакомство</a>
-            <a href="#prices" class="link-inline" data-lang-ru="↓ Форматы и цены" data-lang-en="↓ Formats & Pricing">↓ Форматы и цены</a>
-          </div>
-        </div>
-        <div class="hero-image-side">
-          <img src="https://raw.githubusercontent.com/AlexandraGes-ESL/Pictures/main/portfolio-picture.jpg" alt="Александра Здухова">
-        </div>
-      </div>
-    </section>
-
-    <!-- 02. ОБО МНЕ -->
-    <section id="about" class="about bg-milky fade-up">
-      <div class="container about-split">
-        <div class="about-image-wrapper">
-          <!-- ИСПРАВЛЕННАЯ ССЫЛКА НА ФОТО -->
-          <img src="https://i.yapx.ru/dwZUU.jpg" alt="Александра Здухова">
-        </div>
-        <div class="about-text">
-          <h2 class="serif" data-lang-ru="English, with love." data-lang-en="English, with love.">English, with love.</h2>
-          <p data-lang-ru="Привет, я Александра. В преподавании я уже больше 11 лет, и я не верю в «английский во сне за две недели». Я верю в систему, умноженную на искренний интерес.<br><br>Ко мне приходят, чтобы наконец-то заговорить свободно и перестать извиняться за каждую ошибку. Любую новую лексику или грамматическую конструкцию мы сразу выводим в живую речь. Вы начинаете чувствовать логику языка, а не пытаетесь мучительно вспомнить нужную таблицу из учебника.<br><br>За годы практики я создала огромную базу авторских уроков и геймифицированных сайтов-квестов. Со взрослыми мы разбираем бизнес-кейсы, подкасты и психологию. А с детьми и подростками — проходим интерактивные миссии. Главное правило — обсуждать то, что зажигает именно вас. Потому что язык нужен для жизни, а не для галочки." data-lang-en="Hi, I'm Alexandra. I've been teaching for over 11 years, and I don't believe in 'learn English in your sleep in 2 weeks.' I believe in a systematic approach multiplied by genuine interest.<br><br>People come to me to finally speak fluently and stop apologizing for every mistake. We immediately put any new vocabulary or grammar structure into active speech. You begin to feel the logic of the language instead of struggling to recall a specific textbook table.<br><br>Over the years, I have created a massive library of custom lessons and gamified quest websites. With adults, we analyze business cases, podcasts, and psychology. With kids and teens, we complete interactive missions. The main rule is to discuss what genuinely sparks your interest. Because language is for living, not just for ticking boxes.">Привет, я Александра. В преподавании я уже больше 11 лет, и я не верю в «английский во сне за две недели». Я верю в систему, умноженную на искренний интерес.<br><br>Ко мне приходят, чтобы наконец-то заговорить свободно и перестать извиняться за каждую ошибку. Любую новую лексику или грамматическую конструкцию мы сразу выводим в живую речь. Вы начинаете чувствовать логику языка, а не пытаетесь мучительно вспомнить нужную таблицу из учебника.<br><br>За годы практики я создала огромную базу авторских уроков и геймифицированных сайтов-квестов. Со взрослыми мы разбираем бизнес-кейсы, подкасты и психологию. А с детьми и подростками — проходим интерактивные миссии. Главное правило — обсуждать то, что зажигает именно вас. Потому что язык нужен для жизни, а не для галочки.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 03. КАК Я РАБОТАЮ -->
-    <section class="how-i-work bg-base fade-up">
-      <div class="container">
-        <h2 class="serif section-title" data-lang-ru="Как я работаю" data-lang-en="How I work">Как я работаю</h2>
-        <div class="cards-grid">
-          <div class="card bg-pink">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
-            <h3 class="card-title" data-lang-ru="Практика важнее теории" data-lang-en="Practice over theory">Практика важнее теории</h3>
-            <p class="card-text" data-lang-ru="На уроке 80% времени говорите вы. Я создаю безопасную среду и мягко корректирую ошибки, чтобы вы перестали бояться звучать «неидеально» и начали уверенно использовать язык в реальных ситуациях." data-lang-en="You speak 80% of the time during our lessons. I create a safe space and gently correct mistakes so you stop fearing sounding 'imperfect' and start confidently using the language in real life.">На уроке 80% времени говорите вы. Я создаю безопасную среду и мягко корректирую ошибки, чтобы вы перестали бояться звучать «неидеально» и начали уверенно использовать язык в реальных ситуациях.</p>
-          </div>
-          <div class="card bg-blue">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
-            <h3 class="card-title" data-lang-ru="Оксфордская база + живой язык" data-lang-en="Oxford base & living language">Оксфордская база + живой язык</h3>
-            <p class="card-text" data-lang-ru="Мы берем за основу сильные британские программы (Oxford, Cambridge) для чёткого каркаса. А сверху наслаиваем аутентику: подкасты, TED Talks, мемы и свежие статьи. Вы будете учить тот язык, на котором говорят сегодня." data-lang-en="We use strong British frameworks (Oxford, Cambridge) to build a solid structure. Then we layer authentic content: podcasts, TED Talks, memes, and fresh articles. You will learn the language people actually speak today.">Мы берем за основу сильные британские программы (Oxford, Cambridge) для чёткого каркаса. А сверху наслаиваем аутентику: подкасты, TED Talks, мемы и свежие статьи. Вы будете учить тот язык, на котором говорят сегодня.</p>
-          </div>
-          <div class="card bg-sage">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
-            <h3 class="card-title" data-lang-ru="Интерактив и эстетика" data-lang-en="Interactive & visual aesthetics">Интерактив и эстетика</h3>
-            <p class="card-text" data-lang-ru="Я работаю на досках Miro и создаю презентации в Genially. Никаких скучных PDF-файлов или черно-белых распечаток. Красивый визуал и элементы интерактива помогают удерживать фокус как взрослым, так и детям." data-lang-en="I use Miro boards and create presentations in Genially. No boring PDFs or black-and-white printouts. Beautiful visuals and interactive elements keep both adults and kids highly engaged.">Я работаю на досках Miro и создаю презентации в Genially. Никаких скучных PDF-файлов или черно-белых распечаток. Красивый визуал и элементы интерактива помогают удерживать фокус как взрослым, так и детям.</p>
-          </div>
-          <div class="card bg-milky">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
-            <h3 class="card-title" data-lang-ru="Гибкий маршрут" data-lang-en="Flexible roadmap">Гибкий маршрут</h3>
-            <p class="card-text" data-lang-ru="Мы не идем слепо по учебнику от корки до корки. Готовитесь к релокации? Упор на бытовую лексику. Нужно сдать TOEFL? Тренируем формат. Я адаптирую программу под ваш темп и регулярно даю обратную связь." data-lang-en="We don't blindly follow a textbook from cover to cover. Relocating? We focus on everyday survival skills. Taking TOEFL? We drill the format. I adapt the program to your pace and provide regular feedback.">Мы не идем слепо по учебнику от корки до корки. Готовитесь к релокации? Упор на бытовую лексику. Нужно сдать TOEFL? Тренируем формат. Я адаптирую программу под ваш темп и регулярно даю обратную связь.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 & 05. ПРИМЕРЫ МАТЕРИАЛОВ -->
-    <section class="materials bg-milky fade-up">
-      <div class="container">
-        <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Взрослые и подростки" data-lang-en="What lessons look like. Adults & Teens">Как выглядят уроки. Взрослые и подростки</h2>
-        <div class="swipe-hint">Swipe to explore</div> 
-        <div class="carousel">
-          <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-            <div class="lesson-image-wrapper">
-              <!-- ИСПРАВЛЕННЫЕ ССЫЛКИ НА КАРТИНКИ И ВИДЕО -->
-              <img class="cover" src="toefl-lesson-listening-cover.png" alt="TOEFL Lesson">
-              <video class="screencast" src="toefl-listening-screencast.mp4" muted loop playsinline preload="auto"></video>
-            </div>
-            <div class="lesson-tag">Interactive Lesson</div>
-            <h3 class="lesson-title" data-lang-ru="Интерактивный урок-сайт для подготовки к TOEFL" data-lang-en="Interactive site-lesson for TOEFL preparation">Интерактивный урок-сайт для подготовки к TOEFL</h3>
-          </div>
-          <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-            <div class="lesson-image-wrapper">
-              <img class="cover" src="oge-preparation-cover.png" alt="OGE Preparation">
-              <video class="screencast" src="oge-preparation-screencast.mp4" muted loop playsinline preload="auto"></video>
-            </div>
-            <div class="lesson-tag">Miro Board</div>
-            <h3 class="lesson-title" data-lang-ru="Подготовка к ОГЭ: системно и без стресса" data-lang-en="OGE Preparation: systemic and stress-free">Подготовка к ОГЭ: системно и без стресса</h3>
-          </div>
-          <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
-            <div class="lesson-image-wrapper">
-              <img class="cover" src="design-your-phd-cover.png" alt="Design your PhD">
-              <video class="screencast" src="lead-in-phd-lesson-screencast.mp4" muted loop playsinline preload="auto"></video>
-            </div>
-            <div class="lesson-tag">Academic English</div>
-            <h3 class="lesson-title" data-lang-ru="Академический английский: Design your PhD" data-lang-en="Academic English: Design your PhD">Академический английский: Design your PhD</h3>
-          </div>
-        </div>
-
-       <div id="kids-materials" class="kids-divider">
-  <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Дети" data-lang-en="What lessons look like. Kids">Как выглядят уроки. Дети</h2>
-  <div class="swipe-hint">Swipe to explore</div> 
-  <div class="carousel">
-    <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
               <div class="lesson-image-wrapper">
                 <img class="cover" src="hogwarts-speaking-cover.png" alt="Hogwarts Speaking">
                 <video class="screencast" src="hogwarts-speaking-screencast.mp4" muted loop playsinline preload="auto"></video>
