@@ -56,28 +56,27 @@
       margin-bottom: 2rem;
     }
 
-    /* Background Utilities */
+    /* Utilities */
     .bg-base { background-color: var(--bg-base); }
     .bg-milky { background-color: var(--bg-milky); }
     .bg-pink { background-color: var(--bg-pink); }
     .bg-blue { background-color: var(--bg-blue); }
     .bg-sage { background-color: var(--accent-sage); }
 
-    /* Layout & Containers */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 5rem 20px;
     }
 
-    /* Header */
+    /* === Header с навигацией === */
     .header {
       position: fixed;
       top: 0; left: 0; right: 0;
       width: 100%;
       padding: 15px 20px;
       z-index: 1000;
-      background-color: rgba(184, 92, 66, 0.9);
+      background-color: rgba(184, 92, 66, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -89,23 +88,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
     }
     .header .logo { 
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
       font-weight: 500;
       color: #ffffff; 
+      flex-shrink: 0;
     }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      margin-left: auto;
+      margin-right: 15px;
+    }
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: #ffffff; }
+    
     .header .lang-btn {
       background: none;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 4px;
       font-family: 'Manrope', sans-serif;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       color: #ffffff;
-      padding: 5px 10px;
+      padding: 4px 8px;
+      flex-shrink: 0;
     }
     .header .lang-muted { color: rgba(255, 255, 255, 0.5); font-weight: 400; }
 
@@ -196,18 +213,8 @@
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
     .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.05); }
-    .card-icon {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 8px;
-    }
-    .card-icon svg { width: 20px; height: 20px; stroke: rgba(0, 0, 0, 0.7); }
-    .card-title { font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0; color: #222; }
-    .card-text { margin: 0; font-size: 15px; line-height: 1.6; color: rgba(0, 0, 0, 0.75); }
-    .bg-sage .card-icon { border-color: rgba(255, 255, 255, 0.4); }
-    .bg-sage .card-icon svg { stroke: #ffffff; }
+    .card-title { font-size: 20px; font-weight: 600; line-height: 1.3; margin: 0 0 4px 0; color: #222; }
+    .card-text { margin: 0; font-size: 15.5px; line-height: 1.6; color: rgba(0, 0, 0, 0.75); }
     .bg-sage .card-title, .bg-sage .card-text { color: #ffffff; }
 
     /* Carousel / Materials */
@@ -219,14 +226,13 @@
       margin-bottom: 20px;
       scroll-snap-type: x mandatory; 
       scrollbar-width: none;
-      padding-right: 20px;
+      padding-right: 40px; /* Фикс обрезания на десктопе */
     }
-    
     .carousel::-webkit-scrollbar { display: none; }
-    .carousel::after { content: ''; min-width: 20px; height: 1px; display: block; }
+    .carousel::after { content: ''; min-width: 40px; height: 1px; display: block; }
     
     .carousel-item {
-      min-width: 300px; max-width: 380px; flex: 0 0 auto;
+      min-width: 320px; max-width: 380px; flex: 0 0 auto;
       scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; cursor: pointer;
     }
     .lesson-image-wrapper {
@@ -381,34 +387,28 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ============================================== */
-    /* 📱 MOBILE ADAPTATION v4.0 — ФИНАЛЬНЫЙ ФИКС     */
+    /* 📱 MOBILE ADAPTATION v5.0 — ИДЕАЛЬНЫЙ UX       */
     /* ============================================== */
     @media (max-width: 768px) {
-      /* === ОТСТУПЫ: убираем дыры === */
       .container { padding: 40px 20px !important; }
       section { padding: 0 !important; }
 
-      /* === ШАПКА: возвращаем терракотовый фон === */
-      header.header {
-        padding: 12px 20px !important;
-        background-color: rgba(184, 92, 66, 0.95) !important;
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      }
-      header .logo { font-size: 22px !important; color: #ffffff !important; }
-      header .lang-btn { color: #ffffff !important; border-color: rgba(255, 255, 255, 0.4) !important; }
+      /* Навигация в шапке (компактная для мобилки) */
+      .nav-links { gap: 12px; margin-right: 10px; }
+      .nav-links a { font-size: 0.85rem; }
 
-      /* === HERO: фото СВЕРХУ, текст СНИЗУ === */
-      .hero { min-height: auto !important; padding-top: 80px !important; padding-bottom: 0 !important; }
+      /* HERO: Фото без жестких пропорций */
+      .hero { min-height: auto !important; padding-top: 90px !important; padding-bottom: 0 !important; }
       .hero-split { display: flex !important; flex-direction: column !important; gap: 24px !important; }
       .hero-image-side { order: 1 !important; width: 100%; }
       .hero-text-side { order: 2 !important; text-align: left; width: 100%; }
-      .hero-image-side img { max-width: 100%; height: auto; border-radius: 16px; aspect-ratio: 4/3; object-fit: cover; }
-      .hero h1 { font-size: 44px !important; line-height: 1.05 !important; margin: 16px 0 16px !important; }
+      .hero-image-side img { max-width: 100%; height: auto; border-radius: 16px; display: block; }
+      .hero h1 { font-size: 42px !important; line-height: 1.05 !important; margin: 12px 0 16px !important; }
       .hero .subtitle { font-size: 16px !important; line-height: 1.5 !important; margin-bottom: 24px !important; }
-      .hero-badges { gap: 8px !important; margin-bottom: 16px !important; }
+      .hero-badges { gap: 8px !important; margin-bottom: 12px !important; }
       .badge { font-size: 10px !important; padding: 6px 12px !important; }
 
-      /* === БЛОК "ОБО МНЕ" === */
+      /* БЛОК "ОБО МНЕ" */
       .about-split { display: flex !important; flex-direction: column !important; gap: 24px !important; }
       .about-image-wrapper { order: 1; width: 100%; }
       .about-image-wrapper img { max-width: 240px !important; border-radius: 120px 120px 16px 16px !important; margin: 0 auto; display: block; }
@@ -416,37 +416,47 @@
       .about-text h2 { text-align: left !important; font-size: 32px !important; margin-bottom: 16px !important; }
       .about-text p { font-size: 15px !important; line-height: 1.6 !important; }
 
-      /* === ОБЩИЕ ЗАГОЛОВКИ === */
       h2, .section-title { font-size: 30px !important; line-height: 1.15 !important; margin-bottom: 20px !important; }
 
-      /* === КАРУСЕЛЬ УРОКОВ: чистим хаос === */
-      .materials .container { padding: 40px 0 !important; }
-      .materials .section-title { padding: 0 20px; }
-      .swipe-hint { display: block; font-size: 11px !important; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,0,0.4); padding: 0 20px; margin: -8px 0 16px !important; }
-      .carousel { padding-left: 20px !important; padding-right: 0 !important; margin: 0 !important; gap: 16px !important; }
-      .carousel-item { min-width: 280px !important; max-width: 280px !important; }
-      .lesson-title { font-size: 16px !important; }
-      .kids-divider { margin: 32px 0 0 !important; padding-top: 32px !important; }
+      /* === КАРУСЕЛЬ УРОКОВ: ВЕРТИКАЛЬНАЯ (БОЛЬШЕ НЕ ОБРЕЗАЕТСЯ) === */
+      .materials .container { padding: 40px 20px !important; }
+      .materials .section-title { padding: 0; }
+      .swipe-hint { display: none !important; }
+      .carousel {
+        display: flex !important;
+        flex-direction: column !important; /* Уроки идут друг под другом */
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 32px !important;
+        overflow: visible !important; /* Убрали скролл */
+      }
+      .carousel::after { display: none !important; }
+      .carousel-item {
+        min-width: 100% !important;
+        max-width: 100% !important;
+      }
+      .lesson-title { font-size: 18px !important; }
+      .kids-divider { margin: 40px 0 0 !important; padding-top: 40px !important; }
 
-      /* === КАРТОЧКИ "КАК Я РАБОТАЮ" === */
+      /* КАРТОЧКИ "КАК Я РАБОТАЮ" (без стрелок) */
       .cards-grid { gap: 12px !important; }
       .card { padding: 28px 24px !important; }
 
-      /* === ОТЗЫВЫ === */
+      /* ОТЗЫВЫ */
       .testimonials-grid { gap: 1.25rem !important; margin-top: 20px !important; }
       .review-card { padding: 1.75rem 1.5rem 1.5rem !important; }
 
-      /* === ЦЕНЫ === */
+      /* ЦЕНЫ */
       .prices-intro { font-size: 15px !important; margin-bottom: 24px !important; }
       .prices-grid { gap: 20px !important; }
       .price-block { padding: 1.75rem 1.5rem !important; }
 
-      /* === ФУТЕР === */
+      /* ФУТЕР */
       .footer-cta { margin-bottom: 32px !important; }
       .footer-contacts { gap: 12px !important; margin-bottom: 32px !important; }
       .footer-bottom { margin-top: 24px !important; }
 
-      /* === STICKY CTA-кнопка === */
+      /* STICKY CTA */
       body { padding-bottom: 80px; }
       .mobile-cta-bar {
         display: flex !important; position: fixed; bottom: 0; left: 0; right: 0;
@@ -476,6 +486,10 @@
   <header class="header">
     <div class="header-container">
       <div class="logo">AZ.</div>
+      <nav class="nav-links">
+        <a href="#about" data-lang-ru="Обо мне" data-lang-en="About">Обо мне</a>
+        <a href="#prices" data-lang-ru="Цены" data-lang-en="Prices">Цены</a>
+      </nav>
       <button id="lang-toggle" class="lang-btn">
         <span class="lang-active">RU</span> / <span class="lang-muted">EN</span>
       </button>
@@ -518,28 +532,24 @@
       </div>
     </section>
 
-    <!-- 03. КАК Я РАБОТАЮ -->
+    <!-- 03. КАК Я РАБОТАЮ (Стрелки удалены) -->
     <section class="how-i-work bg-base fade-up">
       <div class="container">
         <h2 class="serif section-title" data-lang-ru="Как я работаю" data-lang-en="How I work">Как я работаю</h2>
         <div class="cards-grid">
           <div class="card bg-pink">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
             <h3 class="card-title" data-lang-ru="Практика важнее теории" data-lang-en="Practice over theory">Практика важнее теории</h3>
             <p class="card-text" data-lang-ru="На уроке 80% времени говорите вы. Я создаю безопасную среду и мягко корректирую ошибки, чтобы вы перестали бояться звучать «неидеально» и начали уверенно использовать язык в реальных ситуациях." data-lang-en="You speak 80% of the time during our lessons. I create a safe space and gently correct mistakes so you stop fearing sounding 'imperfect' and start confidently using the language in real life.">На уроке 80% времени говорите вы. Я создаю безопасную среду и мягко корректирую ошибки, чтобы вы перестали бояться звучать «неидеально» и начали уверенно использовать язык в реальных ситуациях.</p>
           </div>
           <div class="card bg-blue">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
             <h3 class="card-title" data-lang-ru="Оксфордская база + живой язык" data-lang-en="Oxford base & living language">Оксфордская база + живой язык</h3>
             <p class="card-text" data-lang-ru="Мы берем за основу сильные британские программы (Oxford, Cambridge) для чёткого каркаса. А сверху наслаиваем аутентику: подкасты, TED Talks, мемы и свежие статьи. Вы будете учить тот язык, на котором говорят сегодня." data-lang-en="We use strong British frameworks (Oxford, Cambridge) to build a solid structure. Then we layer authentic content: podcasts, TED Talks, memes, and fresh articles. You will learn the language people actually speak today.">Мы берем за основу сильные британские программы (Oxford, Cambridge) для чёткого каркаса. А сверху наслаиваем аутентику: подкасты, TED Talks, мемы и свежие статьи. Вы будете учить тот язык, на котором говорят сегодня.</p>
           </div>
           <div class="card bg-sage">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
             <h3 class="card-title" data-lang-ru="Интерактив и эстетика" data-lang-en="Interactive & visual aesthetics">Интерактив и эстетика</h3>
             <p class="card-text" data-lang-ru="Я работаю на досках Miro и создаю презентации в Genially. Никаких скучных PDF-файлов или черно-белых распечаток. Красивый визуал и элементы интерактива помогают удерживать фокус как взрослым, так и детям." data-lang-en="I use Miro boards and create presentations in Genially. No boring PDFs or black-and-white printouts. Beautiful visuals and interactive elements keep both adults and kids highly engaged.">Я работаю на досках Miro и создаю презентации в Genially. Никаких скучных PDF-файлов или черно-белых распечаток. Красивый визуал и элементы интерактива помогают удерживать фокус как взрослым, так и детям.</p>
           </div>
           <div class="card bg-milky">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
             <h3 class="card-title" data-lang-ru="Гибкий маршрут" data-lang-en="Flexible roadmap">Гибкий маршрут</h3>
             <p class="card-text" data-lang-ru="Мы не идем слепо по учебнику от корки до корки. Готовитесь к релокации? Упор на бытовую лексику. Нужно сдать TOEFL? Тренируем формат. Я адаптирую программу под ваш темп и регулярно даю обратную связь." data-lang-en="We don't blindly follow a textbook from cover to cover. Relocating? We focus on everyday survival skills. Taking TOEFL? We drill the format. I adapt the program to your pace and provide regular feedback.">Мы не идем слепо по учебнику от корки до корки. Готовитесь к релокации? Упор на бытовую лексику. Нужно сдать TOEFL? Тренируем формат. Я адаптирую программу под ваш темп и регулярно даю обратную связь.</p>
           </div>
@@ -551,7 +561,6 @@
     <section class="materials bg-milky fade-up">
       <div class="container">
         <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Взрослые и подростки" data-lang-en="What lessons look like. Adults & Teens">Как выглядят уроки. Взрослые и подростки</h2>
-        <div class="swipe-hint">Swipe to explore</div> 
         <div class="carousel">
           <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
             <div class="lesson-image-wrapper">
@@ -581,7 +590,6 @@
 
         <div id="kids-materials" class="kids-divider">
           <h2 class="serif section-title" data-lang-ru="Как выглядят уроки. Дети" data-lang-en="What lessons look like. Kids">Как выглядят уроки. Дети</h2>
-          <div class="swipe-hint">Swipe to explore</div> 
           <div class="carousel">
             <div class="carousel-item" onmouseenter="playScreencast(this)" onmouseleave="pauseScreencast(this)">
               <div class="lesson-image-wrapper">
@@ -832,22 +840,17 @@
       </div>
     </section>
 
-    <!-- 09. ПРИХОДИТЕ ВМЕСТЕ (ИСПРАВЛЕНО НА ЖУРНАЛЬНЫЙ СТИЛЬ) -->
+    <!-- 09. ПРИХОДИТЕ ВМЕСТЕ -->
     <section class="come-together bg-pink fade-up">
       <div class="container">
         <div class="editorial-split">
-          
-          <!-- Левая колонка -->
           <div class="editorial-title-side">
             <span class="editorial-tag" data-lang-ru="Спецпредложение" data-lang-en="Special offer">Спецпредложение</span>
             <h2 class="serif section-title" data-lang-ru="Приходите вместе" data-lang-en="Learn together">Приходите вместе</h2>
           </div>
-  
-          <!-- Правая колонка -->
           <div class="editorial-text-side">
             <p data-lang-ru="Английский интереснее учить с близкими. Если хотите заниматься с другом, супругом или коллегой — есть формат в паре. Подходит для близких по уровню и общей цели. А если приведёте нового ученика и он отзанимается месяц — оба получаете бесплатное занятие в подарок." data-lang-en="Learning English is more fun with loved ones. If you want to study with a friend, spouse, or colleague, we offer paired lessons (ideal for similar levels and goals). Plus, if you refer a new student and they stay for a month, both of you get a free lesson as a gift.">Английский интереснее учить с близкими. Если хотите заниматься с другом, супругом или коллегой — есть формат в паре. Подходит для близких по уровню и общей цели. А если приведёте нового ученика и он отзанимается месяц — оба получаете бесплатное занятие в подарок.</p>
           </div>
-  
         </div>
       </div>
     </section>
@@ -958,9 +961,6 @@
     <a href="#contacts" class="cta-button" data-lang-ru="Записаться" data-lang-en="Book now">Записаться</a>
   </div>
 
-  <!-- ==========================================
-       ВЕСЬ JAVASCRIPT (ЛОГИКА И АНИМАЦИИ) 
-       ========================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -1063,7 +1063,6 @@
       if (ctaBar) {
         window.addEventListener('scroll', () => {
           const currentScroll = window.pageYOffset;
-          // Показываем кнопку, только если прокрутили ниже первого экрана (300px)
           if (currentScroll > 300) {
             ctaBar.classList.add('show');
           } else {
@@ -1071,6 +1070,24 @@
           }
         }, { passive: true });
       }
+
+      // 7. ПЛАВНЫЙ СКРОЛЛ ДЛЯ ССЫЛОК В ШАПКЕ
+      document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            const headerOffset = 60;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
 
     });
   </script>
