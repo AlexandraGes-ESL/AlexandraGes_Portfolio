@@ -213,8 +213,7 @@
     .bg-sage .card-icon svg { stroke: #ffffff; }
     .bg-sage .card-title, .bg-sage .card-text { color: #ffffff; }
 
-        /* Carousel / Materials */
-        /* Карусель (Контейнер) */
+    /* Carousel / Materials */
     .carousel {
       display: flex; 
       gap: 24px; 
@@ -223,25 +222,20 @@
       margin-bottom: 20px;
       scroll-snap-type: x mandatory; 
       scrollbar-width: none;
+      padding-right: 20px;
     }
     
     .carousel::-webkit-scrollbar { 
       display: none; 
     }
 
-    /* БРОНЕБОЙНАЯ РАСПОРКА ДЛЯ ПРАВОГО КРАЯ */
     .carousel::after {
       content: '';
-      min-width: 20px; /* Жестко заставляем браузер оставить 20px пустоты */
+      min-width: 20px; 
       height: 1px;
       display: block;
     }
     
-    /* Добавляем внутренний отступ самой карусели */
-    .carousel {
-      padding-right: 20px; 
-    }
-    .carousel::-webkit-scrollbar { display: none; }
     .carousel-item {
       min-width: 300px; max-width: 380px; flex: 0 0 auto;
       scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; cursor: pointer;
@@ -256,7 +250,6 @@
     }
     .carousel-item:hover .lesson-image-wrapper img { transform: scale(1.05); }
 
-    /* СТИЛИ ДЛЯ ВИДЕО ПРИ НАВЕДЕНИИ */
     .screencast {
       position: absolute;
       top: 0;
@@ -406,19 +399,18 @@
     .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-       /* ============================================== */
-/* 📱 SENIOR UX/UI MOBILE ADAPTATION v2.0          */
-/* Цель: личный бренд + конверсия в запись на урок */
+/* ============================================== */
+/* 📱 SENIOR UX/UI MOBILE ADAPTATION v3.0          */
+/* Гарантированный фикс сетки и плавающая кнопка   */
 /* ============================================== */
 @media (max-width: 768px) {
 
-  /* === 1. КРИТИЧЕСКИЕ ФИКСЫ ЛЕЙАУТА === */
-  
-  /* Схлопываем все 2-колоночные блоки в одну колонку */
+  /* ФИКС ДЫРЫ: Жестко выключаем Grid и делаем колонку через Flexbox */
   .hero-split,
   .about-split,
   .editorial-split {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 32px !important;
   }
 
@@ -432,10 +424,12 @@
   .hero-text-side {
     text-align: left;
     order: 1; /* Текст идёт первым */
+    width: 100%;
   }
   
   .hero-image-side {
     order: 2; /* Фото идёт после текста */
+    width: 100%;
   }
   
   .hero-image-side img {
@@ -464,14 +458,24 @@
     letter-spacing: 0.5px;
   }
 
-  /* === 2. БЛОК "ОБО МНЕ" — личный бренд === */
-  
+  /* === БЛОК "ОБО МНЕ" — гарантированная колонка === */
+  .about-image-wrapper {
+    order: 1;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   .about-image-wrapper img {
     max-width: 260px !important;
     border-radius: 130px 130px 16px 16px !important;
     margin: 0 auto;
     display: block;
     box-shadow: 0 20px 40px rgba(193, 96, 64, 0.15);
+  }
+
+  .about-text {
+    order: 2;
+    width: 100%;
   }
 
   .about-text h2 {
@@ -485,8 +489,7 @@
     line-height: 1.65 !important;
   }
 
-  /* === 3. ОБЩИЕ СЕКЦИИ === */
-  
+  /* === ОБЩИЕ СЕКЦИИ === */
   section {
     padding: 60px 20px !important;
   }
@@ -509,9 +512,12 @@
     min-width: 8px !important;
   }
 
-  /* === 4. STICKY CTA — КНОПКА КОНВЕРСИИ === */
-  /* Всегда видимая кнопка "Записаться" внизу экрана */
-  
+  /* === STICKY CTA — КНОПКА КОНВЕРСИИ === */
+  /* Отступ снизу страницы, чтобы CTA не перекрывал футер */
+  body {
+    padding-bottom: 80px;
+  }
+
   .mobile-cta-bar {
     display: flex !important;
     position: fixed;
@@ -528,11 +534,11 @@
     align-items: center;
     box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
     transform: translateY(100%);
-    animation: slideUpCTA 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
-  @keyframes slideUpCTA {
-    to { transform: translateY(0); }
+  .mobile-cta-bar.show {
+    transform: translateY(0);
   }
   
   .mobile-cta-bar .cta-text {
@@ -567,14 +573,8 @@
   .mobile-cta-bar .cta-button:active {
     transform: scale(0.96);
   }
-  
-  /* Отступ снизу страницы, чтобы CTA не перекрывал контент */
-  body {
-    padding-bottom: 80px;
-  }
 
-  /* === 5. УЛУЧШЕННАЯ ВЕРХНЯЯ НАВИГАЦИЯ === */
-  
+  /* === УЛУЧШЕННАЯ ВЕРХНЯЯ НАВИГАЦИЯ === */
   header {
     padding: 14px 20px !important;
     background: rgba(255, 252, 248, 0.85) !important;
@@ -583,78 +583,9 @@
     transition: all 0.3s ease;
   }
   
-  /* Логотип AZ. — делаем заметнее */
   header .logo {
     font-size: 22px !important;
     letter-spacing: -0.5px;
-  }
-
-  /* === 6. АНИМАЦИИ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ === */
-  
-  /* Базовое состояние — скрыто */
-  .fade-in-up {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  /* Когда появляется в зоне видимости */
-  .fade-in-up.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Каскадные задержки для красоты */
-  .fade-in-up.delay-1 { transition-delay: 0.1s; }
-  .fade-in-up.delay-2 { transition-delay: 0.2s; }
-  .fade-in-up.delay-3 { transition-delay: 0.3s; }
-
-  /* Hero-элементы появляются сразу при загрузке */
-  .hero h1,
-  .hero-badges,
-  .hero p,
-  .hero .cta-button,
-  .hero-image-side {
-    animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-  }
-  
-  .hero-badges { animation-delay: 0.1s; }
-  .hero h1 { animation-delay: 0.25s; }
-  .hero p { animation-delay: 0.45s; }
-  .hero .cta-button { animation-delay: 0.6s; }
-  .hero-image-side { animation-delay: 0.35s; }
-  
-  @keyframes heroFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Микро-анимация бейджей */
-  .badge {
-    transition: transform 0.3s ease;
-  }
-  
-  .badge:active {
-    transform: scale(0.95);
-  }
-
-  /* Pulse на главной CTA-кнопке для привлечения внимания */
-  .hero .cta-button {
-    animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
-               subtlePulse 3s ease-in-out 2s infinite;
-  }
-  
-  @keyframes subtlePulse {
-    0%, 100% { box-shadow: 0 8px 20px rgba(193, 96, 64, 0.3); }
-    50% { box-shadow: 0 8px 32px rgba(193, 96, 64, 0.5); }
   }
 }
 
@@ -1093,7 +1024,7 @@
     </section>
 
     <!-- 11. ФУТЕР -->
-    <footer class="footer bg-base fade-up">
+    <footer class="footer bg-base fade-up" id="contacts">
       <div class="container">
         
         <div class="footer-cta">
@@ -1147,6 +1078,15 @@
       </div>
     </footer>
   </main>
+
+  <!-- 📱 ПЛАВАЮЩАЯ КНОПКА ЗАПИСИ (STICKY CTA) ДЛЯ МОБИЛЬНЫХ -->
+  <div class="mobile-cta-bar">
+    <div class="cta-text">
+      <span data-lang-ru="Готовы заговорить?" data-lang-en="Ready to speak?">Готовы заговорить?</span>
+      <small data-lang-ru="Бесплатный пробный урок" data-lang-en="Free trial lesson">Бесплатный пробный урок</small>
+    </div>
+    <a href="#contacts" class="cta-button" data-lang-ru="Записаться" data-lang-en="Book now">Записаться</a>
+  </div>
 
   <!-- ==========================================
        ВЕСЬ JAVASCRIPT (ЛОГИКА И АНИМАЦИИ) 
@@ -1247,6 +1187,21 @@
         });
         btn.style.display = 'none';
       };
+
+      // 6. ЛОГИКА ПЛАВАЮЩЕЙ КНОПКИ (STICKY CTA)
+      const ctaBar = document.querySelector('.mobile-cta-bar');
+      if (ctaBar) {
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.pageYOffset;
+          // Показываем кнопку, только если прокрутили ниже первого экрана (300px)
+          if (currentScroll > 300) {
+            ctaBar.classList.add('show');
+          } else {
+            ctaBar.classList.remove('show');
+          }
+        }, { passive: true });
+      }
+
     });
   </script>
 </body>
