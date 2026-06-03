@@ -478,34 +478,35 @@
     @media (min-width: 769px) {
       .mobile-cta-bar { display: none !important; }
     }
-        /* === STICKY CTA ДЛЯ ДЕСКТОПА (Плавающий виджет) === */
+            /* === STICKY CTA ДЛЯ ДЕСКТОПА (В правом нижнем углу) === */
     @media (min-width: 769px) {
       .mobile-cta-bar {
         display: flex !important;
         position: fixed;
-        bottom: 40px; /* Отступ снизу */
-        left: 50%;
+        bottom: 40px;
+        right: 40px; /* Прижали к правому краю */
+        left: auto;  /* Сбросили центрирование */
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(193, 96, 64, 0.15);
-        padding: 12px 12px 12px 28px;
+        padding: 12px 12px 12px 24px;
         border-radius: 100px;
         z-index: 999;
-        gap: 24px;
+        gap: 20px;
         align-items: center;
         box-shadow: 0 12px 40px rgba(31, 26, 23, 0.08);
         
-        /* Скрытое состояние по умолчанию */
-        transform: translate(-50%, 150%);
+        /* Скрытое состояние (прячем просто вниз) */
+        transform: translateY(150%);
         opacity: 0;
         transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        pointer-events: none; /* чтобы не мешала кликать, пока скрыта */
+        pointer-events: none;
       }
       
-      /* Класс, который скрипт добавляет при скролле */
+      /* Появление */
       .mobile-cta-bar.show {
-        transform: translate(-50%, 0);
+        transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
       }
@@ -515,6 +516,7 @@
         color: #1F1A17; 
         line-height: 1.3; 
         font-weight: 500;
+        text-align: right; /* Текст аккуратно равняем к кнопке */
       }
       
       .mobile-cta-bar .cta-text small {
@@ -528,7 +530,7 @@
       .mobile-cta-bar .cta-button {
         background: #B8543A; 
         color: #fff; 
-        padding: 14px 32px; 
+        padding: 14px 28px; 
         border-radius: 100px;
         text-decoration: none; 
         font-weight: 500; 
