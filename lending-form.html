@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Бриф на сайт — Александра Гес</title>
+
+<!-- Manrope (текст) + Playfair Display (засечные заголовки, как на лендинге AZ.) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================
+     ДИЗАЙН-ТОКЕНЫ — ДНК бренда AZ.
+     (терракота + шалфей + кремовый)
+  ============================================ */
+  :root {
+    --color-bg-page: #C4614A;        /* терракотовый фон страницы (как хедер лендинга) */
+    --color-container: #F3EFE9;      /* кремово-молочный контейнер */
+    --color-card: #FFFFFF;           /* белые карточки */
+    --color-text: #2B2724;           /* тёплый графит */
+    --color-muted: #8A837B;          /* приглушённый текст-подсказка */
+
+    --color-accent: #C4614A;         /* терракота — главный акцент выбора */
+    --color-accent-soft: #ECD9D3;    /* мягкая терракотовая пастель */
+    --color-sage: #7E9070;           /* шалфейный зелёный — акцент картинок */
+    --color-sage-soft: #DCE4D4;      /* пастельный шалфей */
+
+    --color-btn: #2B2724;            /* тёмная кнопка-таблетка */
+
+    --color-field: #EDE7DF;          /* фон полей ввода по умолчанию */
+
+    --radius-container: 32px;
+    --radius-card: 24px;
+    --radius-field: 16px;
+
+    --shadow-hover: 0 14px 34px rgba(43, 39, 36, 0.12);
+
+    --gap: 16px;
+    --transition: all 0.3s ease;
+
+    --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-head: 'Playfair Display', Georgia, serif;  /* засечный, как «Александра Здухова» */
+  }
+
+  /* ============================================ СБРОС ============================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.55;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+
+    /* Фон в стиле лендинга: терракота с мягкой текстурой */
+    background-color: var(--color-bg-page);
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(255,255,255,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 90% 100%, rgba(0,0,0,0.15) 0%, transparent 55%);
+    background-attachment: fixed;
+  }
+
+  /* ============================================ ГЛАВНЫЙ КОНТЕЙНЕР ============================================ */
+  .brief {
+    width: 100%;
+    max-width: 840px;
+    background-color: var(--color-container);
+    border-radius: var(--radius-container);
+    padding: 44px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.30);
+  }
+
+  /* Шапка — «одна ДНК с лендингом», но отдельный продукт */
+  .brief__header { margin-bottom: 34px; }
+
+  .brief__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .brief__badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-card);
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--color-accent-soft);
+  }
+
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+  /* курсивный акцент, как «Здухова» / «our providers» на референсах */
+  h1 em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .brief__subtitle {
+    margin-top: 14px;
+    color: var(--color-muted);
+    font-size: 1.02rem;
+    max-width: 540px;
+  }
+
+  /* ============================================ СЕТКА BENTO ============================================ */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+  }
+
+  .bento-block {
+    background-color: var(--color-card);
+    border-radius: var(--radius-card);
+    padding: 26px;
+    transition: var(--transition);
+  }
+  .bento-block:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .bento-block--full { grid-column: 1 / -1; }
+
+  .bento-block__num {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    margin-bottom: 4px;
+  }
+  .bento-block__label {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .bento-block__hint {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--color-muted);
+    margin-bottom: 18px;
+  }
+
+  /* ============================================ ПОЛЯ ВВОДА (инверсия при фокусе) ============================================ */
+  .field {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+    background-color: var(--color-field);
+    border: 2px solid transparent;
+    border-radius: var(--radius-field);
+    padding: 15px 18px;
+    transition: var(--transition);
+    outline: none;
+  }
+  .field::placeholder { color: var(--color-muted); }
+
+  /* Инверсия: тёмное поле + белый текст при фокусе */
+  .field:focus {
+    background-color: var(--color-text);
+    color: #FFFFFF;
+    border-color: var(--color-text);
+  }
+  .field:focus::placeholder { color: rgba(255,255,255,0.5); }
+
+  textarea.field { resize: vertical; min-height: 110px; }
+
+  /* select со стрелкой */
+  select.field {
+    cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A837B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    padding-right: 44px;
+  }
+  select.field:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+
+  /* Доп. поле "свой вариант" — скрыто, плавно появляется */
+  .conditional {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  }
+  .conditional.is-visible {
+    max-height: 120px;
+    opacity: 1;
+    margin-top: 12px;
+  }
+
+  /* ============================================ РАДИО-ПЛАШКИ (терракота при выборе) ============================================ */
+  .radio-group { display: flex; flex-direction: column; gap: 10px; }
+
+  .radio-pill {
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background-color: var(--color-field);
+    border-radius: var(--radius-field);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    user-select: none;
+  }
+  .radio-pill input { position: absolute; opacity: 0; pointer-events: none; }
+
+  .radio-pill .dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--color-muted);
+    flex-shrink: 0; position: relative;
+    transition: var(--transition);
+  }
+  .radio-pill .dot::after {
+    content: ''; position: absolute; inset: 4px; border-radius: 50%;
+    background: #FFFFFF; transform: scale(0); transition: var(--transition);
+  }
+  .radio-pill:hover { background-color: #E4DCD1; }
+
+  /* выбранная плашка — терракота, текст белый */
+  .radio-pill:has(input:checked) {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .radio-pill:has(input:checked) .dot { border-color: #FFFFFF; }
+  .radio-pill:has(input:checked) .dot::after { transform: scale(1); }
+
+  /* ============================================ ГАЛЕРЕЯ СТИЛЕЙ (мультивыбор — чекбоксы) ============================================ */
+  .style-hint-tip {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .style-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .style-option {
+    position: relative;
+    cursor: pointer;
+    border-radius: var(--radius-field);
+    overflow: hidden;
+    border: 3px solid transparent;
+    background: var(--color-field);
+    transition: var(--transition);
+  }
+  .style-option input { position: absolute; opacity: 0; pointer-events: none; }
+
+  .style-option img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: var(--transition);
+  }
+  .style-option:hover img { transform: scale(1.05); }
+
+  .style-option .body {
+    padding: 12px 12px 14px;
+    transition: var(--transition);
+  }
+  .style-option .body b {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .style-option .body small {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--color-muted);
+    margin-top: 3px;
+    transition: var(--transition);
+  }
+
+  /* галочка-индикатор (появляется при выборе) */
+  .style-option .check {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0.6);
+    transition: var(--transition);
+    font-size: 14px; color: var(--color-sage);
+  }
+
+  /* выбранный стиль — шалфейная рамка/подложка */
+  .style-option:has(input:checked) { border-color: var(--color-sage); }
+  .style-option:has(input:checked) .body { background: var(--color-sage-soft); }
+  .style-option:has(input:checked) .body small { color: var(--color-text); }
+  .style-option:has(input:checked) .check { opacity: 1; transform: scale(1); }
+
+  /* ============================================ УСЛОВИЯ + СОГЛАСИЕ ============================================ */
+  .terms-card {
+    grid-column: 1 / -1;
+    background: var(--color-sage-soft);
+    border-radius: var(--radius-card);
+    padding: 26px;
+  }
+  .terms-card__title {
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .terms-card p {
+    font-size: 0.92rem;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .terms-card b { color: var(--color-accent); }
+
+  /* Чекбокс согласия */
+  .agree {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.6);
+    border-radius: var(--radius-field);
+    cursor: pointer;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    user-select: none;
+    transition: var(--transition);
+  }
+  .agree:hover { background: rgba(255,255,255,0.85); }
+  .agree input { position: absolute; opacity: 0; pointer-events: none; }
+
+  .agree .box {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border: 2px solid var(--color-muted);
+    border-radius: 7px;
+    position: relative;
+    transition: var(--transition);
+    margin-top: 1px;
+  }
+  .agree .box::after {
+    content: '✓';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-size: 14px; font-weight: 700;
+    transform: scale(0); transition: var(--transition);
+  }
+  .agree:has(input:checked) .box {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .agree:has(input:checked) .box::after { transform: scale(1); }
+  .agree a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ============================================ КНОПКИ ============================================ */
+  .actions {
+    grid-column: 1 / -1;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 18px; margin-top: 6px;
+  }
+  .btn-primary {
+    width: 100%; max-width: 480px;
+    background-color: var(--color-btn);
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 1.08rem; font-weight: 700;
+    border: none; border-radius: 999px;
+    padding: 20px 32px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(43,39,36,0.35);
+  }
+  .btn-primary:active:not(:disabled) { transform: translateY(0); }
+  /* Заблокированное состояние (нет согласия) */
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    background: none; border: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--color-muted);
+    cursor: pointer;
+    text-decoration: underline; text-underline-offset: 4px;
+    transition: var(--transition);
+  }
+  .btn-secondary:hover:not(:disabled) { color: var(--color-text); }
+  .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: none; }
+
+  /* ============================================ АДАПТАЦИЯ ============================================ */
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    .brief { border-radius: 20px; padding: 24px 16px; max-width: 100%; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-block, .bento-block--full { grid-column: 1 / -1; }
+    /* Галерея стилей — 2 колонки на мобильном */
+    .style-grid { grid-template-columns: repeat(2, 1fr); }
+    .btn-primary { max-width: 100%; }
+    h1 { font-size: 2.1rem; }
+  }
+</style>
+</head>
+
+<body>
+  <form class="brief" id="briefForm" novalidate>
+
+    <!-- ШАПКА -->
+    <header class="brief__header">
+      <div class="brief__badges">
+        <span class="brief__badge">Бриф на сайт</span>
+        <span class="brief__badge">@AlexandraGes_ESL</span>
+      </div>
+      <h1>Давайте создадим <em>ваш</em> сайт</h1>
+      <p class="brief__subtitle">
+        Несколько вопросов о вас и проекте — это поможет собрать сайт, который точно отражает вашу экспертность преподавателя.
+      </p>
+    </header>
+
+    <div class="bento-grid">
+
+      <!-- 1. Имя (без примера-плейсхолдера) -->
+      <div class="bento-block">
+        <span class="bento-block__num">01</span>
+        <label class="bento-block__label" for="name">Ваше имя и фамилия</label>
+        <span class="bento-block__hint">Как к вам обращаться</span>
+        <input class="field" type="text" id="name" name="name" placeholder="Введите имя и фамилию" />
+      </div>
+
+      <!-- 2. Что преподаёте (список + свой вариант) -->
+      <div class="bento-block">
+        <span class="bento-block__num">02</span>
+        <label class="bento-block__label" for="subject">Что вы преподаёте?</label>
+        <span class="bento-block__hint">Выберите из списка</span>
+        <select class="field" id="subject" name="subject">
+          <option value="" disabled selected>Выберите дисциплину</option>
+          <option value="Английский язык">Английский язык</option>
+          <option value="Китайский язык">Китайский язык</option>
+          <option value="Другой иностранный язык">Другой иностранный язык</option>
+          <option value="Точные науки (математика, физика и т.д.)">Точные науки (математика, физика…)</option>
+          <option value="Гуманитарные предметы">Гуманитарные предметы</option>
+          <option value="Творческие дисциплины">Творческие дисциплины</option>
+          <option value="__other__">Свой вариант</option>
+        </select>
+        <!-- Поле появляется при выборе «Свой вариант» -->
+        <div class="conditional" id="subjectOtherWrap">
+          <input class="field" type="text" id="subjectOther" placeholder="Напишите, что вы преподаёте" />
+        </div>
+      </div>
+
+      <!-- 3. Ссылки -->
+      <div class="bento-block bento-block--full">
+        <span class="bento-block__num">03</span>
+        <label class="bento-block__label" for="links">Ссылки на вас</label>
+        <span class="bento-block__hint">Соцсети, Telegram-канал или текущий сайт</span>
+        <input class="field" type="text" id="links" name="links" placeholder="@nickname, t.me/channel, ваш-сайт.ру" />
+      </div>
+
+      <!-- 4. Галерея стилей (мультивыбор, с пинтерест-тегами) -->
+      <div class="bento-block bento-block--full">
+        <span class="bento-block__num">04</span>
+        <span class="bento-block__label">Какая эстетика вам ближе?</span>
+        <span class="bento-block__hint">Можно выбрать несколько направлений</span>
+        <!-- подсказка: названия можно вбить в Pinterest -->
+        <p class="style-hint-tip">💡 Совет: название стиля можно вбить в Pinterest и посмотреть эстетику вживую</p>
+
+        <div class="style-grid">
+          <!-- placeholder-изображения Unsplash: замени на свои референсы -->
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Минимализм / чистая типографика" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Минимализм</b><small>Чистая типографика, воздух, спокойствие</small></span>
+          </label>
+
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Дофаминовый дизайн" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Дофаминовый</b><small>Сочные цвета, стикеры, максимум радости</small></span>
+          </label>
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Y2K / нулевые" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Y2K / нулевые</b><small>Глянец, хром, бабочки, дерзкий bold</small></span>
+          </label>
+
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Природный / шалфейный" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Природный</b><small>Шалфей, растения, тёплый и мягкий вайб</small></span>
+          </label>
+
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Retro candy / винтаж" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Retro candy</b><small>Ретро-типографика, тёплые ягодные тона</small></span>
+          </label>
+
+          <label class="style-option">
+            <input type="checkbox" name="style" value="Bold электрик / коллаж" />
+            <span class="check">✓</span>
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop" alt="" />
+            <span class="body"><b>Bold электрик</b><small>Крупные буквы, коллажи, кислотные акценты</small></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5. Дополнительные пожелания -->
+      <div class="bento-block bento-block--full">
+        <span class="bento-block__num">05</span>
+        <label class="bento-block__label" for="wishes">Дополнительные пожелания по стилю</label>
+        <span class="bento-block__hint">Любимые цвета, примеры сайтов, которые вам нравятся</span>
+        <textarea class="field" id="wishes" name="wishes" placeholder="Мне нравятся тёплые пастельные тона, референс: пример.ру"></textarea>
+      </div>
+
+      <!-- 6. Материалы для сайта (радио-группа) -->
+      <div class="bento-block">
+        <span class="bento-block__num">06</span>
+        <span class="bento-block__label">Материалы для сайта</span>
+        <span class="bento-block__hint">Логотип, фотографии</span>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="materials" value="Есть логотип и фото" />
+            <span class="dot"></span><span>Есть логотип и фото</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="materials" value="Есть только фото" />
+            <span class="dot"></span><span>Есть только фото</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="materials" value="Ничего нет, нужна помощь" />
+            <span class="dot"></span><span>Ничего нет, нужна помощь</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 7. Главная задача сайта (select + свой вариант) -->
+      <div class="bento-block">
+        <span class="bento-block__num">07</span>
+        <label class="bento-block__label" for="goal">Главная задача сайта</label>
+        <span class="bento-block__hint">Что важнее всего</span>
+        <select class="field" id="goal" name="goal">
+          <option value="" disabled selected>Выберите вариант</option>
+          <option value="Визитка">Визитка</option>
+          <option value="Лендинг курса">Лендинг курса</option>
+          <option value="Сбор заявок">Сбор заявок</option>
+          <option value="__other__">Свой вариант</option>
+        </select>
+        <!-- Поле появляется при выборе «Свой вариант» -->
+        <div class="conditional" id="goalOtherWrap">
+          <input class="field" type="text" id="goalOther" placeholder="Опишите задачу сайта" />
+        </div>
+      </div>
+
+      <!-- 8. Готовность начать (радио-группа) -->
+      <div class="bento-block bento-block--full">
+        <span class="bento-block__num">08</span>
+        <span class="bento-block__label">Готовность начать работу</span>
+        <span class="bento-block__hint">Отметьте ваш статус</span>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="ready" value="Готова начать" />
+            <span class="dot"></span><span>Готова начать 🚀</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="ready" value="Есть вопросы" />
+            <span class="dot"></span><span>Есть вопросы 💬</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- УСЛОВИЯ + СОГЛАСИЕ -->
+      <div class="terms-card">
+        <div class="terms-card__title">💰 Стоимость и условия оплаты</div>
+        <p>Стоимость проекта — <b>15 000 ₽</b>.</p>
+        <p>Работа начинается <b>только после внесения предоплаты 50% (7 500 ₽)</b>. Оставшаяся часть оплачивается по завершении проекта.</p>
+
+        <!-- Обязательный чекбокс: без него кнопки заблокированы -->
+        <label class="agree">
+          <input type="checkbox" id="agree" name="agree" />
+          <span class="box"></span>
+          <span>
+            Я ознакомлен(а) с условиями предоплаты и даю
+            <a href="#" target="_blank" rel="noopener">согласие на обработку персональных данных</a>.
+            <!-- Замени href на ссылку на вашу политику конфиденциальности -->
+          </span>
+        </label>
+      </div>
+
+      <!-- КНОПКИ -->
+      <div class="actions">
+        <button type="button" class="btn-primary" id="btnTelegram" disabled>
+          Отправить заявку в Telegram ✈️
+        </button>
+        <button type="button" class="btn-secondary" id="btnDownload" disabled>
+          Или скачать ответы файлом
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+<script>
+  /* ============================================
+     ЛОГИКА ФОРМЫ
+  ============================================ */
+
+  const TELEGRAM_URL = 'https://t.me/AlexandraGes';
+  const FILE_NAME = 'Anketa_Alexandra_Ges.txt';
+
+  const form = document.getElementById('briefForm');
+
+  /* --------------------------------------------
+     1. Логика «Свой вариант» → показать доп. поле
+     Универсальная функция для select + связанного блока
+  -------------------------------------------- */
+  function bindOtherField(selectId, wrapId) {
+    const select = document.getElementById(selectId);
+    const wrap = document.getElementById(wrapId);
+    select.addEventListener('change', () => {
+      // показываем блок, только если выбран специальный маркер
+      const show = select.value === '__other__';
+      wrap.classList.toggle('is-visible', show);
+    });
+  }
+  bindOtherField('subject', 'subjectOtherWrap');
+  bindOtherField('goal', 'goalOtherWrap');
+
+  /* --------------------------------------------
+     2. Блокировка кнопок до согласия
+  -------------------------------------------- */
+  const agree = document.getElementById('agree');
+  const btnTelegram = document.getElementById('btnTelegram');
+  const btnDownload = document.getElementById('btnDownload');
+
+  agree.addEventListener('change', () => {
+    const ok = agree.checked;
+    btnTelegram.disabled = !ok;
+    btnDownload.disabled = !ok;
+  });
+
+  /* --------------------------------------------
+     3. Сбор данных
+  -------------------------------------------- */
+
+  // Значение обычного текстового / select поля
+  function getValue(name) {
+    const el = form.elements[name];
+    if (!el) return '— (не заполнено)';
+    const val = el.value ? el.value.trim() : '';
+    return val === '' ? '— (не заполнено)' : val;
+  }
+
+  // Для select со «своим вариантом»: подставляем текст из доп. поля
+  function getSelectWithOther(selectId, otherId, fallbackLabel) {
+    const select = document.getElementById(selectId);
+    const other = document.getElementById(otherId);
+    if (select.value === '__other__') {
+      const custom = other.value.trim();
+      return custom === '' ? `${fallbackLabel} (свой вариант — не указан)` : `${custom} (свой вариант)`;
+    }
+    return select.value === '' ? '— (не выбрано)' : select.value;
+  }
+
+  // Мультивыбор стилей (чекбоксы) → строка через запятую
+  function getCheckedStyles() {
+    const checked = form.querySelectorAll('input[name="style"]:checked');
+    if (checked.length === 0) return '— (не выбрано)';
+    return Array.from(checked).map(el => el.value).join(', ');
+  }
+
+  /* Формируем красивый текст заявки с эмодзи */
+  function buildBriefText() {
+    const lines = [
+      '📝 НОВАЯ ЗАЯВКА НА САЙТ',
+      '━━━━━━━━━━━━━━━━━━━━',
+      '',
+      `👤 Имя и фамилия: ${getValue('name')}`,
+      `📚 Преподаёт: ${getSelectWithOther('subject', 'subjectOther', 'Дисциплина')}`,
+      `🔗 Ссылки: ${getValue('links')}`,
+      '',
+      `🎨 Эстетика: ${getCheckedStyles()}`,
+      `💡 Пожелания по стилю: ${getValue('wishes')}`,
+      '',
+      `📁 Материалы: ${getValue('materials')}`,
+      `🎯 Задача сайта: ${getSelectWithOther('goal', 'goalOther', 'Задача')}`,
+      `✅ Готовность: ${getValue('ready')}`,
+      '',
+      '━━━━━━━━━━━━━━━━━━━━',
+      '💰 Стоимость: 15 000 ₽ (предоплата 50% — 7 500 ₽)',
+      '☑️ Согласие на обработку данных получено',
+      '',
+      '💌 Анкета-бриф Александры Гес'
+    ];
+    return lines.join('\n');
+  }
+
+  /* --------------------------------------------
+     4. КНОПКА: Отправка в Telegram
+  -------------------------------------------- */
+  btnTelegram.addEventListener('click', function () {
+    if (btnTelegram.disabled) return;
+    const text = buildBriefText();
+    const url = `${TELEGRAM_URL}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+
+  /* --------------------------------------------
+     5. КНОПКА: Скачивание .txt
+  -------------------------------------------- */
+  btnDownload.addEventListener('click', function () {
+    if (btnDownload.disabled) return;
+    const text = buildBriefText();
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const objectUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = objectUrl;
+    a.download = FILE_NAME;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(objectUrl);
+  });
+</script>
+</body>
+</html>
+          
