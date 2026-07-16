@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Вайб-кодинг для ESL: игровые тренажёры — Александра Гес</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg-page: #C4614A;
+    --color-container: #F3EFE9;
+    --color-card: #FFFFFF;
+    --color-text: #2B2724;
+    --color-muted: #8A837B;
+
+    --color-accent: #C4614A;
+    --color-accent-soft: #ECD9D3;
+    --color-sage: #7E9070;
+    --color-sage-soft: #DCE4D4;
+
+    --color-btn: #2B2724;
+    --color-field: #EDE7DF;
+
+    --color-code-bg: #2B2724;
+    --color-code-text: #F3EFE9;
+
+    --radius-container: 32px;
+    --radius-card: 24px;
+    --radius-field: 16px;
+    --radius-pill: 999px;
+
+    --shadow-hover: 0 14px 34px rgba(43, 39, 36, 0.12);
+    --shadow-page: 0 30px 70px rgba(0,0,0,0.30);
+
+    --gap: 16px;
+    --transition: all 0.3s ease;
+
+    --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--color-bg-page);
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(255,255,255,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 90% 100%, rgba(0,0,0,0.15) 0%, transparent 55%);
+    background-attachment: fixed;
+  }
+
+  a { color: var(--color-accent); }
+  ::selection { background: var(--color-accent); color: #fff; }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg-page); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); border-radius: 10px; }
+
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+    background: var(--color-text);
+    z-index: 1000; transition: width 0.1s linear;
+  }
+
+  header.topnav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(243,239,233,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(43,39,36,0.08);
+  }
+  .nav-wrap {
+    max-width: 900px; margin: 0 auto;
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+  }
+  .nav-logo {
+    font-family: var(--font-head); font-weight: 700; font-size: 1.1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+  .paid-badge {
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--color-sage); color: #fff; padding: 4px 10px; border-radius: var(--radius-pill);
+    margin-left: 10px;
+  }
+  nav.nav-links ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+  nav.nav-links a {
+    font-size: 0.84rem; font-weight: 600; color: var(--color-muted); text-decoration: none;
+    transition: var(--transition); position: relative; padding-bottom: 3px;
+  }
+  nav.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--color-accent); transition: var(--transition);
+  }
+  nav.nav-links a:hover, nav.nav-links a.active { color: var(--color-text); }
+  nav.nav-links a:hover::after, nav.nav-links a.active::after { width: 100%; }
+
+  .burger {
+    display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px;
+  }
+  .burger span { width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: var(--transition); }
+  .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+  .brief {
+    background-color: var(--color-container);
+    border-radius: var(--radius-container);
+    padding: 44px;
+    box-shadow: var(--shadow-page);
+  }
+
+  .hero { margin-bottom: 40px; }
+  .brief__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .brief__badge {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-accent); background: var(--color-card); padding: 7px 14px;
+    border-radius: var(--radius-pill); border: 1px solid var(--color-accent-soft);
+  }
+
+  h1 {
+    font-family: var(--font-head); font-weight: 600;
+    font-size: clamp(2.1rem, 6vw, 3.2rem); line-height: 1.05; letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; color: var(--color-accent); }
+
+  .hero p.lead { margin-top: 16px; color: var(--color-muted); font-size: 1.02rem; max-width: 620px; }
+  .hero-meta { margin-top: 20px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 0.82rem; color: var(--color-muted); }
+  .hero-meta strong { color: var(--color-text); }
+
+  .section { margin-top: 56px; }
+  .section:first-of-type { margin-top: 0; }
+
+  .section-num {
+    display: inline-block; font-family: var(--font-head); font-style: italic;
+    font-size: 1rem; color: var(--color-accent); margin-bottom: 6px;
+  }
+  .section h2 {
+    font-family: var(--font-head); font-weight: 600; font-size: clamp(1.5rem, 4vw, 2.1rem);
+    margin-bottom: 10px; line-height: 1.15;
+  }
+  .section h2 a.inline-ref {
+    color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-accent-soft);
+    transition: var(--transition);
+  }
+  .section h2 a.inline-ref:hover { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+
+  .section > p.lead { color: var(--color-muted); font-size: 1rem; max-width: 640px; margin-bottom: 28px; }
+
+  .section h3 {
+    font-family: var(--font-head); font-weight: 600; font-size: 1.25rem;
+    margin: 30px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .section h4 { font-size: 1rem; font-weight: 700; margin: 18px 0 8px; }
+  .section p { color: var(--color-text); margin-bottom: 12px; }
+  .section p.muted { color: var(--color-muted); font-size: 0.92rem; }
+  .section ul, .section ol { margin: 0 0 16px 20px; color: var(--color-text); }
+  .section li { margin-bottom: 6px; }
+
+  .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); margin-bottom: 24px; }
+  .bento-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .bento-block {
+    background-color: var(--color-card); border-radius: var(--radius-card);
+    padding: 22px; transition: var(--transition);
+  }
+  .bento-block:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .bento-block--full { grid-column: 1 / -1; }
+  .bento-block--accent { background: var(--color-accent-soft); }
+  .bento-block--sage { background: var(--color-sage-soft); }
+
+  .bento-block .tier-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: var(--radius-pill); margin-bottom: 10px;
+  }
+  .tier-tag.tier-1 { background: var(--color-accent); color: #fff; }
+  .tier-tag.tier-2 { background: var(--color-sage); color: #fff; }
+  .tier-tag.tier-3 { background: var(--color-field); color: var(--color-muted); }
+
+  .bento-block h4 { font-family: var(--font-head); font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+  .bento-block p { font-size: 0.88rem; color: var(--color-muted); margin-bottom: 0; }
+
+  .callout {
+    background: var(--color-sage-soft); border-radius: var(--radius-card);
+    padding: 22px 24px; margin: 20px 0;
+  }
+  .callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .callout p { color: var(--color-text); font-size: 0.94rem; margin-bottom: 0; }
+  .callout b { color: var(--color-accent); }
+  .callout.warn { background: var(--color-accent-soft); }
+  .callout.warn b { color: var(--color-accent); }
+
+  .ref-cta {
+    background: var(--color-text);
+    border-radius: var(--radius-card);
+    padding: 26px 28px;
+    margin: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .ref-cta__text h4 {
+    font-family: var(--font-head); color: #fff; font-size: 1.1rem; margin: 0 0 4px;
+  }
+  .ref-cta__text p { color: rgba(243,239,233,0.7); font-size: 0.86rem; margin: 0; }
+  .ref-cta__btn {
+    flex-shrink: 0;
+    background: var(--color-accent); color: #fff;
+    font-weight: 700; font-size: 0.92rem;
+    padding: 13px 26px; border-radius: var(--radius-pill);
+    text-decoration: none; white-space: nowrap;
+    transition: var(--transition);
+    display: inline-flex; align-items: center; gap: 8px; }
+  .ref-cta__btn:hover { background: #fff; color: var(--color-text); transform: translateY(-2px); }
+
+  .ref-inline {
+    font-size: 0.72rem; font-weight: 700; text-decoration: none;
+    background: var(--color-accent-soft); color: var(--color-accent);
+    padding: 2px 8px; border-radius: var(--radius-pill); margin-left: 6px;
+    transition: var(--transition); display: inline-block;
+  }
+  .ref-inline:hover { background: var(--color-accent); color: #fff; }
+
+  .table-card {
+    background: var(--color-card); border-radius: var(--radius-card);
+    padding: 6px; margin-bottom: 24px; overflow: hidden;
+  }
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-field); }
+  table { width: 100%; border-collapse: collapse; min-width: 460px; }
+  th, td {
+    padding: 12px 16px; text-align: left; font-size: 0.86rem;
+    border-bottom: 1px solid var(--color-field); white-space: nowrap;
+  }
+  th { background: var(--color-field); font-weight: 700; font-family: var(--font-body); }
+  td { color: var(--color-text); }
+  tr:last-child td { border-bottom: none; }
+
+  .cell-good { color: var(--color-sage); font-weight: 700; }
+  .cell-warn { color: #B98900; font-weight: 700; }
+  .cell-bad { color: var(--color-accent); font-weight: 700; }
+
+  .prompt-block {
+    position: relative; background: var(--color-code-bg); color: var(--color-code-text);
+    border-radius: var(--radius-card); padding: 22px 22px 18px; margin: 18px 0 24px;
+  }
+  .prompt-block__label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .prompt-block__title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-accent-soft); }
+  .copy-btn {
+    background: rgba(255,255,255,0.1); border: none; color: var(--color-code-text);
+    font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+    padding: 7px 14px; border-radius: var(--radius-pill); cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .copy-btn:hover { background: var(--color-accent); }
+  .copy-btn.copied { background: var(--color-sage); }
+  .prompt-block pre {
+    font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word; color: var(--color-code-text);
+  }
+
+  .step { display: flex; gap: 18px; margin-bottom: 26px; align-items: flex-start; }
+  .step-num {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
+    background: var(--color-accent); color: #fff; font-family: var(--font-head); font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+  }
+  .step-body h4 { margin-top: 4px; margin-bottom: 6px; }
+  .step-body p { margin-bottom: 6px; font-size: 0.94rem; }
+
+  .checklist { list-style: none; margin: 0 0 20px 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+    font-size: 0.92rem; border-bottom: 1px solid var(--color-field);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '✓'; flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--color-sage); color: #fff; font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+
+  .strategy {
+    background: var(--color-field); border-radius: var(--radius-card);
+    padding: 22px; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.9;
+    margin: 18px 0 24px; overflow-x: auto; white-space: pre;
+  }
+
+  /* карточка-иконка для площадок с референсами (Pinterest/Dribbble/Mobbin/Awwwards) */
+  .ref-source {
+    background: var(--color-card); border-radius: var(--radius-card);
+    padding: 20px; transition: var(--transition); text-decoration: none;
+    display: block; border: 1px solid transparent;
+  }
+  .ref-source:hover {
+    transform: translateY(-3px); box-shadow: var(--shadow-hover);
+    border-color: var(--color-accent-soft);
+  }
+  .ref-source .ref-source__icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+  .ref-source h4 { font-family: var(--font-head); font-size: 1rem; color: var(--color-text); margin-bottom: 4px; }
+  .ref-source p { font-size: 0.84rem; color: var(--color-muted); margin-bottom: 0; }
+
+  /* нумерованные мини-карточки для "3 способа передать референс" */
+  .method-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+  .method-card {
+    background: var(--color-card); border-radius: var(--radius-card);
+    padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;
+    transition: var(--transition);
+  }
+  .method-card:hover { box-shadow: var(--shadow-hover); }
+  .method-num {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--color-sage-soft); color: var(--color-sage); font-weight: 800;
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+  }
+  .method-card h4 { margin: 0 0 4px; font-size: 0.98rem; }
+  .method-card p { margin: 0; font-size: 0.88rem; color: var(--color-muted); }
+
+  /* признаки "начинай новый чат" — компактный список с warn-иконкой */
+  .signal-list { list-style: none; margin: 0 0 20px 0; }
+  .signal-list li {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+    font-size: 0.92rem; border-bottom: 1px solid var(--color-field);
+  }
+  .signal-list li:last-child { border-bottom: none; }
+  .signal-list li::before {
+    content: '⚠'; flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--color-accent-soft); color: var(--color-accent); font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+
+  .toc {
+    background: var(--color-card); border-radius: var(--radius-card); padding: 20px;
+    margin-bottom: 40px;
+  }
+  .toc h4 { font-family: var(--font-head); font-size: 1rem; margin-bottom: 10px; }
+  .toc ol { margin: 0; padding-left: 20px; color: var(--color-muted); }
+  .toc a { color: var(--color-text); font-weight: 600; text-decoration: none; }
+  .toc a:hover { color: var(--color-accent); }
+  .toc li { margin-bottom: 4px; font-size: 0.9rem; }
+
+  .footer {
+    margin-top: 56px; padding-top: 30px; border-top: 1px solid var(--color-field);
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .footer-brand { font-family: var(--font-head); font-weight: 600; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a { font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+  .footer-note { width: 100%; font-size: 0.78rem; color: var(--color-muted); margin-top: 10px; }
+
+  @media (max-width: 720px) {
+    nav.nav-links { display: none; }
+    .burger { display: flex; }
+    nav.nav-links.mobile-open {
+      display: flex; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--color-container); flex-direction: column; padding: 16px 20px;
+      border-bottom: 1px solid var(--color-field); box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      z-index: 950;
+    }
+    nav.nav-links.mobile-open ul { flex-direction: column; gap: 14px; }
+  }
+
+  @media (max-width: 600px) {
+    .page { margin: 0; padding: 0; }
+    .brief { border-radius: 0; padding: 26px 18px; }
+    .bento-grid, .bento-grid.cols-3 { grid-template-columns: 1fr; }
+    h1 { font-size: 2rem; }
+    .step { flex-direction: column; gap: 10px; }
+    .prompt-block { padding: 18px 16px 14px; }
+    .prompt-block__label { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .ref-cta { flex-direction: column; align-items: flex-start; text-align: left; }
+    .ref-cta__btn { width: 100%; justify-content: center; }
+    .method-card { flex-direction: column; }
+  }
+</style>
+</head>
+
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="topnav">
+    <div class="nav-wrap">
+      <div class="nav-logo">
+        <span class="dot"></span> Вайб-кодинг для ESL
+        <span class="paid-badge">Boosty</span>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <ul>
+          <li><a href="#intro">Введение</a></li>
+          <li><a href="#tools">Инструменты</a></li>
+          <li><a href="#prompts">Промпты</a></li>
+          <li><a href="#references">Референсы</a></li>
+          <li><a href="#steps">Создание игры</a></li>
+          <li><a href="#updates">Апдейты</a></li>
+          <li><a href="#checklist">Чек-лист</a></li>
+        </ul>
+      </nav>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="page">
+    <main class="brief">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="intro">
+        <div class="brief__badges">
+          <span class="brief__badge">Гайд · Boosty</span>
+          <span class="brief__badge">@AlexandraGes_ESL</span>
+          <span class="brief__badge">Апдейт 2026</span>
+        </div>
+        <h1>Создаём игровые тренажёры <em>без кода</em></h1>
+        <p class="lead">
+          Полный путь от идеи до готовой ссылки: инструменты, системные промпты, референсы для дизайна
+          и разбор, как собрать игру с прогрессом, а не просто тест из десяти вопросов.
+        </p>
+        <div class="hero-meta">
+          <span>⏱ Время чтения: <strong>~35 минут</strong></span>
+          <span>🎯 Уровень: <strong>без опыта программирования</strong></span>
+          <span>🔄 Обновлено: <strong>12.07.2026</strong></span>
+        </div>
+      </section>
+
+      <!-- ============ TOC ============ -->
+      <div class="toc">
+        <h4>📑 Содержание гайда</h4>
+        <ol>
+          <li><a href="#intro-body">Вайб-кодинг и разница между тренажёром и игрой</a></li>
+          <li><a href="#tools">Инструменты: модели, доступ из РФ, SYNTX</a></li>
+          <li><a href="#prompts">Системные и рабочие промпты</a></li>
+          <li><a href="#references">Референсы для визуального стиля</a></li>
+          <li><a href="#steps">Создание игры пошагово</a></li>
+          <li><a href="#updates">Апдейты готовой игры</a></li>
+          <li><a href="#checklist">Финальный чек-лист</a></li>
+        </ol>
+      </div>
+
+      <!-- ============ SECTION 01: ВВЕДЕНИЕ ============ -->
+      <section class="section" id="intro-body">
+        <span class="section-num">01</span>
+        <h2>Что такое вайб-кодинг</h2>
+        <p class="lead">
+          Вайб-кодинг — это создание рабочих программ через диалог с нейросетью на обычном языке,
+          без написания кода руками. Ты описываешь, что хочешь получить — ИИ пишет код.
+          Твоя роль — постановка задачи, проверка результата и точечные правки.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">🎓 Зачем это преподавателю английского</div>
+          <p>
+            Игровой тренажёр — это самостоятельная практика вне урока. Ученик закрепляет лексику или грамматику
+            в игровой форме, а ты получаешь <b>уникальный материал</b>, которого нет ни у одного другого репетитора.
+            Плюс — это то, что можно продавать как часть курса или бонус к абонементу.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <div class="bento-block">
+            <h4>🧩 Не нужен код</h4>
+            <p>Ты описываешь механику игры словами — нейросеть переводит это в HTML/CSS/JS.</p>
+          </div>
+          <div class="bento-block">
+            <h4>⚡ Быстро</h4>
+            <p>Первая рабочая версия игры собирается за 30–60 минут, включая правки.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🔗 Просто делиться</h4>
+            <p>Готовый файл — это одна ссылка. Открывается в любом браузере, на любом устройстве.</p>
+          </div>
+          <div class="bento-block">
+            <h4>💰 Почти бесплатно</h4>
+            <p>При грамотной стратегии токенов расходы на инструменты минимальны (см. раздел 2).</p>
+          </div>
+        </div>
+
+        <h3>🎮 Тренажёр vs игра — в чём разница</h3>
+        <p>
+          Простой тренажёр — это вопрос, ответ, следующий вопрос. Ученик проходит его один раз и забывает.
+          <b>Игра</b> добавляет ощущение прогресса — и именно оно заставляет возвращаться и переигрывать.
+        </p>
+        <div class="bento-grid cols-3">
+          <div class="bento-block">
+            <h4>📈 XP / уровни</h4>
+            <p>Очки за правильные ответы, видимый рост от уровня к уровню.</p>
+          </div>
+          <div class="bento-block">
+            <h4>❤️ Energy / жизни</h4>
+            <p>Ограниченные попытки — цена ошибки становится ощутимой.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🗺 Миссии по порядку</h4>
+            <p>Задания открываются последовательно, как уровни в игре.</p>
+          </div>
+          <div class="bento-block">
+            <h4>👹 Boss fight</h4>
+            <p>Финальное задание сложнее остальных — проверка всей темы целиком.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🔍 Разбор ошибок</h4>
+            <p>После неверного ответа — не просто "неверно", а объяснение почему.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🔁 Replay-value</h4>
+            <p>Хочется пройти снова и побить свой рекорд по очкам.</p>
+          </div>
+        </div>
+        <p class="muted">
+          Дальше в гайде — 3 больших этапа: подобрать инструмент → написать промпт → собрать и опубликовать.
+          Каждый этап важен: пропустишь один — получишь либо кривой код, либо игру, которую невозможно докручивать.
+        </p>
+      </section>
+
+      <!-- ============ SECTION 02: ИНСТРУМЕНТЫ ============ -->
+      <section class="section" id="tools">
+        <span class="section-num">02</span>
+        <h2>Инструменты: какие модели использовать</h2>
+        <p class="lead">Не все нейросети одинаково хороши в коде, и не все доступны из России напрямую.</p>
+
+        <h3>🏆 Модели по уровню</h3>
+        <div class="bento-grid cols-3">
+          <div class="bento-block bento-block--accent">
+            <span class="tier-tag tier-1">Топ</span>
+            <h4>Fable 5 / Opus 4.8</h4>
+            <p>Лучшее понимание сложной логики. Плюс Grok 4.5 — эксклюзивно через Cursor.</p>
+          </div>
+          <div class="bento-block bento-block--sage">
+            <span class="tier-tag tier-2">Средний</span>
+            <h4>GPT-5.6 Sol/Terra/Luna, Gemini 2.5 Pro</h4>
+                        <p>Хороши для стандартных механик — квизы, тренажёры, простые игры.</p>
+          </div>
+          <div class="bento-block">
+            <span class="tier-tag tier-3">Бесплатно</span>
+            <h4>DeepSeek, Qwen, Grok (лимит)</h4>
+            <p>Подходят для простых тренажёров без сложной логики и для черновых версий промптов.</p>
+          </div>
+        </div>
+
+        <h3>🌍 Доступ из РФ — 3 категории</h3>
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr><th>Категория</th><th>Модели</th><th>Как получить доступ</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="cell-good">Прямой доступ</span></td>
+                  <td>DeepSeek, Qwen, Kimi, GigaChat</td>
+                  <td>Работают напрямую, без VPN и подписок</td>
+                </tr>
+                <tr>
+                  <td><span class="cell-warn">Через VPN + карта</span></td>
+                  <td>ChatGPT, Claude, Gemini напрямую</td>
+                  <td>Нужен зарубежный номер и карта — сложно и дорого</td>
+                </tr>
+                <tr>
+                  <td><span class="cell-bad">Через агрегатор</span></td>
+                  <td>Все топовые модели сразу</td>
+                  <td>SYNTX и аналоги — оплата в рублях, без VPN</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3>🔧 SYNTX — подробный разбор</h3>
+        <p>
+          SYNTX — агрегатор нейросетей с оплатой российской картой. Даёт доступ к GPT, Claude, Gemini и другим
+          моделям в одном интерфейсе, без VPN. Для вайб-кодинга это оптимальный вариант по балансу цена/доступ.
+        </p>
+
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr><th>Тариф</th><th>Цена/мес</th><th>Что входит</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Basic</td>
+                  <td>790–890 ₽</td>
+                  <td>Базовые модели, ограниченный лимит запросов</td>
+                </tr>
+                <tr>
+                  <td>Pro</td>
+                  <td>1490–1690 ₽</td>
+                  <td>Топовые модели (GPT, Claude), больше лимитов</td>
+                </tr>
+                <tr>
+                  <td>VIP</td>
+                  <td>3990 ₽</td>
+                  <td>Максимальные лимиты, приоритетная скорость ответа</td>
+                </tr>
+                <tr>
+                  <td>Elite / Ultra Elite</td>
+                  <td>по запросу</td>
+                  <td>Для команд и активного ежедневного вайб-кодинга</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <div class="callout-title">⚠️ На что обратить внимание</div>
+          <p>
+            <b>Grok недоступен в SYNTX</b> — если нужен именно он, придётся искать другой агрегатор или Cursor.
+            Также у SYNTX есть свой <b>Telegram-бот с ранним доступом</b> к новым моделям и расширение
+            <b>Syntx Helper</b>, которое упрощает работу с промптами прямо в браузере.
+          </p>
+        </div>
+
+        <div class="ref-cta">
+          <div class="ref-cta__text">
+            <h4>Хочешь попробовать SYNTX?</h4>
+            <p>По реферальной ссылке — бонус на баланс при первой оплате</p>
+          </div>
+          <a href="#" class="ref-cta__btn">Перейти на SYNTX →</a>
+        </div>
+
+        <h3>🎯 Шпаргалка: кому что подойдёт</h3>
+        <div class="bento-grid">
+          <div class="bento-block">
+            <h4>Делаю первую игру, нет опыта</h4>
+            <p>DeepSeek/Qwen бесплатно + системный промпт из раздела 3 — потренируйся на простой механике.</p>
+          </div>
+          <div class="bento-block">
+            <h4>Нужна сложная логика (несколько мини-игр, таймеры, комбо)</h4>
+            <p>SYNTX Pro с доступом к GPT-5.6 или Claude — не экономь на этом этапе.</p>
+          </div>
+          <div class="bento-block">
+            <h4>Делаю игры регулярно, для потока учеников</h4>
+            <p>SYNTX VIP/Elite — лимиты важнее, чем разовая цена запроса.</p>
+          </div>
+          <div class="bento-block">
+            <h4>Хочу конкретно Grok</h4>
+            <p>Только через Cursor или отдельную подписку — в SYNTX его нет.</p>
+          </div>
+        </div>
+
+        <h3>💡 Стратегия экономии токенов</h3>
+        <p>Токены/запросы — самый частый расход при вайб-кодинге. Три правила, которые экономят до 60%:</p>
+        <div class="strategy">
+1. Черновик механики — на бесплатной модели (DeepSeek/Qwen)
+   → отработай формулировку промпта до того, как тратить платные запросы
+
+2. Финальная сборка — на топовой модели (GPT-5.6 / Claude / Opus)
+   → сложная логика и дизайн решаются с первого раза, меньше циклов правок
+
+3. Мелкие правки после — снова на бесплатной модели
+   → смена цвета, текста, мелкого текста не требует топовых мощностей
+        </div>
+
+      </section>
+
+      <!-- ============ SECTION 03: ПРОМПТЫ ============ -->
+      <section class="section" id="prompts">
+        <span class="section-num">03</span>
+        <h2>Системные и рабочие промпты</h2>
+        <p class="lead">
+          Системный промпт задаёт общий стиль поведения нейросети на весь диалог.
+          Рабочий промпт — это конкретная задача внутри этого диалога.
+        </p>
+
+        <h3>⚙️ Системные промпты — куда вставлять</h3>
+        <p>
+          В большинстве интерфейсов (включая SYNTX) есть поле <b>"System Prompt"</b> или <b>"Instructions"</b>
+          в настройках чата — вставляй туда один раз перед началом работы над игрой.
+          Если такого поля нет — просто отправь его первым сообщением в новом чате.
+        </p>
+
+        <h4>Промпт 1 — для создания игры с нуля</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">System Prompt · Создание игры</span>
+            <button class="copy-btn" data-copy-target="sp1">📋 Скопировать</button>
+          </div>
+          <pre id="sp1">Ты — опытный frontend-разработчик, создающий образовательные игры на чистом HTML/CSS/JS без фреймворков.
+Пиши код полностью рабочим с первого раза, без псевдокода и заглушек "добавьте здесь свою логику".
+Всегда собирай результат в один HTML-файл со встроенными <style> и <script>.
+Комментируй неочевидные решения в коде кратко, на русском.
+Если задача большая — сначала предложи структуру (какие экраны/механики будут), и только после подтверждения пиши код.</pre>
+        </div>
+
+        <h4>Промпт 2 — для простого тренажёра (без игровых механик)</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">System Prompt · Простой тренажёр</span>
+            <button class="copy-btn" data-copy-target="sp2">📋 Скопировать</button>
+          </div>
+          <pre id="sp2">Ты создаёшь простой обучающий тренажёр (квиз, флэшкарты, сопоставление) без сложной игровой логики.
+Приоритет — простота использования и минимум багов. Не добавляй XP, энергию, уровни, если явно не попросили.
+Код должен быть компактным, в одном HTML-файле, с адаптивностью под мобильные экраны.</pre>
+        </div>
+
+        <h4>Промпт 3 — для внесения правок в существующий код</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">System Prompt · Правки</span>
+            <button class="copy-btn" data-copy-target="sp3">📋 Скопировать</button>
+          </div>
+          <pre id="sp3">Я присылаю тебе готовый рабочий код. Твоя задача — внести только те изменения, которые я прямо попросил,
+не переписывая остальной код и не меняя стили/логику, которые я не упоминал.
+Если для правки нужно менять что-то ещё — сначала спроси разрешения и объясни почему.
+В ответе присылай полный обновлённый файл целиком, а не фрагмент.</pre>
+        </div>
+
+        <h4>Промпт 4 — для работы на бесплатных моделях (упрощённый)</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">System Prompt · Бесплатные модели</span>
+            <button class="copy-btn" data-copy-target="sp4">📋 Скопировать</button>
+          </div>
+          <pre id="sp4">Пиши максимально простой и короткий код на чистом HTML/CSS/JS, без сложных абстракций.
+Не используй продвинутые JS-конструкции (async/await, классы, деструктуризацию), если задача не требует этого явно.
+Каждый блок кода снабжай коротким комментарием на русском, что он делает.</pre>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">💬 Разница между этими промптами</div>
+          <p>
+            Промпт 1 — для полноценной игры с механикой (см. раздел ниже). Промпт 2 — если нужен просто квиз без прогресса.
+            Промпт 3 обязателен при любых доработках — без него ИИ может «улучшить» то, что не просили.
+            Промпт 4 — подстраховка при работе на слабых бесплатных моделях.
+          </p>
+        </div>
+
+        <h3>🎮 Рабочие промпты для сборки игры</h3>
+        <p>Используй по порядку — каждый следующий промпт отправляется в тот же чат, после проверки результата предыдущего.</p>
+
+        <h4>Промпт A — базовая структура и механика</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт · Механика игры</span>
+            <button class="copy-btn" data-copy-target="pa">📋 Скопировать</button>
+          </div>
+          <pre id="pa">Создай образовательную игру для изучения английского языка на тему [ТЕМА, например: Present Simple].
+
+Механика:
+- 6 заданий разных типов (выбор варианта, ввод текста, сопоставление пар, заполнение пропуска, аудирование по тексту, составление предложения из слов)
+- система XP: +10 за правильный ответ, +20 за задание без ошибок
+- energy: 3 жизни, минус 1 за ошибку, при 0 — game over с предложением начать заново
+- финальное задание сложнее остальных (boss-задание), проверяет всю тему целиком
+- после каждого ответа — краткое объяснение, почему правильно/неправильно
+- экран результатов в конце: набранные XP, количество ошибок, кнопка "играть снова"
+
+Стиль: минималистичный, современный, с плавными переходами между экранами без перезагрузки страницы.
+Сделай всё в одном HTML-файле.</pre>
+        </div>
+
+        <h4>Промпт B — визуальный стиль</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт · Визуал</span>
+            <button class="copy-btn" data-copy-target="pb">📋 Скопировать</button>
+          </div>
+          <pre id="pb">Оформи визуально в стиле [СТИЛЬ, например: glassmorphism / neumorphism / bento box].
+Используй CSS-переменные в :root для всех цветов и радиусов скругления — так, чтобы можно было легко поменять палитру.
+Добавь плавные hover-эффекты на все кликабельные элементы, анимацию появления при переходе между экранами (fade/slide),
+и звук (Web Audio API, простые тона) на правильный/неправильный ответ.</pre>
+        </div>
+
+        <h4>Промпт C — правка багов</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт · Баг-фикс</span>
+            <button class="copy-btn" data-copy-target="pc">📋 Скопировать</button>
+          </div>
+          <pre id="pc">В игре найден баг: [ОПИСАНИЕ, например: при быстром клике на несколько ответов подряд energy уходит в минус].
+Проверь всю логику, связанную с этим случаем, и исправь, не трогая остальной код.
+Пришли полный обновлённый файл.</pre>
+        </div>
+
+        <h4>Промпт D — адаптивность под мобильные</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт · Адаптив</span>
+            <button class="copy-btn" data-copy-target="pd">📋 Скопировать</button>
+          </div>
+          <pre id="pd">Проверь и адаптируй интерфейс под экраны до 600px шириной: размеры шрифтов, отступы, кнопки должны быть удобны
+для тапа пальцем (не менее 44px высотой). Сетки заданий должны схлопываться в одну колонку на мобильных.
+Пришли полный обновлённый файл.</pre>
+        </div>
+      </section>
+
+      <!-- ============ SECTION 04: РЕФЕРЕНСЫ ============ -->
+      <section class="section" id="references">
+        <span class="section-num">04</span>
+        <h2>Референсы для визуального стиля</h2>
+        <p class="lead">
+          Нейросеть отлично копирует стиль, если показать ей пример. Не пытайся описать дизайн словами —
+          проще прислать картинку или ссылку.
+        </p>
+
+        <h3>🔍 Где искать референсы</h3>
+        <div class="bento-grid">
+          <a href="https://pinterest.com" target="_blank" class="ref-source">
+            <span class="ref-source__icon">📌</span>
+            <h4>Pinterest</h4>
+            <p>Поиск по запросам "UI game design", "quiz app design" — быстро и много вариантов.</p>
+          </a>
+          <a href="https://dribbble.com" target="_blank" class="ref-source">
+            <span class="ref-source__icon">🎨</span>
+            <h4>Dribbble</h4>
+            <p>Профессиональные UI-концепты, часто с деталями по цвету и типографике.</p>
+          </a>
+          <a href="https://mobbin.com" target="_blank" class="ref-source">
+            <span class="ref-source__icon">📱</span>
+            <h4>Mobbin</h4>
+            <p>Скриншоты реальных мобильных приложений — полезно для игровых экранов и онбординга.</p>
+          </a>
+          <a href="https://awwwards.com" target="_blank" class="ref-source">
+            <span class="ref-source__icon">🏆</span>
+            <h4>Awwwards</h4>
+            <p>Топовые сайты с анимациями и микро-взаимодействиями — для вдохновения по переходам.</p>
+          </a>
+        </div>
+
+        <h3>📎 3 способа передать референс в промпт</h3>
+        <div class="method-list">
+          <div class="method-card">
+            <span class="method-num">1</span>
+            <div>
+              <h4>Прикрепить скриншот напрямую</h4>
+              <p>Если модель поддерживает изображения (GPT, Claude, Gemini) — просто прикрепи картинку и напиши "сделай в таком стиле".</p>
+            </div>
+          </div>
+          <div class="method-card">
+            <span class="method-num">2</span>
+            <div>
+              <h4>Описать по элементам</h4>
+              <p>Если модель без картинок — распиши текстом: основной цвет, форма кнопок (острые/скруглённые), есть ли тени, тип шрифта (строгий/декоративный).</p>
+            </div>
+          </div>
+          <div class="method-card">
+            <span class="method-num">3</span>
+            <div>
+              <h4>Сослаться на известный стиль</h4>
+              <p>Названия трендов работают как ключевые слова: "glassmorphism", "neumorphism", "bento grid", "brutalism" — модель понимает эти термины.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECTION 05: СОЗДАНИЕ ИГРЫ ПОШАГОВО ============ -->
+      <section class="section" id="steps">
+        <span class="section-num">05</span>
+        <h2>Создание игры пошагово</h2>
+        <p class="lead">От пустого чата до рабочей ссылки — с учётом того, что ИИ забывает контекст в длинных беседах.</p>
+
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h4>Выбери модель и вставь системный промпт</h4>
+            <p>Начни новый чат, вставь Промпт 1 из раздела 3 в System Prompt (или первым сообщением).</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h4>Отправь Промпт A с описанием механики</h4>
+            <p>Замени тему на свою (например, Present Perfect, Phrasal Verbs). Дождись первой версии кода.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h4>Проверь в браузере</h4>
+            <p>Не проверяй код "на глаз" — сохрани как .html и открой в браузере, либо используй CodePen для быстрой проверки.</p>
+            <div class="table-card">
+              <div class="table-wrapper">
+                <table>
+                  <thead><tr><th>Способ</th><th>Плюсы</th><th>Минусы</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td>CodePen</td>
+                      <td>Мгновенный просмотр, удобно вставить и сразу увидеть</td>
+                      <td>Нужно разделять HTML/CSS/JS по вкладкам вручную</td>
+                    </tr>
+                    <tr>
+                      <td>Локальный .html файл</td>
+                      <td>Работает офлайн, точно так же, как у ученика</td>
+                      <td>Нужно каждый раз сохранять файл заново</td>
+                    </tr>
+                    <tr>
+                      <td>GitHub Pages</td>
+                      <td>Даёт постоянную публичную ссылку</td>
+                      <td>Требует начальной настройки репозитория</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <h4>Заведи мастер-файл</h4>
+            <p>
+              Как только код стал рабочим — скопируй его в отдельный документ (Google Docs, Notion, .txt).
+              Это твоя "точка сохранения". В длинном диалоге ИИ может потерять часть контекста и случайно
+              откатить рабочую фичу — мастер-файл позволяет откатиться самому, а не переписывать всё с нуля.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">5</span>
+          <div class="step-body">
+            <h4>Вноси правки маленькими шагами</h4>
+            <p>
+              Отправляй Промпты B, C, D по одному, а не все сразу. После каждого — проверяй в браузере и обновляй мастер-файл.
+              Если правка большая (например, добавление нового типа заданий) — попроси код <b>частями</b>: сначала HTML, потом CSS, потом JS — так проще заметить, что именно сломалось.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">6</span>
+          <div class="step-body">
+            <h4>Следи за признаками "пора начать новый чат"</h4>
+            <p>Долгий диалог — это не всегда плюс. Вот когда лучше пересобрать контекст:</p>
+            <ul class="signal-list">
+              <li>ИИ путает уже согласованные детали (например, снова добавляет удалённую механику)</li>
+              <li>Ответы стали заметно медленнее или короче</li>
+              <li>Правка одного места неожиданно ломает другое, не связанное с ней</li>
+              <li>Диалог длится больше 40–50 сообщений</li>
+            </ul>
+            <p class="muted">В новом чате — вставь системный промпт, приложи текущий мастер-файл и опиши, что нужно доделать.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">7</span>
+          <div class="step-body">
+            <h4>Опубикуй готовую игру</h4>
+            <p>
+              Самый простой способ — GitHub Pages или Netlify Drop (просто перетащить файл на сайт). Готовую ссылку можно
+              отправить ученику в мессенджер, вставить в LMS или на свой сайт.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECTION 06: АПДЕЙТЫ ============ -->
+      <section class="section" id="updates">
+        <span class="section-num">06</span>
+        <h2>Апдейты готовой игры</h2>
+        <p class="lead">Игра — это не разовый продукт. Раз в несколько недель полезно её обновлять.</p>
+
+        <div class="bento-grid">
+          <div class="bento-block">
+            <h4>🗺 Новая миссия</h4>
+            <p>Добавь новый блок заданий на ту же тему или смежную — используй мастер-файл и Промпт 1 повторно.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🎨 Смена темы</h4>
+            <p>Попроси перекрасить в новую цветовую палитру под сезон/праздник — быстрая правка через Промпт B.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🔊 Звуковое оформление</h4>
+            <p>Добавь фоновую музыку или больше звуковых эффектов через Web Audio API.</p>
+          </div>
+          <div class="bento-block">
+            <h4>👣 Footer с соцсетями</h4>
+            <p>Добавь свои контакты вниз  экрана результатов — так ученик, довольный игрой, может сразу перейти к тебе в соцсети.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">🔁 Правило безопасного апдейта</div>
+          <p>
+            Перед любым апдейтом — сначала скопируй текущий мастер-файл в новую версию (например, <b>game_v2.html</b>),
+            и только потом вноси изменения. Если что-то пойдёт не так — у тебя останется рабочая версия <b>v1</b>,
+            которую ученики уже используют.
+          </p>
+        </div>
+
+        <h4>Промпт E — добавление новой миссии в существующую игру</h4>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт · Новая миссия</span>
+            <button class="copy-btn" data-copy-target="pe">📋 Скопировать</button>
+          </div>
+          <pre id="pe">Вот код текущей игры (прикрепляю файл). Добавь новую миссию на тему [ТЕМА] после существующих,
+сохранив ту же механику подачи заданий, систему XP и energy. Не меняй уже готовые миссии и общий стиль.
+Пришли полный обновлённый файл.</pre>
+        </div>
+      </section>
+
+      <!-- ============ SECTION 07: ЧЕК-ЛИСТ ============ -->
+      <section class="section" id="checklist">
+        <span class="section-num">07</span>
+        <h2>Финальный чек-лист</h2>
+        <p class="lead">Пройдись по пунктам перед тем, как отправить ссылку ученику.</p>
+
+        <ul class="checklist">
+          <li>Игра открывается с телефона и с компьютера, без горизонтального скролла</li>
+          <li>Все кнопки нажимаются с первого раза, без "мёртвых зон"</li>
+          <li>При ошибке ученик видит объяснение, а не просто "неверно"</li>
+          <li>Есть экран результатов с возможностью сыграть заново</li>
+          <li>Мастер-файл сохранён отдельно от рабочего чата с ИИ</li>
+          <li>Ссылка на игру проверена в анонимном окне браузера (без твоих cookies/логина)</li>
+          <li>Название темы и уровень сложности понятны ученику до начала игры</li>
+        </ul>
+
+        <div class="ref-cta">
+          <div class="ref-cta__text">
+            <h4>Готов собрать первую игру?</h4>
+            <p>Сохрани этот гайд и открой SYNTX — весь путь займёт меньше часа</p>
+          </div>
+          <a href="#tools" class="ref-cta__btn">К разделу с инструментами →</a>
+        </div>
+      </section>
+
+      <!-- ============ FOOTER ============ -->
+      <footer class="footer">
+        <div class="footer-brand">Александра Гес</div>
+        <div class="footer-links">
+          <a href="#" target="_blank">Telegram</a>
+          <a href="#" target="_blank">Boosty</a>
+          <a href="#intro">Наверх ↑</a>
+        </div>
+        <p class="footer-note">
+          Гайд подготовлен для подписчиков Boosty. Не распространять за пределами платформы.
+          Все промпты можно адаптировать под свой предмет и уровень учеников.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+<script>
+  // ===== Прогресс-бар скролла =====
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+
+  // ===== Мобильное меню (burger) =====
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burgerBtn.addEventListener('click', () => {
+    burgerBtn.classList.toggle('active');
+    navLinks.classList.toggle('mobile-open');
+  });
+  // закрываем меню при клике на пункт (удобно на мобильных)
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      burgerBtn.classList.remove('active');
+      navLinks.classList.remove('mobile-open');
+    });
+  });
+
+  // ===== Подсветка активного пункта меню при скролле =====
+  const sections = document.querySelectorAll('.section, .hero');
+  const navItems = document.querySelectorAll('nav.nav-links a');
+  function highlightNav() {
+    let currentId = '';
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120 && rect.bottom > 120) {
+        currentId = sec.id;
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.toggle('active', item.getAttribute('href') === '#' + currentId);
+    });
+  }
+  window.addEventListener('scroll', highlightNav);
+  highlightNav();
+
+  // ===== Копирование промптов по клику =====
+  // Используем data-copy-target, чтобы избежать хрупкой привязки к DOM-структуре кнопки
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.getAttribute('data-copy-target');
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      const text = targetEl.textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        // Фолбэк для браузеров без Clipboard API (например, старый Safari без HTTPS)
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+
+      // Визуальный отклик на копирование
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Скопировано';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>
+            
