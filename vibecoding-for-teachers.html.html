@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Вайб-кодинг для ESL: игровые тренажёры — Александра Гес</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-bg-page: #C4614A;
+    --color-container: #F3EFE9;
+    --color-card: #FFFFFF;
+    --color-text: #2B2724;
+    --color-muted: #8A837B;
+
+    --color-accent: #C4614A;
+    --color-accent-soft: #ECD9D3;
+    --color-sage: #7E9070;
+    --color-sage-soft: #DCE4D4;
+
+    --color-btn: #2B2724;
+    --color-field: #EDE7DF;
+
+    --color-code-bg: #2B2724;
+    --color-code-text: #F3EFE9;
+
+    --radius-container: 32px;
+    --radius-card: 24px;
+    --radius-field: 16px;
+    --radius-pill: 999px;
+
+    --shadow-hover: 0 14px 34px rgba(43, 39, 36, 0.12);
+    --shadow-page: 0 30px 70px rgba(0,0,0,0.30);
+
+    --gap: 16px;
+    --transition: all 0.3s ease;
+
+    --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--color-bg-page);
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(255,255,255,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 90% 100%, rgba(0,0,0,0.15) 0%, transparent 55%);
+    background-attachment: fixed;
+  }
+
+  a { color: var(--color-accent); }
+  ::selection { background: var(--color-accent); color: #fff; }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg-page); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); border-radius: 10px; }
+
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+    background: var(--color-text);
+    z-index: 1000; transition: width 0.1s linear;
+  }
+
+  header.topnav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(243,239,233,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(43,39,36,0.08);
+  }
+  .nav-wrap {
+    max-width: 900px; margin: 0 auto;
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+  }
+  .nav-logo {
+    font-family: var(--font-head); font-weight: 700; font-size: 1.1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+  .paid-badge {
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--color-sage); color: #fff; padding: 4px 10px; border-radius: var(--radius-pill);
+    margin-left: 10px;
+  }
+  nav.nav-links ul { display: flex; gap: 22px; list-style: none; }
+  nav.nav-links a {
+    font-size: 0.86rem; font-weight: 600; color: var(--color-muted); text-decoration: none;
+    transition: var(--transition); position: relative; padding-bottom: 3px;
+  }
+  nav.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--color-accent); transition: var(--transition);
+  }
+  nav.nav-links a:hover, nav.nav-links a.active { color: var(--color-text); }
+  nav.nav-links a:hover::after, nav.nav-links a.active::after { width: 100%; }
+
+  .burger {
+    display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px;
+  }
+  .burger span { width: 22px; height: 2px; background: var(--color-text); border-radius: 2px; transition: var(--transition); }
+  .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+  .brief {
+    background-color: var(--color-container);
+    border-radius: var(--radius-container);
+    padding: 44px;
+    box-shadow: var(--shadow-page);
+  }
+
+  .hero { margin-bottom: 40px; }
+  .brief__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .brief__badge {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-accent); background: var(--color-card); padding: 7px 14px;
+    border-radius: var(--radius-pill); border: 1px solid var(--color-accent-soft);
+  }
+
+  h1 {
+    font-family: var(--font-head); font-weight: 600;
+    font-size: clamp(2.1rem, 6vw, 3.2rem); line-height: 1.05; letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; color: var(--color-accent); }
+
+  .hero p.lead { margin-top: 16px; color: var(--color-muted); font-size: 1.02rem; max-width: 600px; }
+  .hero-meta { margin-top: 20px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 0.82rem; color: var(--color-muted); }
+  .hero-meta strong { color: var(--color-text); }
+
+  .section { margin-top: 56px; }
+  .section:first-of-type { margin-top: 0; }
+
+  .section-num {
+    display: inline-block; font-family: var(--font-head); font-style: italic;
+    font-size: 1rem; color: var(--color-accent); margin-bottom: 6px;
+  }
+  .section h2 {
+    font-family: var(--font-head); font-weight: 600; font-size: clamp(1.5rem, 4vw, 2.1rem);
+    margin-bottom: 10px; line-height: 1.15;
+  }
+  .section h2 a.inline-ref {
+    color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-accent-soft);
+    transition: var(--transition);
+  }
+  .section h2 a.inline-ref:hover { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+
+  .section > p.lead { color: var(--color-muted); font-size: 1rem; max-width: 640px; margin-bottom: 28px; }
+
+  .section h3 {
+    font-family: var(--font-head); font-weight: 600; font-size: 1.25rem;
+    margin: 30px 0 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .section h4 { font-size: 1rem; font-weight: 700; margin: 18px 0 8px; }
+  .section p { color: var(--color-text); margin-bottom: 12px; }
+  .section p.muted { color: var(--color-muted); font-size: 0.92rem; }
+  .section ul, .section ol { margin: 0 0 16px 20px; color: var(--color-text); }
+  .section li { margin-bottom: 6px; }
+
+  .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); margin-bottom: 24px; }
+  .bento-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .bento-block {
+    background-color: var(--color-card); border-radius: var(--radius-card);
+    padding: 22px; transition: var(--transition);
+  }
+  .bento-block:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .bento-block--full { grid-column: 1 / -1; }
+  .bento-block--accent { background: var(--color-accent-soft); }
+  .bento-block--sage { background: var(--color-sage-soft); }
+
+  .bento-block .tier-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: var(--radius-pill); margin-bottom: 10px;
+  }
+  .tier-tag.tier-1 { background: var(--color-accent); color: #fff; }
+  .tier-tag.tier-2 { background: var(--color-sage); color: #fff; }
+  .tier-tag.tier-3 { background: var(--color-field); color: var(--color-muted); }
+
+  .bento-block h4 { font-family: var(--font-head); font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+  .bento-block p { font-size: 0.88rem; color: var(--color-muted); margin-bottom: 0; }
+
+  .callout {
+    background: var(--color-sage-soft); border-radius: var(--radius-card);
+    padding: 22px 24px; margin: 20px 0;
+  }
+  .callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .callout p { color: var(--color-text); font-size: 0.94rem; margin-bottom: 0; }
+  .callout b { color: var(--color-accent); }
+  .callout.warn { background: var(--color-accent-soft); }
+  .callout.warn b { color: var(--color-accent); }
+
+  /* ============ CTA-БЛОК С РЕФЕРАЛЬНОЙ ССЫЛКОЙ ============ */
+  .ref-cta {
+    background: var(--color-text);
+    border-radius: var(--radius-card);
+    padding: 26px 28px;
+    margin: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .ref-cta__text h4 {
+    font-family: var(--font-head); color: #fff; font-size: 1.1rem; margin: 0 0 4px;
+  }
+  .ref-cta__text p { color: rgba(243,239,233,0.7); font-size: 0.86rem; margin: 0; }
+  .ref-cta__btn {
+    flex-shrink: 0;
+    background: var(--color-accent); color: #fff;
+    font-weight: 700; font-size: 0.92rem;
+    padding: 13px 26px; border-radius: var(--radius-pill);
+    text-decoration: none; white-space: nowrap;
+    transition: var(--transition);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .ref-cta__btn:hover { background: #fff; color: var(--color-text); transform: translateY(-2px); }
+
+  /* маленькая инлайн-ссылка на регистрацию рядом с названием тарифа в таблице */
+  .ref-inline {
+    font-size: 0.72rem; font-weight: 700; text-decoration: none;
+    background: var(--color-accent-soft); color: var(--color-accent);
+    padding: 2px 8px; border-radius: var(--radius-pill); margin-left: 6px;
+    transition: var(--transition); display: inline-block;
+  }
+  .ref-inline:hover { background: var(--color-accent); color: #fff; }
+
+  .table-card {
+    background: var(--color-card); border-radius: var(--radius-card);
+    padding: 6px; margin-bottom: 24px; overflow: hidden;
+  }
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-field); }
+  table { width: 100%; border-collapse: collapse; min-width: 460px; }
+  th, td {
+    padding: 12px 16px; text-align: left; font-size: 0.86rem;
+    border-bottom: 1px solid var(--color-field); white-space: nowrap;
+  }
+  th { background: var(--color-field); font-weight: 700; font-family: var(--font-body); }
+  td { color: var(--color-text); }
+  tr:last-child td { border-bottom: none; }
+
+  .cell-good { color: var(--color-sage); font-weight: 700; }
+  .cell-warn { color: #B98900; font-weight: 700; }
+  .cell-bad { color: var(--color-accent); font-weight: 700; }
+
+  .prompt-block {
+    position: relative; background: var(--color-code-bg); color: var(--color-code-text);
+    border-radius: var(--radius-card); padding: 22px 22px 18px; margin: 18px 0 24px;
+  }
+  .prompt-block__label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .prompt-block__title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-accent-soft); }
+  .copy-btn {
+    background: rgba(255,255,255,0.1); border: none; color: var(--color-code-text);
+    font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+    padding: 7px 14px; border-radius: var(--radius-pill); cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .copy-btn:hover { background: var(--color-accent); }
+  .copy-btn.copied { background: var(--color-sage); }
+  .prompt-block pre {
+    font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word; color: var(--color-code-text);
+  }
+
+  .step { display: flex; gap: 18px; margin-bottom: 26px; align-items: flex-start; }
+  .step-num {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
+    background: var(--color-accent); color: #fff; font-family: var(--font-head); font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+  }
+  .step-body h4 { margin-top: 4px; margin-bottom: 6px; }
+  .step-body p { margin-bottom: 6px; font-size: 0.94rem; }
+
+  .checklist { list-style: none; margin: 0 0 20px 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+    font-size: 0.92rem; border-bottom: 1px solid var(--color-field);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '✓'; flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--color-sage); color: #fff; font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+
+  .strategy {
+    background: var(--color-field); border-radius: var(--radius-card);
+    padding: 22px; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.9;
+    margin: 18px 0 24px; overflow-x: auto; white-space: pre;
+  }
+
+  .toc {
+    background: var(--color-card); border-radius: var(--radius-card); padding: 20px;
+    margin-bottom: 40px;
+  }
+  .toc h4 { font-family: var(--font-head); font-size: 1rem; margin-bottom: 10px; }
+  .toc ol { margin: 0; padding-left: 20px; color: var(--color-muted); }
+  .toc a { color: var(--color-text); font-weight: 600; text-decoration: none; }
+  .toc a:hover { color: var(--color-accent); }
+  .toc li { margin-bottom: 4px; font-size: 0.9rem; }
+
+  .footer {
+    margin-top: 56px; padding-top: 30px; border-top: 1px solid var(--color-field);
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .footer-brand { font-family: var(--font-head); font-weight: 600; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a { font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+  .footer-note { width: 100%; font-size: 0.78rem; color: var(--color-muted); margin-top: 10px; }
+
+  @media (max-width: 720px) {
+    nav.nav-links { display: none; }
+    .burger { display: flex; }
+    nav.nav-links.mobile-open {
+      display: flex; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--color-container); flex-direction: column; padding: 16px 20px;
+      border-bottom: 1px solid var(--color-field); box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      z-index: 950;
+    }
+    nav.nav-links.mobile-open ul { flex-direction: column; gap: 14px; }
+  }
+
+  @media (max-width: 600px) {
+    .page { margin: 0; padding: 0; }
+    .brief { border-radius: 0; padding: 26px 18px; }
+    .bento-grid, .bento-grid.cols-3 { grid-template-columns: 1fr; }
+    h1 { font-size: 2rem; }
+    .step { flex-direction: column; gap: 10px; }
+    .prompt-block { padding: 18px 16px 14px; }
+    .prompt-block__label { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .ref-cta { flex-direction: column; align-items: flex-start; text-align: left; }
+    .ref-cta__btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="topnav">
+    <div class="nav-wrap">
+      <div class="nav-logo">
+        <span class="dot"></span> Вайб-кодинг для ESL
+        <span class="paid-badge">Boosty</span>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <ul>
+          <li><a href="#intro">Введение</a></li>
+          <li><a href="#steps">Этапы</a></li>
+          <li><a href="#prompts">Промпты</a></li>
+                    <li><a href="#syntx">SYNTX</a></li>
+          <li><a href="#strategy">Стратегия</a></li>
+          <li><a href="#checklist">Чек-лист</a></li>
+        </ul>
+      </nav>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="page">
+    <main class="brief">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="intro">
+        <div class="brief__badges">
+          <span class="brief__badge">Гайд · Boosty</span>
+          <span class="brief__badge">@AlexandraGes_ESL</span>
+        </div>
+        <h1>Создаём игровые тренажёры <em>без кода</em></h1>
+        <p class="lead">
+          Полный пошаговый гайд по вайб-кодингу для преподавателей английского:
+          от идеи игры до готового HTML-тренажёра, который можно отправить ученику одной ссылкой.
+        </p>
+        <div class="hero-meta">
+          <span>⏱ Время чтения: <strong>~25 минут</strong></span>
+          <span>🎯 Уровень: <strong>без опыта программирования</strong></span>
+          <span>🔄 Обновлено: <strong>12.07.2026</strong></span>
+        </div>
+      </section>
+
+      <!-- ============ TOC ============ -->
+      <div class="toc">
+        <h4>📑 Содержание гайда</h4>
+        <ol>
+          <li><a href="#intro-body">Что такое вайб-кодинг и зачем это преподавателю</a></li>
+          <li><a href="#steps">7 шагов: от идеи до готовой игры</a></li>
+          <li><a href="#prompts">Готовые промпты — копируй и используй</a></li>
+          <li><a href="#syntx">Разбор SYNTX: тарифы и модели</a></li>
+          <li><a href="#strategy">Стратегия экономии токенов</a></li>
+          <li><a href="#checklist">Финальный чек-лист перед публикацией</a></li>
+        </ol>
+      </div>
+
+      <!-- ============ SECTION: ВВЕДЕНИЕ ============ -->
+      <section class="section" id="intro-body">
+        <span class="section-num">01</span>
+        <h2>Что такое вайб-кодинг</h2>
+        <p class="lead">
+          Вайб-кодинг — это создание рабочих программ через диалог с нейросетью на обычном языке,
+          без написания кода руками. Ты описываешь, что хочешь получить — ИИ пишет код.
+          Твоя роль — постановка задачи, проверка результата и точечные правки.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">🎓 Зачем это преподавателю английского</div>
+          <p>
+            Игровой тренажёр — это самостоятельная практика вне урока. Ученик закрепляет лексику или грамматику
+            в игровой форме, а ты получаешь <b>уникальный материал</b>, которого нет ни у одного другого репетитора.
+            Плюс — это то, что можно продавать как часть курса или бонус к абонементу.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <div class="bento-block">
+            <h4>🧩 Не нужен код</h4>
+            <p>Ты описываешь механику игры словами — нейросеть переводит это в HTML/CSS/JS.</p>
+          </div>
+          <div class="bento-block">
+            <h4>⚡ Быстро</h4>
+            <p>Первая рабочая версия игры собирается за 30–60 минут, включая правки.</p>
+          </div>
+          <div class="bento-block">
+            <h4>🔗 Просто делиться</h4>
+            <p>Готовый файл — это одна ссылка. Открывается в любом браузере, на любом устройстве.</p>
+          </div>
+          <div class="bento-block">
+            <h4>💰 Почти бесплатно</h4>
+            <p>При грамотной стратегии токенов расходы на инструменты минимальны (см. раздел 5).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECTION: ЭТАПЫ ============ -->
+      <section class="section" id="steps">
+        <span class="section-num">02</span>
+        <h2>7 шагов: от идеи до готовой игры</h2>
+        <p class="lead">Последовательность, которая работает стабильно — от первого промпта до публикации.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Сформулируй механику игры на человеческом языке</h4>
+            <p>Не «сделай игру про времена глагола», а конкретно: тип игры, правило победы, что происходит при ошибке ученика.</p>
+            <p class="muted">Пример: «Игра-платформер, где герой прыгает по платформам с глаголами. Наступил на неправильную форму — минус жизнь».</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Выбери модель под задачу</h4>
+            <p>Для черновой генерации структуры игры используй бесплатные модели (Opus, DeepSeek, Qwen). Токены флагманов (Fable 5, GPT-5.6 Sol) — только на финальную полировку.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Опиши визуальный стиль отдельным сообщением</h4>
+            <p>Цветовая палитра, шрифты, настроение (например: «тёплая пастель, дружелюбно, без резких углов») — отдельный запрос после базовой логики. Так ИИ не путает механику с дизайном.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Проверь игру в браузере</h4>
+            <p>Открой полученный HTML-файл локально. Пройди игру от начала до конца минимум 2 раза — как ученик, а не как автор.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Собери список правок и отправляй пачкой</h4>
+            <p>Не исправляй по одному багу за запрос — это тратит лимиты. Выпиши все замечания в один список и отдай нейросети целиком.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h4>Адаптируй под мобильные устройства</h4>
+            <p>Большинство учеников будут открывать игру с телефона. Отдельно попроси проверить и адаптировать под экран до 480px.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <h4>Опубликуй и поделись ссылкой</h4>
+            <p>Самый простой способ — GitHub Pages (бесплатно, стабильно, без рекламы). Залил файл — получил ссылку вида <code>username.github.io/game</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECTION: ПРОМПТЫ ============ -->
+      <section class="section" id="prompts">
+        <span class="section-num">03</span>
+        <h2>Готовые промпты</h2>
+        <p class="lead">Копируй, адаптируй под свою тему урока и вставляй в чат с нейросетью.</p>
+
+        <h3>🎮 Промпт №1 — базовая структура игры</h3>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт для старта</span>
+            <button class="copy-btn" data-copy="prompt-1">📋 Скопировать</button>
+          </div>
+          <pre id="prompt-1">Создай HTML-игру для изучения английского языка на тему: [ТВОЯ ТЕМА, например "неправильные глаголы"].
+
+Механика: [ОПИШИ ПОДРОБНО — тип игры, условие победы/проигрыша, что происходит при правильном/неправильном ответе].
+
+Технические требования:
+- Только Vanilla HTML/CSS/JS, всё в одном файле
+- Адаптивность под мобильные устройства (до 480px)
+- Плавные анимации переходов между состояниями
+- Счётчик очков и/или жизней на экране
+- Экран победы/поражения с кнопкой "Играть снова"
+
+Список слов/фраз для игры: [ВСТАВЬ СПИСОК]
+
+Выведи полный готовый код в одном файле index.html.</pre>
+        </div>
+
+        <h3>🎨 Промпт №2 — визуальный стиль</h3>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт для дизайна</span>
+            <button class="copy-btn" data-copy="prompt-2">📋 Скопировать</button>
+          </div>
+          <pre id="prompt-2">Теперь оформи визуальный стиль игры:
+
+Настроение: [например: тёплое, дружелюбное, без резких углов]
+Цветовая палитра: [укажи 2-3 основных цвета или "на твой выбор в тон настроению"]
+Шрифты: [например: округлый sans-serif для текста, декоративный для заголовков]
+
+Добавь:
+- Плавные hover-эффекты на кликабельные элементы
+- Анимацию появления элементов при загрузке
+- Визуальный отклик при правильном/неправильном ответе (например, вспышка зелёным/красным)
+
+Сохрани всю текущую логику игры без изменений — меняй только оформление.</pre>
+        </div>
+
+        <h3>🐛 Промпт №3 — пакетное исправление багов</h3>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт для правок</span>
+            <button class="copy-btn" data-copy="prompt-3">📋 Скопировать</button>
+          </div>
+          <pre id="prompt-3">Нашла следующие проблемы, поправь все сразу:
+
+1. [Проблема 1 — опиши, что видишь и что должно быть]
+2. [Проблема 2]
+3. [Проблема 3]
+
+Важно: не меняй остальную логику и стиль игры, которые уже работают корректно.
+Выведи полный обновлённый код файла.</pre>
+        </div>
+
+        <h3>📱 Промпт №4 — адаптация под мобильные</h3>
+        <div class="prompt-block">
+          <div class="prompt-block__label">
+            <span class="prompt-block__title">Промпт для адаптива</span>
+            <button class="copy-btn" data-copy="prompt-4">📋 Скопировать</button>
+          </div>
+          <pre id="prompt-4">Проверь и адаптируй игру для мобильных устройств с шириной экрана от 320px до 480px:
+
+- Все элементы должны помещаться на экран без горизонтального скролла
+- Кнопки и кликабельные зоны — не менее 44x44px (удобно для пальца)
+- Текст читаем без зума
+- Игра должна корректно работать в портретной ориентации
+
+Добавь необходимые @media-запросы, сохранив десктопную версию без изменений.</pre>
+        </div>
+
+        <div class="callout warn">
+          <div class="callout-title">⚠️ Важно</div>
+          <p>
+            Всегда проси вывести <b>полный код файла</b>, а не только изменённый фрагмент —
+            иначе придётся вручную склеивать куски, и легко потерять рабочую логику.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ SECTION: SYNTX ============ -->
+      <section class="section" id="syntx">
+        <span class="section-num">04</span>
+        <h2>
+          <a class="inline-ref" href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">SYNTX AI</a>
+          — детальный разбор
+        </h2>
+        <p class="lead">Актуально на 12.07.2026. Telegram-бот + сайт, используем для доступа к нейросетям.</p>
+
+        <!-- CTA-блок с реферальной ссылкой перед таблицами -->
+        <div class="ref-cta">
+          <div class="ref-cta__text">
+            <h4>Регистрация в SYNTX</h4>
+            <p>Переходи по ссылке ниже — это моя реферальная регистрация, поддерживает канал без доплат с твоей стороны</p>
+          </div>
+          <a class="ref-cta__btn" href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">
+            Зарегистрироваться →
+          </a>
+        </div>
+
+        <h3>💰 Тарифы</h3>
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Тариф</th>
+                  <th>Без токенов / мес</th>
+                  <th>С токенами / мес</th>
+                  <th>Токенов в пакете</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>FREE</td><td>—</td><td>—</td><td>5.5 ⚡</td></tr>
+                <tr><td>BASIC</td><td>790 ₽</td><td>890 ₽</td><td>280 ⚡</td></tr>
+                <tr><td>PRO</td><td>1 490 ₽</td><td>1 690 ₽</td><td>680 ⚡</td></tr>
+                <tr><td>VIP</td><td>—</td><td>3 990 ₽</td><td>1 700 ⚡</td></tr>
+                <tr><td>ELITE</td><td>4 990 ₽</td><td>5 990 ₽</td><td>2 600 ⚡</td></tr>
+                <tr><td>ULTRA ELITE</td><td>9 990 ₽</td><td>11 990 ₽</td><td>3 000 ⚡</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="muted">
+          Полное описание тарифов и живой калькулятор — на
+          <a href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">странице регистрации SYNTX</a>.
+        </p>
+
+        <h3>🤖 Модели для текста и кода</h3>
+        <p class="muted">Ключевое для вайб-кодинга — сколько токенов "съедает" запрос к каждой модели.</p>
+
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr><th>Модель</th><th>BASIC</th><th>PRO</th><th>VIP+</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Claude Sonnet 5</td><td>2 токена</td><td>2 токена</td><td>2 токена</td></tr>
+                <tr><td><b>Claude Fable 5</b> 🔥</td><td class="cell-bad">15 токенов</td><td class="cell-bad">15 токенов</td><td class="cell-bad">15 токенов</td></tr>
+                <tr><td>Claude 4.8 Opus</td><td class="cell-good">∞</td><td class="cell-good">∞</td><td class="cell-good">∞</td></tr>
+                <tr><td>Claude 4.6 / 4.5 / 4 Sonnet</td><td>в лимит запросов</td><td>в лимит</td><td class="cell-good">∞</td></tr>
+                <tr><td><b>GPT-5.6 Sol</b> 🔥</td><td class="cell-warn">10 токенов</td><td class="cell-warn">10 токенов</td><td class="cell-warn">10 токенов</td></tr>
+                <tr><td>GPT-5.6 Terra</td><td>5 токенов</td><td>5 токенов</td><td>5 токенов</td></tr>
+                <tr><td>GPT-5.6 Luna</td><td class="cell-good">∞</td><td class="cell-good">∞</td><td class="cell-good">∞</td></tr>
+                <tr><td>DeepSeek R1 / V3</td><td class="cell-good">∞</td><td class="cell-good">∞</td><td class="cell-good">∞</td></tr>
+                <tr><td>Qwen 3 / Thinking / Max</td><td class="cell-good">∞</td><td class="cell-good">∞</td><td class="cell-good">∞</td></tr>
+                <tr><td>Grok 4.5 / Gemini 3.1 PRO</td><td>—</td><td>—</td><td class="cell-good">∞</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3>⏱ Лимиты запросов</h3>
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr><th></th><th>BASIC</th><th>PRO</th><th>VIP+</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>В час</td><td>10</td><td>25</td><td class="cell-good">∞</td></tr>
+                <tr><td>В сутки</td><td>60</td><td>150</td><td class="cell-good">∞</td></tr>
+                <tr><td>В месяц</td><td>≈1 800</td><td>≈4 500</td><td class="cell-good">∞</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CTA-блок после таблиц -->
+        <div class="ref-cta">
+          <div class="ref-cta__text">
+            <h4>Готова попробовать?</h4>
+            <p>Начни с FREE-тарифа — этого достаточно, чтобы протестировать первую игру</p>
+          </div>
+          <a class="ref-cta__btn" href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">
+            Открыть SYNTX →
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ SECTION: СТРАТЕГИЯ ============ -->
+      <section class="section" id="strategy">
+        <span class="section-num">05</span>
+        <h2>Стратегия экономии токенов</h2>
+        <p class="lead">
+          На BASIC с пакетом (280 ⚡) — это примерно 18 запросов к Fable 5 в
+          <a href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">SYNTX</a>.
+          Распредели их с умом.
+        </p>
+
+        <div class="strategy">🔴 Claude Fable 5 (15 ⚡/запрос) → архитектура и сложные баги (5–7 раз/мес)
+🟡 Sonnet 5 / GPT-5.6 Sol (2–10 ⚡) → доработки средней сложности
+🟢 Opus 4.x / Luna / DeepSeek / Qwen (0 ⚡) → рутина, тексты, косметика, тесты</div>
+
+        <div class="bento-grid cols-3">
+          <div class="bento-block bento-block--accent">
+            <span class="tier-tag tier-1">Дорого</span>
+            <h4>Claude Fable 5</h4>
+            <p>Полная структура игры с нуля, архитектурные решения, самые сложные баги.</p>
+          </div>
+          <div class="bento-block bento-block--sage">
+            <span class="tier-tag tier-2">Средне</span>
+            <h4>Sonnet 5 / GPT Sol</h4>
+            <p>Новые механики, рефакторинг, доработки среднего уровня.</p>
+          </div>
+          <div class="bento-block">
+            <span class="tier-tag tier-3">Бесплатно</span>
+            <h4>Opus / DeepSeek / Qwen</h4>
+            <p>Мелкие правки, контент, тестирование — без ограничений.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">💡 Лайфхак</div>
+          <p>
+            Начинай проект на бесплатной модели (Opus 4.8 или DeepSeek) — они справляются с 80% задач.
+            Переходи на Fable 5 только когда бесплатная модель "зависла" на баге или не понимает сложную механику.
+          </p>
+        </div>
+
+        <h3>🎯 Какой тариф выбрать</h3>
+        <div class="table-card">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Ситуация</th><th>Тариф</th></tr></thead>
+              <tbody>
+                <tr><td>Хочу попробовать</td><td>FREE</td></tr>
+                <tr><td>1–2 игры в месяц, бюджет ограничен</td><td>BASIC без токенов — 790 ₽</td></tr>
+                <tr><td>Регулярно, флагман иногда нужен</td><td>BASIC с токенами — 890 ₽</td></tr>
+                <tr><td>Работаю каждый день</td><td>PRO — 1 490–1 690 ₽</td></tr>
+                <tr><td>Нужен полный безлимит</td><td>VIP — 3 990 ₽</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="muted">
+          Выбрать тариф и активировать пакет токенов можно прямо на
+          <a href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">странице SYNTX по этой ссылке</a>.
+        </p>
+      </section>
+
+      <!-- ============ SECTION: ЧЕК-ЛИСТ ============ -->
+      <section class="section" id="checklist">
+        <span class="section-num">06</span>
+        <h2>Финальный чек-лист перед публикацией</h2>
+        <p class="lead">Пройди по пунктам перед тем, как отправить игру ученику.</p>
+
+        <ul class="checklist">
+          <li>Игра пройдена от начала до конца минимум 2 раза без ошибок</li>
+          <li>Проверена на мобильном экране (или через режим адаптива в браузере)</li>
+          <li>Все тексты и лексика проверены на опечатки</li>
+          <li>Кнопки имеют явный визуальный отклик при наведении/нажатии</li>
+                    <li>Экран победы/поражения работает и есть возможность перезапустить игру</li>
+          <li>Файл называется понятно (например <code>past-simple-game.html</code>)</li>
+          <li>Ссылка на GitHub Pages открывается и работает в разных браузерах</li>
+        </ul>
+
+        <div class="callout">
+          <div class="callout-title">🚀 Готово к публикации</div>
+          <p>
+            Если все пункты отмечены — заливай на GitHub Pages и отправляй ученикам.
+            Сохрани промпты, которые использовала — следующая игра на похожую тему соберётся ещё быстрее.
+          </p>
+        </div>
+
+        <!-- финальный CTA перед подвалом -->
+        <div class="ref-cta">
+          <div class="ref-cta__text">
+            <h4>Начни прямо сейчас</h4>
+            <p>Зарегистрируйся в SYNTX по моей ссылке и собери свою первую игру уже сегодня</p>
+          </div>
+          <a class="ref-cta__btn" href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">
+            Перейти в SYNTX →
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ FOOTER ============ -->
+      <footer class="footer">
+        <div class="footer-brand">Александра Гес · ESL</div>
+        <div class="footer-links">
+          <a href="https://t.me/AlexandraGes" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://syntx.ai/welcome/8ATO9Gnz" target="_blank" rel="noopener">SYNTX (регистрация)</a>
+          <a href="#" target="_blank" rel="noopener">Boosty</a>
+        </div>
+        <p class="footer-note">
+          Гайд предназначен для подписчиков Boosty. Пожалуйста, не распространяйте материал за пределами подписки — это поддерживает создание новых бесплатных и платных материалов.
+          Ссылки на SYNTX являются реферальными — переход по ним поддерживает канал без дополнительных затрат для вас.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+<script>
+  /* ============================================
+     1. PROGRESS BAR — заполняется по скроллу страницы
+  ============================================ */
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateProgress);
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ============================================
+     2. МОБИЛЬНОЕ МЕНЮ (burger)
+  ============================================ */
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+
+  burgerBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+    burgerBtn.classList.toggle('active');
+  });
+
+  // закрываем меню при клике на пункт (мобильная навигация)
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('mobile-open');
+      burgerBtn.classList.remove('active');
+    });
+  });
+
+  /* ============================================
+     3. SCROLLSPY — подсветка активного пункта меню
+     в зависимости от того, какая секция видна
+  ============================================ */
+  const sections = document.querySelectorAll('.section, .hero');
+  const navAnchors = document.querySelectorAll('nav.nav-links a');
+
+  function updateActiveNav() {
+    let currentId = '';
+    const scrollPos = window.scrollY + 120; // отступ под sticky-хедер
+
+    sections.forEach(section => {
+      if (section.offsetTop <= scrollPos) {
+        currentId = section.id;
+      }
+    });
+
+    navAnchors.forEach(a => {
+      const href = a.getAttribute('href').replace('#', '');
+      a.classList.toggle('active', href === currentId);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav);
+  updateActiveNav();
+
+  /* ============================================
+     4. КОПИРОВАНИЕ ПРОМПТОВ
+     Каждая кнопка .copy-btn ссылается на id блока с текстом
+  ============================================ */
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.copy;
+      const textEl = document.getElementById(targetId);
+      if (!textEl) return;
+
+      const text = textEl.innerText;
+
+      try {
+        // основной способ — Clipboard API
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        // фолбэк для старых браузеров / небезопасного контекста
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+
+      // визуальная обратная связь: меняем текст и цвет кнопки на 1.6 сек
+      const originalText = btn.textContent;
+      btn.textContent = '✅ Скопировано';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 1600);
+    });
+  });
+</script>
+</body>
+</html>
