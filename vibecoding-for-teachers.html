@@ -387,15 +387,59 @@ tr:last-child td { border-bottom:none; }
 }
 
 /* ===================== REF-SOURCE КАРТОЧКИ ===================== */
-.ref-source {
-  background:var(--color-card); border-radius:var(--radius-card);
-  padding:20px; display:block; text-decoration:none; color:var(--color-text);
-  border:1px solid transparent; transition:var(--transition);
-}
-.ref-source:hover { transform:translateY(-3px); box-shadow:var(--shadow-hover); border-color:var(--color-accent-soft); }
-.ref-source__icon { font-size:1.5rem; display:block; margin-bottom:10px; }
-.ref-source h4 { font-family:var(--font-head); font-size:1rem; margin-bottom:4px; color:var(--color-text); }
-.ref-source p  { font-size:0.84rem; color:var(--color-muted); margin:0; }
+<div class="bento-grid">
+  <a href="https://pinterest.com/search/pins/?q=quiz+app+UI+design" target="_blank" rel="noopener" class="ref-source">
+    <span class="ref-source__icon">
+      <!-- Pinterest logo -->
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="12" fill="#E60023"/>
+        <path d="M12.5 4C8.36 4 6 6.9 6 9.85c0 1.9.72 3.58 2.26 4.21.25.1.48.01.55-.28.05-.2.17-.7.22-.91.07-.28.04-.38-.16-.62-.44-.52-.73-1.2-.73-2.16 0-2.78 2.08-5.27 5.42-5.27 2.95 0 4.58 1.81 4.58 4.22 0 3.17-1.4 5.85-3.49 5.85-1.15 0-2.01-.95-1.73-2.12.33-1.4.97-2.9.97-3.91 0-.9-.48-1.65-1.48-1.65-1.17 0-2.12 1.22-2.12 2.84 0 1.04.35 1.74.35 1.74L8.9 17.5c-.3 1.26-.04 2.83-.02 2.98.01.09.13.11.18.04.08-.1 1.06-1.32 1.4-2.53l.55-2.12c.27.52 1.07 .98 1.92.98 2.52 0 4.23-2.3 4.23-5.38C17 8.06 15.04 4 12.5 4z" fill="white"/>
+      </svg>
+    </span>
+    <h4>Pinterest</h4>
+    <p>Поиск по «UI game design», «quiz app design» — быстро и много вариантов.</p>
+  </a>
+
+  <a href="https://dribbble.com/search/quiz-game-ui" target="_blank" rel="noopener" class="ref-source">
+    <span class="ref-source__icon">
+      <!-- Dribbble logo -->
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="12" fill="#EA4C89"/>
+        <path d="M12 4.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm4.97 3.44a6.27 6.27 0 0 1 1.4 3.9c-.2-.04-2.26-.46-4.33-.2-.05-.11-.09-.23-.14-.34-.13-.31-.27-.62-.42-.92 2.27-.92 3.3-2.25 3.49-2.44zM12 5.73c1.56 0 2.99.57 4.07 1.5-.16.17-1.08 1.41-3.27 2.23-1.02-1.88-2.15-3.42-2.33-3.66A6.3 6.3 0 0 1 12 5.73zm-3.4.72c.17.22 1.28 1.77 2.32 3.6-2.93.78-5.52.76-5.8.76a6.28 6.28 0 0 1 3.48-4.36zM5.72 12l.02-.27c.27.01 3.33.05 6.45-.9.18.35.35.71.51 1.07-.08.02-.17.05-.25.08-3.22 1.04-4.93 3.88-5.07 4.12A6.26 6.26 0 0 1 5.72 12zm6.28 6.27c-1.5 0-2.88-.52-3.97-1.38.11-.22 1.37-2.66 4.9-3.9l.04-.01a22.5 22.5 0 0 1 1.16 4.1 6.25 6.25 0 0 1-2.13.19zm3.37-.83a23.8 23.8 0 0 0-1.07-3.8c1.88-.3 3.53.19 3.74.26a6.28 6.28 0 0 1-2.67 3.54z" fill="white"/>
+      </svg>
+    </span>
+    <h4>Dribbble</h4>
+    <p>Профессиональные UI-концепты с деталями по цвету и типографике.</p>
+  </a>
+
+  <a href="https://mobbin.com" target="_blank" rel="noopener" class="ref-source">
+    <span class="ref-source__icon">
+      <!-- Mobbin logo — wordmark-style, используем их фирменный чёрный квадрат -->
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#000000"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Georgia, serif" font-weight="700" font-size="11"
+              letter-spacing="-0.5" fill="white">M</text>
+      </svg>
+    </span>
+    <h4>Mobbin</h4>
+    <p>Скриншоты реальных мобильных приложений — полезно для игровых экранов.</p>
+  </a>
+
+  <a href="https://www.awwwards.com" target="_blank" rel="noopener" class="ref-source">
+    <span class="ref-source__icon">
+      <!-- Awwwards logo -->
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#111111"/>
+        <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Arial, sans-serif" font-weight="900" font-size="8.5"
+              letter-spacing="-0.3" fill="white">AWW</text>
+      </svg>
+    </span>
+    <h4>Awwwards</h4>
+    <p>Топовые сайты с анимациями и микро-взаимодействиями — для вдохновения по переходам.</p>
+  </a>
+</div>
 
 /* ===================== МЕТОДЫ КАРТОЧКИ ===================== */
 .method-list { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
