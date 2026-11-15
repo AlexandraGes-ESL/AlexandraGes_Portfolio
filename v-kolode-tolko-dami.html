@@ -491,6 +491,11 @@ button{font:inherit;color:inherit}
   .modal__cta .btn{width:100%}
 }
 @keyframes sheetIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  .modal__sub{margin:1.4rem 0 .7rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.gifts-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.gifts-list li{position:relative;padding-left:1.3em;font-size:.86rem;line-height:1.55;
+  color:var(--ivory-dim);font-weight:300}
+.gifts-list li::before{content:"◆";position:absolute;left:0;top:.05em;font-size:.6rem;color:var(--gold)}
 
 /* ===== REVEAL ===== */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -648,40 +653,71 @@ const videoUrl = a => USE_LOCAL ? `${LOCAL}vid/${a.key}.mp4` : `${RAW}${a.file}.
    ============================================================== */
 const DECK = [
   {
-    key:"sasha", file:"sasha", name:"Александра Здухова", handle:"AlexandraGes",
+    key:"sasha", file:"sasha", name:"Александра Здухова", handle:"alexandragesESL",
     kind:"queen", pip:"♣", rank:"Q", accent:"#3F7D59",
-    topic:"Авторский Баттл-квиз на Genially", platform:"Genially",
-    sub:"https://t.me/+mjfXelTSe-EzYzIy", channel:"AlexandraGes_ESL"
+    topic:"Авторский баттл-квиз на Genially", platform:"Genially",
+    sub:"https://t.me/+mjfXelTSe-EzYzIy", channel:"AlexandraGes_ESL",
+    gifts:[
+      "Мастер-класс по созданию авторского баттл-квиза на Genially + авторское расширение",
+      "Шаблон игры «Narnia Battle»",
+      "Игра «Nutcracker battle» по теме feelings",
+      "Скидка 15% на все тарифы Boosty и 20% на Рождественский Адвент (A1–A2)"
+    ]
   },
   {
-    key:"valya", file:"valya", name:"Валентина Уляева", handle:"valentinauliaeva",
-    kind:"queen", pip:"♥", rank:"Q", accent:"#B23A48",
+    key:"valya", file:"valya", name:"Валентина Уляева", handle:"teacher_with_features",
+    kind:"queen", pip:"♦", rank:"Q", accent:"#B23A48",
     topic:"Создаём модульный шаблон на доске Holst", platform:"Holst",
-    sub:"https://t.me/+l6186HUlke83MjZi", channel:"Секреты Волшебных Уроков | Валентина Уляева"
+    sub:"https://t.me/+l6186HUlke83MjZi", channel:"Секреты Волшебных Уроков | Валентина Уляева",
+    gifts:[
+      "Мастер-класс по созданию интерактивного шаблона «Ночь в музее» на доске Holst",
+      "Шаблон Адвент-календаря в стиле Coca-Cola на доске Holst",
+      "Шаблон Winter Aesthetic на доске Holst",
+      "Купон −20% на доступ к каналу MiroUniverse (шаблоны на Miro и Holst)"
+    ]
   },
   {
-    key:"alina", file:"alina", name:"Алина Стогниева", handle:"AlinaStognieva",
-    kind:"queen", pip:"♦", rank:"Q", accent:"#C4682F",
+    key:"alina", file:"alina", name:"Алина Стогниева", handle:"TruAlinka",
+    kind:"queen", pip:"♠", rank:"Q", accent:"#4A5170",
     topic:"Создаём марафон на платформе Взнания", platform:"Взнания",
-    sub:"https://t.me/+4BMe92pxJOc2YTVi", channel:"ТруАлинка - TruAlinka"
+    sub:"https://t.me/TruAlinka", channel:"ТруАлинка - TruAlinka",
+    gifts:[
+      "Мастер-класс по основным элементам платформы Взнания и созданию марафона",
+      "Набор из 10 тестов к учебнику Academy Stars 1 на Взнаниях",
+      "Шаблон игры «Поиск пар» с авторским редактором (Genially)",
+      "Скидка 15% на доступ в закрытые каналы: Zootopia, Halloween, Lexical Set"
+    ]
   },
   {
-    key:"alyona", file:"alyona", name:"Алёна Коденцева", handle:"alenaamr",
-    kind:"queen", pip:"♠", rank:"Q", accent:"#6E7490",
+    key:"alyona", file:"alyona", name:"Алёна Коденцева", handle:"easyfrbusy",
+    kind:"queen", pip:"♥", rank:"Q", accent:"#B23A48",
     topic:"Делаем карточки для игры в доббль в Canva", platform:"Canva",
-    sub:"https://t.me/+9mUkkjkIvkYyNzUy", channel:"Просто для учителя | Easy for busy"
+    sub:"https://t.me/easyfrbusy", channel:"Просто для учителя | Easy for busy",
+    gifts:[
+      "Мастер-класс по созданию игры доббль в Canva",
+      "Шаблон игры «Морской бой» по любой теме",
+      "Игра доббль по зимней лексике",
+      "Воркбук Welcome Winter",
+      "Купон на вступление в ВК-донат без первоначального взноса"
+    ]
   },
   {
-    key:"nika", file:"nika", name:"Ника Шум", handle:"nikashumchik",
+    key:"nika", file:"nika", name:"Ника Шум", handle:"teachy_witchy",
     kind:"joker", pip:"★", rank:"JOKER", accent:"#B23A48",
     topic:"Секретная тема — будет раскрыта в боте", platform:"—", secret:true,
-    sub:"https://t.me/+1czLVTbuPNsyYTJi", channel:"КОТ | Котел образовательных технологий"
+    sub:"https://t.me/+1czLVTbuPNsyYTJi", channel:"КОТ | Котел образовательных технологий",
+    gifts:[
+      "Сюрприз от автора — раскроем в боте"
+    ]
   },
   {
-    key:"nastya", file:"nastya", name:"Настя Дрынова", handle:"a_drynova",
+    key:"nastya", file:"nastya", name:"Настя Дрынова", handle:"nastya_drynova",
     kind:"joker", pip:"★", rank:"JOKER", accent:"#9AA0B4",
     topic:"Секретная тема — будет раскрыта в боте", platform:"—", secret:true,
-    sub:"https://t.me/+x3GsFI1hA01MjAy", channel:"Настя Дрынова Ваш ОНЛАЙН репетитор"
+    sub:"https://t.me/+x3GsFI1hA01MjAy", channel:"Настя Дрынова Ваш ОНЛАЙН репетитор",
+    gifts:[
+      "Сюрприз от автора — раскроем в боте"
+    ]
   }
 ];
 
@@ -1016,12 +1052,10 @@ function openModal(a){
         <div class="modal__rank">${a.rank} ${a.pip}${secret ? "" : " · " + a.platform}</div>
         <h3 class="modal__title">${shownTopic(a)}</h3>
         <div class="modal__who">${a.name} · <a href="${tgUrl(a)}" target="_blank" rel="noopener">@${a.handle}</a></div>
-        <div class="chips">
-          <span class="chip">мини-МК</span>
-          <span class="chip">разработка</span>
-          <span class="chip">шаблон</span>
-          <span class="chip">промокод</span>
-        </div>
+                <div class="modal__sub">Что дарит автор</div>
+        <ul class="gifts-list">
+          ${a.gifts.map(g => `<li>${g}</li>`).join("")}
+        </ul>
         <div class="modal__cta">
           <a class="btn" data-bot target="_blank" rel="noopener">Участвовать в боте</a>
           <a class="btn btn--ghost" href="${a.sub}" target="_blank" rel="noopener">Канал автора</a>
