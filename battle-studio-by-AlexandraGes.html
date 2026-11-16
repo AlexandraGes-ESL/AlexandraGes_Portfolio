@@ -1097,14 +1097,22 @@ code{font-family:'SF Mono',Consolas,monospace;font-size:.92em;background:rgba(25
       paintPips(EL.fp, QS.length, state.foe);
     }
 
-    /* ---------- render ---------- */
+        /* ---------- render ---------- */
+    function shuffled(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+      }
+      return a;
+    }
     function render() {
       var q = QS[state.i];
       EL.q.textContent = q.q;
       EL.prog.textContent = 'QUESTION ' + (state.i + 1) + ' / ' + QS.length;
       EL.fb.textContent = '';
       EL.opts.replaceChildren();
-      q.o.forEach(function (txt) {
+      shuffled(q.o).forEach(function (txt) {
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'opt'; b.textContent = txt;
         b.addEventListener('click', function (e) { e.stopPropagation(); pick(b, txt); });
@@ -1116,9 +1124,6 @@ code{font-family:'SF Mono',Consolas,monospace;font-size:.92em;background:rgba(25
       node.classList.remove('shake');
       void node.offsetWidth;
       node.classList.add('shake');
-    }
-    function later(fn, ms, run) {
-      setTimeout(function () { if (state.run === run) fn(); }, ms);
     }
 
     /* ---------- finish ---------- */
