@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Battle Quiz — материалы к мастер-классу</title>
+<meta name="description" content="Видео, редактор, промпты и подсказки для создания Battle Quiz.">
+<meta name="theme-color" content="#0d100e">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c100e;--panel:#151c18;--line:#374238;--cream:#f3eddd;--muted:#c1c5b6;--gold:#dbc18b;--serif:'Playfair Display',Georgia,serif;--sans:Manrope,system-ui,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#243c2b 0,transparent 40%),var(--bg);color:var(--cream);font-family:var(--sans);line-height:1.6}a{color:inherit}button{font:inherit} .wrap{width:min(1120px,calc(100% - 36px));margin:auto}.nav{position:sticky;top:0;z-index:10;background:rgba(12,16,14,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(15px)}.navin{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-family:var(--serif);font-size:1.05rem;text-decoration:none}.brand span{color:var(--gold)}.navlinks{display:flex;gap:24px;flex-wrap:wrap}.navlinks a{text-decoration:none;color:var(--muted);font-size:.8rem}.hero{padding:clamp(60px,10vw,115px) 0 54px}.eyebrow{color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;font-weight:700}.hero h1{font-family:var(--serif);font-weight:500;line-height:1.08;font-size:clamp(2.5rem,7vw,5.4rem);max-width:14ch;margin:18px 0}.hero h1 em{color:var(--gold);font-weight:500}.lead{color:var(--muted);max-width:57ch;font-size:1.05rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 20px;border:1px solid var(--gold);border-radius:99px;background:var(--gold);color:#1b2019;font-weight:700;font-size:.83rem;text-decoration:none;cursor:pointer}.button.secondary{background:transparent;color:var(--cream);border-color:#6b745f}.button:hover{filter:brightness(1.1)}.section{padding:55px 0;border-top:1px solid var(--line)}h2{font:500 clamp(1.8rem,4vw,2.9rem)/1.15 var(--serif);margin:12px 0 15px}h3{font:500 1.25rem/1.3 var(--serif);margin:0 0 12px}.sub{color:var(--muted);max-width:65ch;margin:0 0 28px}.video{aspect-ratio:16/9;background:#151b17;border:1px solid var(--line);border-radius:20px;overflow:hidden}.video iframe{width:100%;height:100%;border:0}.editor{display:flex;align-items:center;justify-content:space-between;gap:25px;background:#e5d4a9;color:#1c291e;border-radius:20px;padding:clamp(22px,4vw,40px)}.editor p{margin:0;color:#344336}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.box{background:linear-gradient(145deg,#1c2820,#151b17);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,30px);min-width:0}.box p{color:var(--muted)}details{border:1px solid var(--line);background:#151c18;border-radius:15px;margin:12px 0;overflow:hidden}summary{cursor:pointer;padding:20px 24px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:15px}summary::-webkit-details-marker{display:none}summary::after{content:'+';font-size:1.3rem;color:var(--gold)}details[open] summary::after{content:'−'}.details-body{padding:0 24px 24px}.prompt{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c110e;border:1px solid #354337;border-radius:12px;padding:18px;color:#e3e7dc;font:400 .86rem/1.75 ui-monospace,SFMono-Regular,Consolas,monospace}.copy{border:1px solid #6c765e;background:transparent;color:var(--cream);padding:10px 16px;border-radius:99px;cursor:pointer;font-size:.8rem;font-weight:700;min-height:44px}.copy:hover{border-color:var(--gold)}.copy:focus-visible,.button:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px}.tips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.tip{padding:20px 22px;border-left:2px solid var(--gold);background:#151c18;border-radius:0 14px 14px 0}.tip strong{display:block;color:var(--gold);margin-bottom:5px}.tip p{margin:0;color:var(--muted);font-size:.9rem}.promo-code{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px;border:1px dashed #7f906e;border-radius:12px;background:#101711}.promo-code code{color:#f3d99f;font-size:1rem;overflow-wrap:anywhere}.badge{font-size:.7rem;color:#18221a;background:var(--gold);border-radius:50px;padding:4px 10px;font-weight:700;display:inline-block;margin-bottom:15px}.note{font-size:.82rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:.85rem}.socials{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.socials a{color:var(--gold)}@media(max-width:700px){.navlinks{display:none}.grid,.tips{grid-template-columns:1fr}.editor{align-items:flex-start;flex-direction:column}.section{padding:42px 0}.hero{padding:56px 0 42px}summary{padding:17px}.details-body{padding:0 17px 18px}.prompt{font-size:.8rem}.video{aspect-ratio:16/9}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Портрет автора в первом экране */
+.hero-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,340px);align-items:center;gap:clamp(38px,8vw,120px)}
+.hero-art{position:relative;display:grid;place-items:center;padding:16px 25px;isolation:isolate}
+.hero-art::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse,rgba(211,185,119,.20),transparent 68%);filter:blur(20px)}
+.hero-card{display:block;width:min(100%,270px);height:auto;aspect-ratio:2/3;object-fit:contain;border-radius:12px;transform:rotate(5deg);box-shadow:0 25px 60px rgba(0,0,0,.55),0 0 0 1px rgba(219,193,139,.38);transition:transform .35s ease}
+@media(hover:hover){.hero-card:hover{transform:rotate(2deg) translateY(-5px)}}
+@media(max-width:700px){.hero-layout{grid-template-columns:1fr}.hero-art{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-card{transition:none}}
+
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap navin"><a class="brand" href="#top"><span>♣</span> Battle Quiz · Александра Здухова</a><nav class="navlinks" aria-label="Навигация"><a href="#video">Видео</a><a href="#prompts">Промпты</a><a href="#checklist">Чек-лист</a><a href="#offers">Промокоды</a></nav></div></header>
+<main id="top"><section class="hero"><div class="wrap hero-layout"><div class="hero-copy"><div class="eyebrow">Материалы к мастер-классу · ♣</div><h1>Создаём свой <em>Battle Quiz</em></h1><p class="lead">Видео, редактор, готовые промпты и подсказки — всё, что пригодится при создании своей игры, собрано здесь.</p><div class="actions"><a class="button" href="#video">Смотреть мастер-класс ↓</a><a class="button secondary" href="#prompts">Перейти к промптам</a></div></div><div class="hero-art"><img class="hero-card" src="https://raw.githubusercontent.com/AlexandraGes-ESL/Pictures/main/portraits/sasha.png" alt="Александра Здухова — дама треф" width="1365" height="2048" decoding="async"></div></div></section>
+<section class="section" id="video"><div class="wrap"><div class="eyebrow">01 · Смотрим</div><h2>Мастер-класс</h2><p class="sub">Включай видео и возвращайся к подсказкам на этой странице в процессе работы.</p><div class="video"><iframe src="https://drive.google.com/file/d/1atBtjo51kgz3AmlXtDmvMIXbRAJ5lQaY/preview" title="Видео мастер-класса по Battle Quiz" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div><p class="note">Видео не открылось? <a href="https://drive.google.com/file/d/1atBtjo51kgz3AmlXtDmvMIXbRAJ5lQaY/view" target="_blank" rel="noopener noreferrer">Открыть в Google Drive ↗</a></p></div></section>
+<section class="section"><div class="wrap"><div class="editor"><div><div class="eyebrow" style="color:#4b6049">02 · Создаём</div><h2>Battle Studio</h2><p>Открывай редактор и собирай свой баттл-квиз.</p></div><a class="button" href="https://alexandrages-esl.github.io/AlexandraGes_Portfolio/battle-studio-by-AlexandraGes.html" target="_blank" rel="noopener noreferrer">Открыть редактор ↗</a></div></div></section>
+<section class="section" id="prompts"><div class="wrap"><div class="eyebrow">03 · Копируем и адаптируем</div><h2>Промпты для иллюстраций</h2><p class="sub">Сначала создай статичную позу, затем используй её как референс для позы атаки. Замени текст в квадратных скобках своими деталями.</p>
+<details><summary>Шаблон · статичная поза</summary><div class="details-body"><pre class="prompt" id="static-prompt">Children's book illustration, coloured pencil on textured paper, soft grainy shading. [КТО ЭТО: возраст, 1–2 характерные черты] [ОДЕЖДА: цвета и 3–4 конкретные вещи] Стоит прямо, руки спокойно опущены, уверенное выражение лица. Full body from head to feet, entire figure visible, nothing cropped. [ПАЛИТРА: три цвета] 3/4 view facing [right/left]. Plain flat white background, no shadow, no floor. Vertical 3:5 framing, generous margin around the figure, feet at the bottom edge. No text, no frame, no watermark.</pre><button class="copy" data-copy="static-prompt">Скопировать промпт</button></div></details>
+<details><summary>Шаблон · поза атаки</summary><div class="details-body"><pre class="prompt" id="attack-prompt">Same character, same style, same scale and same position: [5–8 слов, кто это].
+Now [ДЕЙСТВИЕ: lunging forward, right arm raised high],
+[ВТОРИЧНОЕ ДВИЖЕНИЕ: coat tails flying, hair swept back],
+[ЛИЦО: mouth open in a shout].
+Keep the identical palette and pencil texture.
+Plain flat white background, no shadow. Same vertical 3:5 framing,
+feet at the bottom edge. No motion blur, no speed lines, no text.</pre><button class="copy" data-copy="attack-prompt">Скопировать промпт</button></div></details>
+<details><summary>Пример · статичная поза</summary><div class="details-body"><pre class="prompt" id="static-example">Children's book illustration, coloured pencil on textured paper, soft grainy shading. A teenage girl explorer, about fifteen, freckles and a long red scarf. Green canvas jacket, brown boots, a leather satchel across her body. Standing upright, arms relaxed at her sides, calm confident expression. Full body from head to feet, entire figure visible, nothing cropped. Forest green, rust orange and warm cream palette. 3/4 view facing right. Plain flat white background, no shadow, no floor. Vertical 3:5 framing, generous margin around the figure, feet at the bottom edge. No text, no frame, no watermark.</pre><button class="copy" data-copy="static-example">Скопировать пример</button></div></details>
+<details><summary>Пример · поза атаки</summary><div class="details-body"><pre class="prompt" id="attack-example">Same character, same style, same scale and same position: teenage girl explorer with a long red scarf and green jacket. Now lunging forward, right arm raised high with a lantern, scarf flying behind her, mouth open in a shout.
+Keep the identical palette and pencil texture.
+Plain flat white background, no shadow. Same vertical 3:5 framing,
+feet at the bottom edge. No motion blur, no speed lines, no text.</pre><button class="copy" data-copy="attack-example">Скопировать пример</button></div></details>
+</div></section>
+<section class="section" id="checklist"><div class="wrap"><div class="eyebrow">04 · Проверяем</div><h2>Чек-лист персонажа</h2><div class="tips"><div class="tip"><strong>Прозрачность</strong><p>Генераторы часто выдают белый фон. В Photopea попробуй Select → Color Range, выбери белый фон и нажми Delete. Можно также попросить однотонный фон #FF00FF. Проверь края и детали персонажа после удаления фона.</p></div><div class="tip"><strong>Масштаб</strong><p>В паре «статика + бой» сохраняй размер и положение персонажа, чтобы при атаке не было рывка. Между персонажами рост может отличаться — игра подгоняет их по высоте слота.</p></div><div class="tip"><strong>Размер</strong><p>Пропорция 3:5, например 720 × 1200 px. Расположи ноги у нижней границы кадра, чтобы персонаж стоял на полу сцены.</p></div><div class="tip"><strong>Контраст</strong><p>Фоны в игре тёмные: попроси светлый контур или детали одежды. Уменьши изображение до 100 px и проверь, читается ли силуэт.</p></div></div></div></section>
+<section class="section" id="questions"><div class="wrap"><div class="eyebrow">05 · Готовим задания</div><h2>Вопросы для импорта</h2><p class="sub">Вставь промпт в ИИ, заполни тему, уровень, количество вопросов и свой материал. Перед импортом проверь смысл заданий и ответы.</p><details><summary>Промпт · блок вопросов Battle Quiz</summary><div class="details-body"><pre class="prompt" id="questions-prompt">Ты методист ELT и готовишь задания для интерактивной игры Battle Quiz. Твоя задача — написать N вопросов по моему материалу и выдать их в строгом формате для импорта. Никаких пояснений, таблиц и нумерации.
+
+ФОРМАТ — одна строка на вопрос, строго так:
+Вопрос с пропуском ___ | вариант | *верный вариант | вариант | > подсказка
+
+ПРАВИЛА ФОРМАТА (нарушение ломает импорт):
+1. Ровно 3 варианта ответа на вопрос.
+2. Ровно один вариант помечен звёздочкой * в начале. Звёздочка только у верного.
+3. Подсказка идёт после символа > и стоит в самом конце строки.
+4. Внутри вопроса, вариантов и подсказки нельзя использовать символы | и > и переносы строк. Одна строка = один вопрос.
+5. Без нумерации, без markdown, без кавычек вокруг строк, без пустых строк между ними.
+
+ПРАВИЛА ПО СОДЕРЖАНИЮ:
+6. Вопрос — это предложение с пропуском ___, а не определение и не перевод. Ученик должен понять смысл из контекста.
+7. Дистракторы — из той же части речи и той же темы, что верный ответ. Плохо: touristy / quickly / because. Хорошо: touristy / remote / deserted.
+8. Дистракторы правдоподобны: типичные ошибки и близкие по смыслу слова.
+9. Вопрос не решается без понимания контекста — нельзя, чтобы ответ вычислялся по «чужому» слову в предложении.
+10. Подсказка объясняет разницу коротко и по-русски: почему верно и чем плохи остальные. Одна-две фразы.
+11. Не повторяй один и тот же целевой ответ дважды.
+12. Распредели сложность: начинай с более простых заданий.
+13. Уровень языка и длину предложений держи в рамках моего уровня CEFR.
+
+ПРИМЕР ПРАВИЛЬНОЙ СТРОКИ:
+We stayed away from the ___ centre — too many souvenir shops. | *touristy | remote | deserted | > touristy — слишком туристический, с лёгким негативом. remote — удалённый, deserted — безлюдный.
+
+МОЙ МАТЕРИАЛ:
+Тема: [ВПИШИ ТЕМУ]
+Уровень: [A1 / A2 / B1 / B2]
+Количество вопросов: [ВПИШИ ЧИСЛО]
+Слова и выражения из урока: [ВСТАВЬ СВОЙ СПИСОК СЛОВ, КОЛЛОКАЦИЙ ИЛИ ТЕКСТ УЧЕБНИКА]
+
+Выдай только строки в формате выше, без вступления и комментариев.</pre><button class="copy" data-copy="questions-prompt">Скопировать промпт</button></div></details></div></section>
+<section class="section" id="offers"><div class="wrap"><div class="eyebrow">06 · Подарки от трефовой дамы</div><h2>Промокоды для своих ♣</h2><div class="grid"><article class="box"><span class="badge">−15%</span><h3>Подписка на Boosty</h3><p>На оба тарифа: «Библиотека» и «Мастерская». Действует до 5 декабря 2026 включительно.</p><div class="promo-code"><code id="code-boosty">ТРЕФОВАЯ_ДАМА</code><button class="copy" data-copy="code-boosty">Скопировать</button></div><div class="actions"><a class="button secondary" href="https://boosty.to/alexandrages_esl" target="_blank" rel="noopener noreferrer">Открыть Boosty ↗</a></div></article><article class="box"><span class="badge">−20%</span><h3>Авторский адвент · A1–A2</h3><p>Промокод на авторский адвент.</p><div class="promo-code"><code id="code-advent">ПРАЗДНИК</code><button class="copy" data-copy="code-advent">Скопировать</button></div><div class="actions"><a class="button secondary" href="https://boosty.to/alexandrages_esl/posts/a41beb31-910d-422c-9485-9e8348f28f0f?share=post_link" target="_blank" rel="noopener noreferrer">Посмотреть адвент ↗</a></div></article></div></div></section>
+</main><footer><div class="wrap"><div class="eyebrow">Остаёмся на связи</div><h2>Александра Здухова ♣</h2><div class="socials"><a href="https://t.me/+mjfXelTSe-EzYzIy" target="_blank" rel="noopener noreferrer">Telegram-канал ↗</a><a href="https://t.me/alexandragesESL" target="_blank" rel="noopener noreferrer">@alexandragesESL ↗</a><a href="https://boosty.to/alexandrages_esl" target="_blank" rel="noopener noreferrer">Boosty ↗</a></div></div></footer>
+<script>
+document.querySelectorAll('[data-copy]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const text = document.getElementById(button.dataset.copy).textContent;
+    const label = button.textContent;
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(text);
+      button.textContent = 'Скопировано ✓';
+    } catch (error) {
+      const area = document.createElement('textarea');
+      area.value = text; area.style.position = 'fixed'; area.style.left = '-9999px';
+      document.body.appendChild(area); area.select();
+      let copied = false;
+      try { copied = document.execCommand('copy'); } catch (_) {}
+      area.remove();
+      button.textContent = copied ? 'Скопировано ✓' : 'Выдели и скопируй текст';
+    }
+    clearTimeout(button.resetTimer);
+    button.resetTimer = setTimeout(() => { button.textContent = label; }, 2500);
+  });
+});
+</script>
+</body></html>
